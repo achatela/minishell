@@ -21,6 +21,6 @@ char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 void	send_builtin(char **cmds);
 int		builtin_cd(char **cmds, int i);
-int    builtin_exit(char **cmds);
+int		builtin_exit(char **cmds);
 
 #endif

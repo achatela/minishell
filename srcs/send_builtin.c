@@ -28,14 +28,14 @@ static int	get_command(char *s)
 	return (-1);
 }
 
-void	send_builtin(char **cmds)
+int	send_builtin(char **cmds)
 {
 	if (get_command(cmds[0]) == 1)
-		builtin_echo(cmds, 1);
+		return(builtin_echo(cmds, 1));
 	if (get_command(cmds[0]) == 2)
-		builtin_cd(cmds, 0);
+		return(builtin_cd(cmds, 0));
 	if (get_command(cmds[0]) == 3)
 		printf("%s\n", getcwd(NULL, 0));
 	if (get_command(cmds[0]) == 7)
-		builtin_exit(cmds);
+		return(builtin_exit(cmds));
 }

@@ -37,6 +37,7 @@ static int	cd_errors(char **cmds)
 
 int	builtin_cd(char **cmds, int i)
 {
+
 	while (cmds[i] != NULL)
 		i++;
 	if (i > 2)
