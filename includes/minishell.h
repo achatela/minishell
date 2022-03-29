@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// Pour compiler : gcc *.c -I./includes ./libft/libft.a -lreadline
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -16,5 +18,6 @@ void	parsing(char *cmd);
 char	**str_to_tabs(char *cmd, int i, int j, int length);
 int		arg_number(char *cmd, int i, int j);
 void	send_builtin(char **cmds);
+void	builtin_cd(char **cmds, int i);
 
 #endif
