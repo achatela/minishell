@@ -37,8 +37,7 @@ static int	not_ended(char *cmd, int i)
 {
 	while (cmd[i])
 	{
-		if (ft_isalpha(cmd[i]) == 1 && ft_isalnum(cmd[i]) == 1
-			&& ft_isprint(cmd[i]) == 1)
+		if (cmd[i] != ' ' && ft_isprint(cmd[i]) == 1)
 			return (0);
 		i++;
 	}

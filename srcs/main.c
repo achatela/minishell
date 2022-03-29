@@ -14,7 +14,6 @@ int	main(int argc, char **argv, char **env)
 		add_history(cmd);
 		if (cmd != NULL)
 			parsing(cmd);
-		getcwd(NULL, 0);
 	}
 	return (0);
 }
