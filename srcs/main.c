@@ -3,10 +3,10 @@
 int	main(int argc, char **argv, char **env)
 {
 	char	**path;
-	int		i;
 	char	*cmd;
 
-	i = 0;
+	(void)argc;
+	(void)argv;
 	path = get_path(env, 0);
 	while (1)
 	{
