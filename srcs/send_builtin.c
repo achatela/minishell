@@ -36,4 +36,6 @@ void	send_builtin(char **cmds)
 		builtin_cd(cmds, 0);
 	if (get_command(cmds[0]) == 3)
 		printf("%s\n", getcwd(NULL, 0));
+	if (get_command(cmds[0]) == 7)
+		builtin_exit(cmds);
 }

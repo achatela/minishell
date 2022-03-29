@@ -9,6 +9,7 @@ SRCS =	srcs/command.c 					\
 		srcs/utils.c 					\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\
+		srcs/builtins/builtin_exit.c 	\
 
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}
