@@ -38,4 +38,5 @@ int	send_builtin(char **cmds)
 		printf("%s\n", getcwd(NULL, 0));
 	if (get_command(cmds[0]) == 7)
 		return(builtin_exit(cmds));
+	return (-1);
 }
