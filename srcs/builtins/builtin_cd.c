@@ -1,6 +1,18 @@
 #include "minishell.h"
 
-int	cd_errors(char **cmds)
+//à refaire pour gérer "cd ~///////dossier_valide///
+/*static int	home_path(char **cmds)
+{
+	char	*path;
+	char	*dir;
+
+	path = getenv("HOME");
+	dir = ft_strjoin(path, &cmds[1][1]);
+	chdir(dir);
+	return (1);
+}*/
+
+static int	cd_errors(char **cmds)
 {
 	if (cmds[1] == NULL || (cmds[1][0] == '~'
 		&& cmds[1][1] == '\0') || (cmds[1][0] == '~'
@@ -32,8 +44,10 @@ int	builtin_cd(char **cmds, int i)
 		printf("cd: too many arguments\n");
 		return (1);
 	}
-	if (!chdir(cmds[1]))
-		return (0);
-	else
-		return(cd_errors(cmds));
+	if (cmds[1] != NULL)
+	{
+		if (!chdir(cmds[1]))
+			return (0);
+	}
+	return(cd_errors(cmds));
 }

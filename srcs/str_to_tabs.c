@@ -60,7 +60,6 @@ char	**str_to_tabs(char *cmd, int i, int j)
 			i++;
 		j++;
 	}
-	printf("%s\n", ret[j - 1]);
 	ret[j] = NULL;
 	return (ret);
 }

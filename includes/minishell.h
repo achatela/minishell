@@ -13,6 +13,7 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
  
+char	*ft_strjoin(char const *s1, char const *s2);
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
 void	parsing(char *cmd);
