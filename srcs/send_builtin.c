@@ -30,9 +30,10 @@ static int	get_command(char *s)
 
 void	send_builtin(char **cmds)
 {
-	printf("%d\n", get_command(cmds[0]));
 	if (get_command(cmds[0]) == 1)
 		builtin_echo(cmds, 1);
 	if (get_command(cmds[0]) == 2)
 		builtin_cd(cmds, 0);
+	if (get_command(cmds[0]) == 3)
+		printf("%s\n", getcwd(NULL, 0));
 }
