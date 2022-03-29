@@ -12,8 +12,6 @@ static int	env_is_path(char **env, int i)
 
 char	**get_path(char **env, int i)
 {
-	char	**ret;
-
 	while (env[i] != 0)
 	{
 		if (env_is_path(env, i) == 0)

@@ -15,7 +15,7 @@
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
 void	parsing(char *cmd);
-char	**str_to_tabs(char *cmd, int i, int j, int length);
+char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 void	send_builtin(char **cmds);
 void	builtin_cd(char **cmds, int i);

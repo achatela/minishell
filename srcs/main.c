@@ -8,7 +8,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	path = get_path(env, 0);
-	while (1)
+	while (1 && path != NULL)
 	{
 		cmd = readline("minishell$>");
 		if (cmd != NULL)

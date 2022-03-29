@@ -2,6 +2,8 @@
 
 static int	check_echo(char **cmds, int i)
 {
+	(void)cmds;
+	(void)i;
 	return (0);
 }
 

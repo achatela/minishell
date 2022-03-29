@@ -2,6 +2,7 @@
 
 void	builtin_cd(char **cmds, int i)
 {
+	(void)i;
 	if (cmds[1] == NULL)
 	{
 		chdir("~");

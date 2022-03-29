@@ -45,7 +45,7 @@ static int	not_ended(char *cmd, int i)
 	return (1);
 }
 
-char	**str_to_tabs(char *cmd, int i, int j, int length)
+char	**str_to_tabs(char *cmd, int i, int j)
 {
 	char	**ret;
 
@@ -56,7 +56,6 @@ char	**str_to_tabs(char *cmd, int i, int j, int length)
 	{
 		while (is_whitespace(cmd[i]) == 1 && cmd[i])
 			i++;
-		length = word_length(cmd, i, 0);
 		ret[j] = get_next_word(cmd, i, 0);
 		while (is_whitespace(cmd[i]) == 0 && cmd[i])
 			i++;

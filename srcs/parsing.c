@@ -25,7 +25,7 @@ void	parsing(char *cmd)
 {
 	char	**cmds;
 
-	cmds = str_to_tabs(cmd, 0, 0, 0);
+	cmds = str_to_tabs(cmd, 0, 0);
 	if (cmds[0] == NULL)
 	{
 		free(cmds);
