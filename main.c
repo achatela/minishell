@@ -3,14 +3,16 @@
 int	main(int argc, char **argv, char **env)
 {
 	char	**path;
-	int	i;
+	int		i;
+	char	*cmd;
 
 	i = 0;
 	path = get_path(env, 0);
-	while (path[i] != 0)
+	while (1)
 	{
-		printf("%s\n", path[i]);
-		i++;
+		cmd = readline("$>");
+		if (cmd != NULL)
+			parsing(cmd);
 	}
 	return (0);
 }

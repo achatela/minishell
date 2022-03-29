@@ -1,33 +1,36 @@
 #include "minishell.h"
 
-static int	check_echo(char **argv, int i)
+static int	check_echo(char **cmds, int i)
 {
 	return (0);
 }
 
-static void print_n(char **argv, int i)
+static void print_n(char **cmds, int i)
 {
-	while (argv[i] != NULL)
+	while (cmds[i] != NULL)
 	{
-		printf("%s", argv[i]);
-		if (argv[i + 1] != NULL)
+		printf("%s", cmds[i]);
+		if (cmds[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
 }
 
-int	builtin_echo(char **argv, int i)
+int	builtin_echo(char **cmds, int i)
 {
-	if (check_echo(argv, 0) == -1)
+	if (check_echo(cmds, 0) == -1)
 		return (-1);
-	if (argv[1][0] == '-' && argv[1][1] == 'n')
+	if (cmds[1] != NULL)
 	{
-		print_n(argv, 2);
-		return (1);
+		if (cmds[1][0] == '-' && cmds[1][1] == 'n')
+		{
+			print_n(cmds, 2);
+			return (1);
+		}
 	}
-	while (argv[i] != NULL)
+	while (cmds[i] != NULL)
 	{
-		printf("%s", argv[i]);
+		printf("%s", cmds[i]);
 		printf(" ");
 		i++;
 	}

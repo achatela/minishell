@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:53:15 by achatela          #+#    #+#             */
-/*   Updated: 2021/11/25 13:08:37 by achatela         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:35:42 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -18,5 +18,6 @@ int	ft_strlen(const char *c)
 	a = 0;
 	while (c[a])
 		a++;
+	ft_putnbr(a);
 	return (a);
 }
