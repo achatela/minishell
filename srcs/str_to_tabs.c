@@ -49,7 +49,7 @@ char	**str_to_tabs(char *cmd, int i, int j)
 {
 	char	**ret;
 
-	ret = malloc(sizeof(char *) * (arg_number(cmd, 0, 0) + 1));
+	ret = malloc(sizeof(char *) * (arg_number(cmd, 0, 0) + 2));
 	if (!ret)
 		return (NULL);
 	while (cmd[i] && not_ended(cmd, i) == 0 && j <= arg_number(cmd, 0, 0))

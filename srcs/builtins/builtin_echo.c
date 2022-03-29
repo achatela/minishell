@@ -12,9 +12,9 @@ static void print_n(char **cmds, int i)
 	while (cmds[i] != NULL)
 	{
 		printf("%s", cmds[i]);
-		if (cmds[i + 1] != NULL)
-			printf(" ");
 		i++;
+		if (cmds[i] != NULL)
+			printf(" ");
 	}
 }
 
