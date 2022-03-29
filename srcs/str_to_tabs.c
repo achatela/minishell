@@ -52,7 +52,7 @@ char	**str_to_tabs(char *cmd, int i, int j, int length)
 	ret = malloc(sizeof(char *) * (arg_number(cmd, 0, 0) + 1));
 	if (!ret)
 		return (NULL);
-	while (cmd[i] && not_ended(cmd, i) == 0)
+	while (cmd[i] && not_ended(cmd, i) == 0 && j <= arg_number(cmd, 0, 0))
 	{
 		while (is_whitespace(cmd[i]) == 1 && cmd[i])
 			i++;
