@@ -56,7 +56,6 @@ char	**str_to_tabs(char *cmd, int i, int j)
 		while (is_whitespace(cmd[i]) == 1 && cmd[i])
 			i++;
 		ret[j] = get_next_word(cmd, i, 0);
-		printf("%s\n", ret[j]);
 		while (is_whitespace(cmd[i]) == 0 && cmd[i])
 			i++;
 		j++;

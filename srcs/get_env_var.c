@@ -6,6 +6,7 @@ static char	*cut_var(char *str, char *var, int i, int j)
 	char	*ret;
 
 	k = i;
+	(void)var;
 	while (str[++i] != '\0')
 		j++;
 	ret = malloc(sizeof(char) * j + 1);
@@ -16,7 +17,6 @@ static char	*cut_var(char *str, char *var, int i, int j)
 		j++;
 	}
 	ret[j] = '\0';
-	printf("$var(%s) = %s\n", var, ret);
 	return (ret);
 }
 
