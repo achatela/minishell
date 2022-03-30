@@ -65,6 +65,7 @@ char	*get_end(char **env, int i, int j)
 	char	*tmp2;
 	int		k;
 
+	k = 0;
 	tmp = get_env_var(env, "HOME", 0);
 	tmp2 = getcwd(NULL, 0);
 	while (tmp[i] == tmp2[i])
