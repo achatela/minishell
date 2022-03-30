@@ -69,12 +69,14 @@ char	*get_end(char **env, int i, int j)
 	tmp2 = getcwd(NULL, 0);
 	while (tmp[i] == tmp2[i])
 		i++;
-	j = i;
+	j = i - 1;
 	free(tmp);
 	while (tmp2[++i])
 		k++;
-	tmp = malloc(sizeof(char) * k + 1);
+	tmp = malloc(sizeof(char) * k + 2);
 	k = 0;
+	if (tmp2[j] != '/')
+		j++;
 	while (tmp2[++j])
 	{
 		tmp[k] = tmp2[j];
