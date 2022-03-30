@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	g_value = 0;
+static char **g_env;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -9,7 +9,9 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	path = get_path(env, 0);
+	g_env = env;
+	path = get_path(g_env, 0);
+	printf("%s\n", get_env_var(g_env, "HOME", 0));
 	while (1 && path != NULL)
 	{
 		cmd = readline("minishell$>");

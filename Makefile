@@ -1,12 +1,14 @@
 NAME = minishell
 
-SRCS =	srcs/command.c 					\
+SRCS =	srcs/main.c						\
+		srcs/command.c 					\
 		srcs/get_path.c 				\
-		srcs/main.c 					\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
 		srcs/str_to_tabs.c 				\
 		srcs/utils.c 					\
+		srcs/cd_paths.c					\
+		srcs/get_env_var.c				\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\
 		srcs/builtins/builtin_exit.c 	\

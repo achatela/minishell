@@ -13,6 +13,7 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
  
+
 char	*ft_strjoin(char const *s1, char const *s2);
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
@@ -22,5 +23,7 @@ int		arg_number(char *cmd, int i, int j);
 int		send_builtin(char **cmds);
 int		builtin_cd(char **cmds, int i);
 int		builtin_exit(char **cmds);
+char	*get_env_var(char **env, char *var, int i);
+//char	*cd_paths(char *arg);
 
 #endif
