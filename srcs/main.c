@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **env)
 	char	**path;
 	char	*cmd;
 
+	argc = -1;
 	(void)argc;
 	(void)argv;
 	g_env = init_env(env, 0, 0, 0);
@@ -43,5 +44,8 @@ int	main(int argc, char **argv, char **env)
 		if (cmd != NULL)
 			parsing(cmd);
 	}
+	while (g_env[++argc] != 0)
+		free(g_env[argc]);
+	free(g_env);
 	return (0);
 }

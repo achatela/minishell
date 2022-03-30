@@ -37,11 +37,10 @@ int	send_builtin(char **cmds)
 		return(builtin_cd(cmds, 0));
 	if (get_command(cmds[0]) == 3)
 		printf("%s\n", getcwd(NULL, 0));
+	if (get_command(cmds[0] == 4))
+		return (builtin_export(g_env, 0), 0);
 	if (get_command(cmds[0]) == 6)
-	{
-		builtin_env(g_env, 0);
-		return (0);
-	}
+		return (builtin_env(g_env, 0), 0);
 	if (get_command(cmds[0]) == 7)
 		return(builtin_exit(cmds));
 	return (-1);
