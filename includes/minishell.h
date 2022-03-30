@@ -27,7 +27,7 @@ int		builtin_exit(char **cmds);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(char **env, int i);
 char	*get_prompt(char **env, int i);
-void	builtin_export(char **env, int i);
+void	builtin_export(char **env, char **cmds, int i);
 //char	*cd_paths(char *arg);
 
 #endif
