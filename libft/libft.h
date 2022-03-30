@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:05:41 by achatela          #+#    #+#             */
-/*   Updated: 2022/03/30 11:06:48 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:59:17 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_strisnum(const char *str);
 int		ft_strialpha(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif
