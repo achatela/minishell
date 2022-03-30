@@ -1,37 +1,21 @@
+
 #include "minishell.h"
 
 int    builtin_exit(char **cmds)
 {
-    int i;
-    int arg;
-    int chr;
-    // int ret;
-
-    i = 1;
-    chr = 0;
-    arg = 0;
-    // ret = 0;
-    while (cmds[arg] != NULL)
-        arg++;
-    printf("arg: %d\n", arg);
-    while (arg)
+    if (ft_strisnum(cmds[1]) == 1 && cmds[2])
+        printf("minishell: exit: too many arguments\n");
+    else if (cmds[1] && ft_strisnum(cmds[1]) == 0)
     {
-        if (arg == 1)
-            exit (0);
-        i++;
-        if (arg > 2 && ft_isalnum(cmds[i][chr]) == 0)
-        {
-            printf("minishell: exit: too many arguments\n");
-            return (1);
-        }
-        if (ft_isalpha(cmds[i][chr]) == 0)
-        {
-            printf("minishell: exit: %s: numeric argument required\n", cmds[1]);
-            exit(2);
-        }
-        i++;
-        chr++;
-        arg--;
+        printf("minishell: exit: %s: numeric argument required\n", cmds[1]);
+        exit(2);
     }
+    else if (cmds[1] && cmds[2])
+    {
+        printf("minishell: exit: too many arguments\n");
+        exit(2);
+    }
+    else if (cmds[1])
+        exit(ft_atoi(cmds[1]) % 256);
     return (0);
 }
