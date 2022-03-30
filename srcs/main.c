@@ -13,7 +13,7 @@ int	main(int argc, char **argv, char **env)
 	path = get_path(g_env, 0);
 	while (1 && path != NULL)
 	{
-		cmd = readline("minishell$>");
+		cmd = readline(get_prompt(g_env, -1));
 		add_history(cmd);
 		if (cmd != NULL)
 			parsing(cmd);

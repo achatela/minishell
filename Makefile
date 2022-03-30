@@ -8,6 +8,7 @@ SRCS =	srcs/main.c						\
 		srcs/utils.c 					\
 		srcs/cd_paths.c					\
 		srcs/get_env_var.c				\
+		srcs/get_prompt.c				\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\
