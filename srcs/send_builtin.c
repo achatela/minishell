@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+
 static int	get_command(char *s)
 {
 	if (ft_strlen(s) == 4 && s[0] == 'e' && s[1] == 'c'		/* ECHO */
@@ -36,6 +37,11 @@ int	send_builtin(char **cmds)
 		return(builtin_cd(cmds, 0));
 	if (get_command(cmds[0]) == 3)
 		printf("%s\n", getcwd(NULL, 0));
+	if (get_command(cmds[0]) == 6)
+	{
+		builtin_env(g_env, 0);
+		return (0);
+	}
 	if (get_command(cmds[0]) == 7)
 		return(builtin_exit(cmds));
 	return (-1);

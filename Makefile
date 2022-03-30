@@ -1,7 +1,6 @@
 NAME = minishell
 
 SRCS =	srcs/main.c						\
-		srcs/command.c 					\
 		srcs/get_path.c 				\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
@@ -9,6 +8,7 @@ SRCS =	srcs/main.c						\
 		srcs/utils.c 					\
 		srcs/cd_paths.c					\
 		srcs/get_env_var.c				\
+		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\
 		srcs/builtins/builtin_exit.c 	\
