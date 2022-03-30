@@ -3,7 +3,9 @@
 
 int    builtin_exit(char **cmds)
 {
-    if (ft_strisnum(cmds[1]) == 1 && cmds[2])
+    if (cmds[0] && !cmds[1])
+        exit(0);
+    else if (ft_strisnum(cmds[1]) == 1 && cmds[2])
         printf("minishell: exit: too many arguments\n");
     else if (cmds[1] && ft_strisnum(cmds[1]) == 0)
     {
