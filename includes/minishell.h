@@ -32,5 +32,6 @@ void	free_env(char **env, int i);
 void	switch_pwds(char **env, int i, int j);
 int		env_lines(char **env);
 void	free_cmds(char **cmds, int i);
+char	*cut_var_begin(char *str, int i, int j);
 
 #endif

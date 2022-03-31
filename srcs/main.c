@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(cmd);
 		if (cmd != NULL)
 			cmds = parsing(cmd);
+		if (cmds)
 		free_cmds(cmds, 0);
 	}
 	while (g_env[++argc] != 0)

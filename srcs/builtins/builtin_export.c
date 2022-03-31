@@ -43,15 +43,31 @@ static char	**copy_env(char **env, char **cmds, int i, int j)
 	return (new);
 }
 
+static int	cmd_is_valid(char *str, int i)
+{
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	builtin_export(char **env, char **cmds)
 {
 	char	*str;
 
-	str = get_env_var(g_env, cmds[1], 0);
+	str = get_env_var(g_env, cut_var_begin(cmds[1], 0, 0), 0);
 	if (str != NULL)
-		return ;
+		printf("builtin_unset\n");
 	else
 		free(str);
+	if (cmds[1] != NULL)
+	{
+		if(cmd_is_valid(cmds[1], 0) == 1)
+			return ;
+	}
 	if (cmds[1] == NULL)
 	{
 //		export_no_arg();
