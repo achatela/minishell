@@ -35,5 +35,7 @@ void	free_cmds(char **cmds, int i);
 void	export_no_arg(char **env, int i, int j);
 char	*cut_var_begin(char *str, int i, int j);
 char	*cut_var_end(char *str, int i, int j);
+void    builtin_unset(char **env, char **cmds);
+char	*get_env_var(char **env, char *var, int i);
 
 #endif

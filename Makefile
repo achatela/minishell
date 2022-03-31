@@ -16,6 +16,7 @@ SRCS =	srcs/main.c						\
 		srcs/builtins/builtin_echo.c 	\
 		srcs/builtins/builtin_exit.c 	\
 		srcs/builtins/builtin_export.c	\
+		srcs/builtins/builtin_unset.c	\
 
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}

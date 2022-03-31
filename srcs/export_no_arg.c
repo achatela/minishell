@@ -6,6 +6,7 @@ static int	env_is_sorted(char **env, int i)
 	{
 		if(ft_strcmp(env[i], env[i + 1]) < 0)
 			return (1);
+		i++;
 	}
 	return (0);
 }
