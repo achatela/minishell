@@ -50,11 +50,14 @@ static char	*fill_tmp(char *tmp, int i)
 static char	*get_home(char **env, int i, int j)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	(void)j;
 	tmp = get_env_var(env, "HOME", 0);
-	i = ft_strncmp(tmp, getcwd(NULL, 0), (ft_strlen(tmp) + 1));
+	tmp2 = getcwd(NULL, 0);
+	i = ft_strncmp(tmp, tmp2, (ft_strlen(tmp) + 1));
 	free(tmp);
+	free(tmp2);
 	tmp = fill_tmp(tmp, i);
 	return (tmp);
 }
@@ -105,7 +108,10 @@ char	*get_prompt(char **env, int i)
 	else
 		printf("%s%s%s", ret[0], ret[1], ret[2]);
 	while (++i < 4)
-		free(ret[i]);
+	{
+		if (ret[i])
+			free(ret[i]);
+	}
 	free(ret);
 	return ("$ ");
 }

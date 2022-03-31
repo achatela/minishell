@@ -68,6 +68,8 @@ static char	*new_pwd(char *env, char *str, char *str2)
 
 void	switch_pwds(char **env, int i, int j)
 {
+	char	*tmp;
+
 	while (env[i] != 0 && ft_strncmp(env[i], "PWD=", 4) != 0)
 		i++;
 	while (env[j] != 0 && ft_strncmp(env[j], "OLDPWD=", 7) != 0)
@@ -81,7 +83,11 @@ void	switch_pwds(char **env, int i, int j)
 	}
 	else
 	{
-		env[j] = new_pwd(env[j], "OLDPWD=", get_env_var(g_env, "PWD", 0));
-		env[i] = new_pwd(env[i], "PWD=", getcwd(NULL, 0));
+		tmp = get_env_var(g_env, "PWD", 0);
+		env[j] = new_pwd(env[j], "OLDPWD=", tmp);
+		free(tmp);
+		tmp = getcwd(NULL, 0);
+		env[i] = new_pwd(env[i], "PWD=", tmp);
+		free(tmp);
 	}
 }

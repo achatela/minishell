@@ -44,8 +44,10 @@ int	main(int argc, char **argv, char **env)
 		if (cmd != NULL)
 			cmds = parsing(cmd);
 		if (cmds)
-		free_cmds(cmds, 0);
+			free_cmds(cmds, 0);
+		free(cmd);
 	}
+	clear_history();
 	while (g_env[++argc] != 0)
 		free(g_env[argc]);
 	free(g_env);

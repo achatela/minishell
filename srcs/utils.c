@@ -28,6 +28,7 @@ void	free_cmds(char **cmds, int i)
 		free(cmds[i]);
 		i++;
 	}
+	free(cmds[i]);
 	free(cmds);
 }
 
@@ -48,4 +49,6 @@ void	free_env(char **env, int i)
 		free(env[i]);
 		i++;
 	}
+	free(env[i]);
+	free(env);
 }
