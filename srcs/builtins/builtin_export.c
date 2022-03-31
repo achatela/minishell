@@ -57,6 +57,7 @@ static int	cmd_is_valid(char *str, int i)
 void	builtin_export(char **env, char **cmds)
 {
 	char	*str;
+	char	*tmp;
 
 	if (cmds[1] == NULL)
 	{
@@ -64,13 +65,16 @@ void	builtin_export(char **env, char **cmds)
 		return ;
 	}
 	if (cmds[1] != NULL)
-		str = get_env_var(g_env, cut_var_begin(cmds[1], 0, 0), 0);
+	{
+		tmp = cut_var_begin(cmds[1], 0, 0);
+		str = get_env_var(g_env, tmp, 0);
+		free(tmp);
+	}
 	else
 		return ;
 	if (str != NULL)
 		printf("builtin_unset\n");
-	else
-		free(str);
+	free(str);
 	if (cmds[1] != NULL)
 	{
 		if(cmd_is_valid(cmds[1], 0) == 1)

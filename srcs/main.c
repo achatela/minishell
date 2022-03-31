@@ -48,8 +48,6 @@ int	main(int argc, char **argv, char **env)
 		free(cmd);
 	}
 	clear_history();
-	while (g_env[++argc] != 0)
-		free(g_env[argc]);
-	free(g_env);
+	free_env(g_env, 0);
 	return (0);
 }

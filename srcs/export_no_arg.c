@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+static int	env_is_sorted(char **env, int i)
+{
+	while (env[i] != 0)
+	{
+		if(ft_strcmp(env[i], env[i + 1]) < 0)
+			return (1);
+	}
+	return (0);
+}
+
 static void	sort_env(char **env, int i, int j)
 {
 	char	**new;
@@ -25,7 +35,7 @@ static void	sort_env(char **env, int i, int j)
 	new[i] = 0;
 	j = 0;
 	i = 0;
-	while (j < 100000 && new[i + 1] != 0)
+	while (env_is_sorted(env, 0) != 0 && new[i + 1] != 0)
 	{
 		if (ft_strcmp(new[i], new[i + 1]) > 0)
 		{
@@ -38,11 +48,12 @@ static void	sort_env(char **env, int i, int j)
 		j++;
 	}
 	i = 0;
-	while (new[i + 1] != 0)
+	while (new[i] != 0)
 	{
 		tmp = cut_var_begin(new[i], 0, 0);
 		tmp2 = cut_var_end(new[i], 0, 0);
-		printf("declare -x %s\"%s\"\n", tmp, tmp2);
+		if (tmp[0] != '_')
+			printf("declare -x %s\"%s\"\n", tmp, tmp2);
 		free(tmp);
 		free(tmp2);
 		i++;
