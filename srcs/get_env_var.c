@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-static char	*cut_var_end(char *str, int i, int j)
+char	*cut_var_end(char *str, int i, int j)
 {
 	int		k;
 	char	*ret;
 
-	if (str[i] == '\0')
-		i--;
+	while (str[i] != '=')
+		i++;
 	k = i;
 	while (str[++i])
 		j++;
@@ -28,7 +28,7 @@ char	*get_env_var(char **env, char *var, int i)
 	while (env[i] != 0)
 	{
 		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
-			return (cut_var_end(env[i], ft_strlen(var), 0));
+			return (cut_var_end(env[i], 0, 0));
 		i++;
 	}
 	return (NULL);

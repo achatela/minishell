@@ -10,6 +10,7 @@ SRCS =	srcs/main.c						\
 		srcs/get_env_var.c				\
 		srcs/get_prompt.c				\
 		srcs/switch_pwds.c				\
+		srcs/export_no_arg.c			\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\

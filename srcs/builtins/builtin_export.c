@@ -58,6 +58,11 @@ void	builtin_export(char **env, char **cmds)
 {
 	char	*str;
 
+	if (cmds[1] == NULL)
+	{
+		export_no_arg(env, 0, 0);
+		return ;
+	}
 	if (cmds[1] != NULL)
 		str = get_env_var(g_env, cut_var_begin(cmds[1], 0, 0), 0);
 	else
@@ -70,11 +75,6 @@ void	builtin_export(char **env, char **cmds)
 	{
 		if(cmd_is_valid(cmds[1], 0) == 1)
 			return ;
-	}
-	if (cmds[1] == NULL)
-	{
-//		export_no_arg();
-		return ;
 	}
 	g_env = copy_env(env, cmds, 0, 0);
 	free_env(env, 0);
