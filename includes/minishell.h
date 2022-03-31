@@ -18,7 +18,7 @@ extern char	**g_env;
 char	*ft_strjoin(char const *s1, char const *s2);
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
-void	parsing(char *cmd);
+char	**parsing(char *cmd);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 int		send_builtin(char **cmds);
@@ -27,7 +27,10 @@ int		builtin_exit(char **cmds);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(char **env, int i);
 char	*get_prompt(char **env, int i);
-void	builtin_export(char **env, char **cmds, int i);
-//char	*cd_paths(char *arg);
+void	builtin_export(char **env, char **cmds);
+void	free_env(char **env, int i);
+void	switch_pwds(char **env, int i, int j);
+int		env_lines(char **env);
+void	free_cmds(char **cmds, int i);
 
 #endif

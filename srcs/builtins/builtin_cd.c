@@ -75,19 +75,21 @@ int	builtin_cd(char **cmds, int i)
 	char	*path;
 
 	path = NULL;
-	(void)path;
 	while (cmds[i] != NULL)
 		i++;
 	if (path == NULL && i > 2)
 	{
 		printf("cd: too many arguments\n");
-		return (1);
+		i = 1;
 	}
 	if (cmds[1] != NULL)
 	{
 	//	path = cd_paths(cmds[1]);
-		if (!chdir(cmds[1]))
-			return (0);
+		if (chdir(cmds[1]) == 0)
+			i = 0;
 	}
-	return(cd_errors(cmds));
+	else
+		i = cd_errors(cmds);
+	switch_pwds(g_env, 0, 0);
+	return (i);
 }

@@ -21,7 +21,7 @@ int	arg_number(char *cmd, int i, int j)
 	return (j);
 }
 
-void	parsing(char *cmd)
+char	**parsing(char *cmd)
 {
 	char	**cmds;
 
@@ -29,8 +29,8 @@ void	parsing(char *cmd)
 	if (cmds[0] == NULL)
 	{
 		free(cmds);
-		return ;
+		return (NULL);
 	}
 	send_builtin(cmds);
-	return ;
+	return (cmds);
 }

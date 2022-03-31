@@ -1,15 +1,5 @@
 #include "minishell.h"
 
-static int	env_lines(char **env)
-{
-	int	i;
-	
-	i = 0;
-	while (env[i] != 0)
-		i++;
-	return (i + 1);
-}
-
 static char	*exported_var(char *str)
 {
 	char	*ret;
@@ -53,17 +43,20 @@ static char	**copy_env(char **env, char **cmds, int i, int j)
 	return (new);
 }
 
-void	builtin_export(char **env, char **cmds, int i)
+void	builtin_export(char **env, char **cmds)
 {
+	char	*str;
+
+	str = get_env_var(g_env, cmds[1], 0);
+	if (str != NULL)
+		return ;
+	else
+		free(str);
 	if (cmds[1] == NULL)
 	{
 //		export_no_arg();
 		return ;
 	}
 	g_env = copy_env(env, cmds, 0, 0);
-	while (env[i] != 0)
-	{
-		free(env[i]);
-		i++;
-	}
+	free_env(env, 0);
 }

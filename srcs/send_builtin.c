@@ -9,7 +9,7 @@ int	send_builtin(char **cmds)
 	else if (ft_strcmp(*cmds, "pwd") == 0)
 		printf("%s\n", getcwd(NULL, 0));
 	 else if (ft_strcmp(*cmds, "export") == 0)
-	 	return (builtin_export(g_env, cmds, 0), 0);
+	 	return (builtin_export(g_env, cmds), 0);
 	else if (ft_strcmp(*cmds, "env") == 0)
 		return (builtin_env(g_env, 0), 0);
 	else if (ft_strcmp(*cmds, "exit") == 0)
