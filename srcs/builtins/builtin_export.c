@@ -58,7 +58,10 @@ void	builtin_export(char **env, char **cmds)
 {
 	char	*str;
 
-	str = get_env_var(g_env, cut_var_begin(cmds[1], 0, 0), 0);
+	if (cmds[1] != NULL)
+		str = get_env_var(g_env, cut_var_begin(cmds[1], 0, 0), 0);
+	else
+		return ;
 	if (str != NULL)
 		printf("builtin_unset\n");
 	else
