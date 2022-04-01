@@ -15,6 +15,7 @@
 
 extern char	**g_env;
 
+char	**new_parsing(char *cmd, int i, int j);
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
 char	**parsing(char *cmd);

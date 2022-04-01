@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:05:41 by achatela          #+#    #+#             */
-/*   Updated: 2022/04/01 15:16:41 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:32:12 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct	s_args
 	int		index;
 	char	*parsed_arg;
 	int		to_print;
+	int		is_separator;
 	t_args	*next;
 	t_args	*before;
 };
