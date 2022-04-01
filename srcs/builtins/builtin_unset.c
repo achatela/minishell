@@ -39,15 +39,22 @@ int	check_name(char *str)
 void    builtin_unset(char **env, char **cmds)
 {
 	int i;
+	char *tmp;
 
 	i= 1;
 	if (!cmds[1])
 		return ;
 	while (env[++i])
 	{
+		tmp = search_env(env[i], 0, 0);
 		if (check_name(cmds[1]) == 1)
 			printf("bash: unset: `%s': not a valid identifier\n", cmds[1]);
-		else if (ft_strcmp(search_env(env[i], 0, 0), cmds[1]) == 0)
-			env[i] = '\0';
+		else if (ft_strcmp(tmp, cmds[1]) == 0)
+		{
+			tmp = 0;
+			env[i] = tmp;
+			free(tmp);
+		}
+		free(tmp);
 	}
 }
