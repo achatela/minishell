@@ -73,6 +73,75 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 		return (NULL);
 	while (cmd[i] && is_whitespace(cmd[i]) == 1)
 		i++;
+	i++;
+	while (cmd[i])
+	{
+		k = i;
+		while (cmd[i] != ' ')
+		{
+			while (cmd[i] && cmd[i + 1] != ' ')
+			{
+				i++;
+				if (cmd[i] == '"' || cmd[i] == 39)
+				{
+					j = i;
+					i++;
+					while (cmd[i] && cmd[i] != cmd[j])
+					{
+						i++;
+						if (cmd[i + 1] == cmd[j] && (cmd[i + 2] == '"' || cmd[i + 2] == 39))
+						{
+							j = i + 2;
+							i += 3;
+						}
+					}
+				}
+				cmds[l] = malloc(sizeof(char) * (i - k));
+				if (!cmds[l])
+					return (NULL);
+				j = k;
+				k = 0;
+				while (j != i)
+				{
+					if (cmd[j] != '"' && cmd[j] != 39)
+					{
+						cmds[l][k] = cmd[j];
+						k++;
+					}
+					j++;
+				}
+				cmds[l][k] = '\0';
+				i++;
+				l++;
+			}
+		}
+	}
+	cmds[l] = malloc(sizeof(char));
+	cmds[l] = 0;
+	i = 0;
+	printf("ici\n");
+	while (cmds[i] != 0)
+	{
+		printf("%s\n", cmds[i]);
+		i++;
+	}
+	return (cmds);
+}
+
+
+/*char	**new_parsing(char *cmd, int i, int j, int k)
+{
+	char	**cmds;
+	int		l;
+	
+	l = 0;
+	if (arg_number2(cmd, 0, 0, 0) == -1)
+		return (printf("Quotes non fermées\n"), NULL);
+	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
+	if (!cmds)
+		return (NULL);
+	while (cmd[i] && is_whitespace(cmd[i]) == 1)
+		i++;
 	while (cmd[i])
 	{
 		if (cmd[i] == '"' || cmd[i] == 39)
@@ -104,4 +173,4 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 		}
 	}
 	return (cmds);
-}
+}*/

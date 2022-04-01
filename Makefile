@@ -24,7 +24,7 @@ SRCS =	srcs/main.c						\
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -g3
 INC = -I./includes
 RM = rm -rf
 
