@@ -60,14 +60,48 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 	return (k);
 }
 
-char	**new_parsing(char *cmd, int i, int j)
+char	**new_parsing(char *cmd, int i, int j, int k)
 {
 	char	**cmds;
+	int		l;
 	
-	(void)i;
-	(void)j;
+	l = 0;
+	if (arg_number2(cmd, 0, 0, 0) == -1)
+		return (printf("Quotes non fermées\n"), NULL);
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
 	if (!cmds)
 		return (NULL);
+	while (cmd[i] && is_whitespace(cmd[i]) == 1)
+		i++;
+	while (cmd[i])
+	{
+		if (cmd[i] == '"' || cmd[i] == 39)
+		{
+			j = i;
+			k = i;
+			i++;
+			while (cmd[i] && cmd[i] != cmd[j])
+			{
+				i++;
+				if (cmd[i + 1] == cmd[j] && (cmd[i + 2] == '"' || cmd[i + 2] == 39))
+				{
+					j = i + 2;
+					i += 3;
+				}
+			}
+			cmds[l] = malloc(sizeof(char) * (k - i));
+			if (!cmds[l])
+				return (NULL);
+			j = k;
+			k = 0;
+			while (++j != i)
+			{
+				cmds[l][k] = cmd[j];
+				k++;
+			}
+			cmds[l][k] = '\0';
+			i++;
+		}
+	}
 	return (cmds);
 }

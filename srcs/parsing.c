@@ -27,7 +27,7 @@ char	**parsing(char *cmd)
 	t_args	*args;
 
 	args = NULL;
-	new_parsing(cmd, 0, 0);
+	new_parsing(cmd, 0, 0, 0);
 	cmds = str_to_tabs(cmd, 0, 0);
 	if (cmds[0] == NULL)
 	{
