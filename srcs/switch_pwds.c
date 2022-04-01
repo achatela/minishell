@@ -77,9 +77,9 @@ void	switch_pwds(char **env, int i, int j)
 	if (env[i] == 0 || env[j] == 0)
 	{
 		if (env[i] == 0)
-			g_env = copy_env2(env, "PWD", 0, 0);
+			g_env = copy_env2(g_env, "PWD", 0, 0);
 		if (env[j] == 0)
-			g_env = copy_env2(env, "OLDPWD", 0, 0);
+			g_env = copy_env2(g_env, "OLDPWD", 0, 0);
 	}
 	else
 	{

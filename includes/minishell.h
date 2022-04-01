@@ -15,6 +15,7 @@
 
 extern char	**g_env;
 
+void	ft_print(char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		builtin_echo(char **argv, int i);
 char	**get_path(char **env, int i);
@@ -37,5 +38,6 @@ char	*cut_var_begin(char *str, int i, int j);
 char	*cut_var_end(char *str, int i, int j);
 void    builtin_unset(char **env, char **cmds);
 char	*get_env_var(char **env, char *var, int i);
+int		exisiting_var(char **env, char **cmds);
 
 #endif

@@ -22,7 +22,7 @@ static char	**copy_env(char **env, char **cmds, int i, int j)
 {
 	char	**new;
 
-	new = malloc(sizeof(char *) * (env_lines(env) + 1));
+	new = malloc(sizeof(char *) * (env_lines(g_env) + 1));
 	while (env[i] != 0)
 	{
 		j = 0;
@@ -40,6 +40,7 @@ static char	**copy_env(char **env, char **cmds, int i, int j)
 	new[i] = exported_var(cmds[1]);
 	new[i + 1] = malloc(sizeof(char));
 	new[i + 1] = 0;
+	free_env(env, 0);
 	return (new);
 }
 
@@ -59,12 +60,16 @@ void	builtin_export(char **env, char **cmds)
 	char	*str;
 	char	*tmp;
 
+//	if (existing_var(env, cmds))
+//		return ;
 	if (cmds[1] == NULL)
 	{
 		export_no_arg(env, 0, 0);
 		return ;
 	}
-	if (cmds[1] != NULL)
+	if (exisiting_var(g_env, cmds) == 2)
+		return ;
+/*	if (cmds[1] != NULL)
 	{
 		tmp = cut_var_begin(cmds[1], 0, 0);
 		str = get_env_var(g_env, tmp, 0);
@@ -73,13 +78,14 @@ void	builtin_export(char **env, char **cmds)
 	else
 		return ;
 	if (str != NULL)
-		printf("builtin_unset\n");
-	free(str);
+		exisiting_var(env, cmds);
+	free(str);*/
+	(void)str;
+	(void)tmp;
 	if (cmds[1] != NULL)
 	{
 		if(cmd_is_valid(cmds[1], 0) == 1)
 			return ;
 	}
-	g_env = copy_env(env, cmds, 0, 0);
-	free_env(env, 0);
+	g_env = copy_env(g_env, cmds, 0, 0);
 }
