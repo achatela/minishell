@@ -1,6 +1,10 @@
 
 #include "minishell.h"
 
+/* /!\ /!\ /!\ FIX LES "" /!\ /!\ /!\ */
+/* /!\ /!\ /!\ FIX LES "" /!\ /!\ /!\ */
+/* /!\ /!\ /!\ FIX LES "" /!\ /!\ /!\ */
+
 int    builtin_exit(char **cmds)
 {
     int i;
@@ -14,9 +18,10 @@ int    builtin_exit(char **cmds)
     }
     else if (ft_strisnum(cmds[1]) == 1 && cmds[2])
         printf("minishell: exit: too many arguments\n");
-    else if (cmds[1] && ft_strisnum(cmds[1]) == 0)
+    else if (cmds[1] && ft_strisnum(cmds[1]) == 1)
     {
         printf("minishell: exit: %s: numeric argument required\n", cmds[1]);
+        printf("[%s]\n", cmds[1]);
         free_cmds(cmds, 0);
         exit(2);
     }
@@ -26,7 +31,7 @@ int    builtin_exit(char **cmds)
         free_cmds(cmds, 0);
         exit(2);
     }
-    else if (cmds[1])
+    else if (cmds[1] && ft_strisnum(cmds[1]) == 0)
     {
         i = ft_atoi(cmds[1]) % 256;
         free_cmds(cmds, 0);

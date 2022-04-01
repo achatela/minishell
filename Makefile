@@ -33,7 +33,7 @@ all:	${NAME}
 ${NAME}:	${OBJS}
 	make -C libft
 	${CC} ${CFLAGS} ${OBJS} ${LIBFT} -lreadline -o ${NAME}
-
+	
 clean:
 	make clean -C libft
 	${RM} ${OBJS}
