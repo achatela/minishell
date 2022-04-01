@@ -6,15 +6,15 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 16:15:02 by achatela          #+#    #+#             */
-/*   Updated: 2021/12/02 16:21:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:17:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_args *lst)
 {
 	int		a;
-	t_list	*head;
+	t_args	*head;
 
 	head = lst;
 	a = 0;

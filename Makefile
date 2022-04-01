@@ -12,6 +12,7 @@ SRCS =	srcs/main.c						\
 		srcs/switch_pwds.c				\
 		srcs/export_no_arg.c			\
 		srcs/existing_var.c				\
+		srcs/init_args.c				\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\

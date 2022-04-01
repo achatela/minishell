@@ -24,12 +24,22 @@ int	arg_number(char *cmd, int i, int j)
 char	**parsing(char *cmd)
 {
 	char	**cmds;
+	t_args	*args;
+	t_args	*head;
 
+	args = NULL;
 	cmds = str_to_tabs(cmd, 0, 0);
 	if (cmds[0] == NULL)
 	{
 		free(cmds);
 		return (NULL);
+	}
+	args = init_args(args, cmds);
+	head = args;
+	while (head)
+	{
+		printf("parsed arg = %s index = %d\n", head->parsed_arg, head->index);
+		head = head->next;
 	}
 	send_builtin(cmds);
 	return (cmds);

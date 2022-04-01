@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:05:41 by achatela          #+#    #+#             */
-/*   Updated: 2022/03/30 12:59:17 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:16:41 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@
 # include <stddef.h>
 # include <unistd.h>
 
-typedef struct s_list
+typedef struct s_args	t_args;
+struct	s_args
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+	int		index;
+	char	*parsed_arg;
+	int		to_print;
+	t_args	*next;
+	t_args	*before;
+};
 
-void	ft_lstadd_back(t_list **alst, t_list *new);
-t_list	*ft_lstlast(t_list *lst);
-int		ft_lstsize(t_list *lst);
-void	ft_lstadd_front(t_list **alst, t_list *new);
-t_list	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_args *alst, t_args *new);
+t_args	*ft_lstlast(t_args *lst);
+int		ft_lstsize(t_args *lst);
+void	ft_lstadd_front(t_args **alst, t_args *new);
+t_args	*ft_lstnew(void *content);
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);

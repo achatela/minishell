@@ -6,12 +6,12 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:55:38 by achatela          #+#    #+#             */
-/*   Updated: 2021/12/02 17:50:35 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:16:52 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	ft_lstadd_front(t_args **alst, t_args *new)
 {
 	new->next = *alst;
 	*alst = new;
