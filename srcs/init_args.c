@@ -7,8 +7,21 @@
 	//maxi parsing à faire + set args->to_print
 }*/
 
-static void	fill_args(t_args *args, char *str, int index)
+void	fill_args(t_args *args, char *str, int index)
 {
+	//redéfinir is_separator en fonction de str
+	if (index == 0)
+	{
+		args->is_separator = 0;
+		args->to_use = 0;
+		args->is_command = 1;
+	}
+	else if (index > 0)
+	{
+		args->is_separator = 0;
+		args->to_use = 1;
+		args->is_command = 0;
+	}
 	args->index = index;
 	args->parsed_arg = str;
 }
@@ -18,8 +31,6 @@ t_args	*init_args(t_args *args, char **cmds)
 	int	i;
 
 	i = 1;
-	args = ft_lstnew(NULL);
-	fill_args(args, cmds[0], 0);
 	while (cmds[i] != NULL)
 	{
 		ft_lstadd_back(args, ft_lstnew(NULL));

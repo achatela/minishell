@@ -21,11 +21,11 @@ static int	simple_path(char *arg)
 	return (1);
 }
 
-static char	*full_path(char **cmds)
+static char	*full_path(t_args *args)
 {
 //	char	*path;
 
-	if (simple_path(cmds[1]) == 0)
+	if (simple_path(args->next->parsed_arg) == 0)
 		return (getenv("HOME"));
 	/*path = cd_paths(cmds[1]);
 	if (path != NULL)
@@ -33,63 +33,58 @@ static char	*full_path(char **cmds)
 	return (NULL);
 }
 
-static char	*home_path(char **cmds)
+static char	*home_path(t_args *args)
 {
 	char	*path;
 
-	path = full_path(cmds);
+	path = full_path(args);
 	if (path == NULL)
 		return (NULL);
 	return (path);
 }
 
-static int	cd_errors(char **cmds)
+static int	cd_errors(t_args *args)
 {
-	if (cmds[1] == NULL || (cmds[1][0] == '~'))
+	if (args->next == NULL /*|| (args->next != NULL && args->next->parsed_arg == NULL)
+		*/|| (args->next != NULL && args->next->parsed_arg[0] == '~'))
 	{
-		if (cmds[1] == NULL || home_path(cmds) == NULL)
+		if (args->next == NULL || home_path(args) == NULL)
 		{
 			chdir(getenv("HOME"));
 			return (1);
 		}
-		else if (home_path(cmds) != NULL)
-			chdir(home_path(cmds));
+		else if (home_path(args) != NULL)
+			chdir(home_path(args));
 		return (1);
 	}
-	if (access(cmds[1], F_OK) == -1)
+	if (access(args->next->parsed_arg, F_OK) == -1)
 	{
-		printf("cd: %s: No such file or directory\n", cmds[1]);
+		printf("cd: %s: No such file or directory\n", args->next->parsed_arg);
 		return (1);
 	}
-	if (access(cmds[1], R_OK) == -1)
+	if (access(args->next->parsed_arg, R_OK) == -1)
 	{
-		printf("cd: %s: Permission denied\n", cmds[1]);
+		printf("cd: %s: Permission denied\n", args->next->parsed_arg);
 		return (1);
 	}
-	printf("cd: %s: Not a directory\n", cmds[1]);
+	printf("cd: %s: Not a directory\n", args->next->parsed_arg);
 	return (1);
 }
 
-int	builtin_cd(char **cmds, int i)
+int	builtin_cd(t_args *args, int i)
 {
-	char	*path;
-
-	path = NULL;
-	while (cmds[i] != NULL)
-		i++;
-	if (path == NULL && i > 2)
+	if (args->next != NULL && args->next->is_separator == 0
+		&&  args->next->next != NULL && args->next->next->is_separator == 0)
 	{
 		printf("cd: too many arguments\n");
-		i = 1;
+		return (1);
 	}
-	if (cmds[1] != NULL)
+	if (args->next != NULL && args->next->is_separator == 0)
 	{
 	//	path = cd_paths(cmds[1]);
-		if (chdir(cmds[1]) == 0)
-			i = 0;
+		if (chdir(args->next->parsed_arg) == 0)
+			return (0);
 	}
-	else
-		i = cd_errors(cmds);
-	switch_pwds(g_env, 0, 0);
+	i = cd_errors(args);
 	return (i);
 }

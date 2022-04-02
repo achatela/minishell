@@ -15,14 +15,15 @@
 
 extern char	**g_env;
 
+void	fill_args(t_args *args, char *str, int index);
 char	**new_parsing(char *cmd, int i, int j, int k);
-int		builtin_echo(char **argv, int i);
+int		builtin_echo(t_args *args);
 char	**get_path(char **env, int i);
 char	**parsing(char *cmd);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
-int		send_builtin(char **cmds);
-int		builtin_cd(char **cmds, int i);
+int		send_builtin(t_args *args, int j);
+int		builtin_cd(t_args *args, int i);
 int		builtin_exit(char **cmds);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(char **env, int i);

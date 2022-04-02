@@ -73,7 +73,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 
 	l = 0;
 	tmp = '\0';
-	printf("arg number = %d\n", arg_number2(cmd, 0, 0, 0));
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 		return (printf("Quotes non fermées\n"), NULL);
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
@@ -146,13 +145,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	}
 	cmds[l] = malloc(sizeof(char));
 	cmds[l] = 0;
-	i = 0;
-	while (cmds[i] != 0)
-	{
-		printf("cmds[%d] = %s\n", i, cmds[i]);
-		i++;
-	}
-	printf("cmds[%d] = %s\n", i, cmds[i]);
 	return (cmds);
 }
 

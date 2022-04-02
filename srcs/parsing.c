@@ -26,15 +26,15 @@ char	**parsing(char *cmd)
 	char	**cmds;
 	t_args	*args;
 
-	args = NULL;
-	new_parsing(cmd, 0, 0, 0);
-	cmds = str_to_tabs(cmd, 0, 0);
+	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds[0] == NULL)
 	{
 		free(cmds);
 		return (NULL);
 	}
+	args = ft_lstnew(NULL);
+	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);
-	send_builtin(cmds);
+	send_builtin(args, -1);
 	return (cmds);
 }
