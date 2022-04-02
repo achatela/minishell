@@ -8,6 +8,13 @@ static int	is_whitespace(char c)
 	return (0);
 }
 
+static int	isprintable(char c)
+{
+	if (c <= 126 && c > 32)
+		return (1);
+	return (0);
+}
+
 /*static int	get_next_quote(char *str, int i)
 {
 	char	tmp;
@@ -61,6 +68,90 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 }
 
 char	**new_parsing(char *cmd, int i, int j, int k)
+{
+	char	**cmds;
+	int		l;
+	int		tmp_begin;
+	int		tmp_end;
+
+	l = 0;
+	printf("arg number = %d\n", arg_number2(cmd, 0, 0, 0));
+	if (arg_number2(cmd, 0, 0, 0) == -1)
+		return (printf("Quotes non fermées\n"), NULL);
+	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
+	if (!cmds)
+		return (NULL);
+	while (cmd[i])
+	{
+		while (cmd[i] && (isprintable(cmd[i]) != 1))
+			i++;
+		k = i;
+		while (cmd[i] && isprintable(cmd[i]) == 1)
+		{
+			if (cmd[i] == '"' || cmd[i] == 39)
+			{
+				j = i;
+				i++;
+				while (cmd[i] && cmd[i] != cmd[j])
+				{
+					i++;
+					while (cmd[i] && cmd[i] == 32)
+						i++;
+				}
+				i++;
+			/*	j = i;
+				while (cmd[i] && cmd[i] != cmd[j])
+				{
+					i++;
+					if (cmd[i + 1] == cmd[j] && (cmd[i + 2] == '"' || cmd[i + 2] == 39))
+					{
+						j = i + 2;
+						i += 3;
+					}
+				}*/
+			}
+			else
+				i++;
+		}
+		cmds[l] = malloc(sizeof(char) * (i - (k)));
+		if (!cmds[l])
+			return (NULL);
+		tmp_begin = j;
+		tmp_end = i;
+		j = k + 1;
+		if (cmd[k] != '"' || cmd[i] != 39)
+			j--;
+		k = 0;
+		if (cmd[i] == '"' || cmd[i] == 39)
+			i--;
+		while (j < i)
+		{
+			if ((cmd[tmp_begin] != '"' || cmd[tmp_end] != 39)
+				&& (cmd[tmp_end] != '"' || cmd[tmp_end] != 39))
+			{
+				while ((cmd[j] == '"' || cmd[j] == 39))
+					j++;
+				cmds[l][k] = cmd[j];
+				k++;
+			}
+			j++;
+		}
+		cmds[l][k] = '\0';
+		l++;
+		i++;
+	}
+	cmds[l] = NULL;
+	i = 0;
+	while (cmds[i] != NULL)
+	{
+		printf("cmds[%d] = %s\n", i, cmds[i]);
+		i++;
+	}
+	printf("cmds[%d] = %s\n", i, cmds[i]);
+	return (cmds);
+}
+
+/*char	**new_parsing(char *cmd, int i, int j, int k)
 {
 	char	**cmds;
 	int		l;
@@ -126,7 +217,7 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 		i++;
 	}
 	return (cmds);
-}
+}*/
 
 
 /*char	**new_parsing(char *cmd, int i, int j, int k)
