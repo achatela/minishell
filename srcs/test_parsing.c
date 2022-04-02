@@ -47,8 +47,6 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 				i++;
 			if (cmd[i] == '\0')
 				return (-1);
-			else if (cmd[i] == '\0')
-				return (k);
 			if (j >= 1 && ft_isprint(cmd[j + 1]) == 0)
 				k++;
 			i++;
@@ -71,17 +69,17 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 {
 	char	**cmds;
 	int		l;
-	int		tmp_begin;
-	int		tmp_end;
+	char	tmp;
 
 	l = 0;
+	tmp = '\0';
 	printf("arg number = %d\n", arg_number2(cmd, 0, 0, 0));
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 		return (printf("Quotes non fermées\n"), NULL);
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
 	if (!cmds)
 		return (NULL);
-	while (cmd[i])
+	while (i < ft_strlen(cmd) && cmd[i])
 	{
 		while (cmd[i] && (isprintable(cmd[i]) != 1))
 			i++;
@@ -113,36 +111,43 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 			else
 				i++;
 		}
-		cmds[l] = malloc(sizeof(char) * (i - (k)));
+		cmds[l] = malloc(sizeof(char) * ((i - (k)) + 1));
 		if (!cmds[l])
 			return (NULL);
-		tmp_begin = j;
-		tmp_end = i;
-		j = k + 1;
-		if (cmd[k] != '"' || cmd[i] != 39)
-			j--;
+		j = k;
 		k = 0;
-		if (cmd[i] == '"' || cmd[i] == 39)
-			i--;
 		while (j < i)
 		{
-			if ((cmd[tmp_begin] != '"' || cmd[tmp_end] != 39)
-				&& (cmd[tmp_end] != '"' || cmd[tmp_end] != 39))
+			while ((cmd[j] == '"' || cmd[j] == 39))
 			{
-				while ((cmd[j] == '"' || cmd[j] == 39))
+				tmp = cmd[j];
+				j++;
+				while (j < i && cmd[j] != tmp)
+				{
+					cmds[l][k] = cmd[j];
+					k++;
 					j++;
+				}
+				if (cmd[j] == tmp)
+					j++;
+			}
+			if (cmd[j] != '"' && cmd[j] != 39)
+			{
 				cmds[l][k] = cmd[j];
 				k++;
+				j++;
 			}
-			j++;
+			else
+				j++;
 		}
 		cmds[l][k] = '\0';
 		l++;
 		i++;
 	}
-	cmds[l] = NULL;
+	cmds[l] = malloc(sizeof(char));
+	cmds[l] = 0;
 	i = 0;
-	while (cmds[i] != NULL)
+	while (cmds[i] != 0)
 	{
 		printf("cmds[%d] = %s\n", i, cmds[i]);
 		i++;
