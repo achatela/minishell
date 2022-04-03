@@ -44,7 +44,6 @@ void	fill_args(t_args *args, char *str, int index)
 	args->is_separator = 0;
 	if (str_is_sep(str) == 1)
 		args->is_separator = 1;
-	printf("str = %s sep = %d\n", str, args->is_separator);
 	args->index = index;
 	args->parsed_arg = str;
 }

@@ -10,11 +10,12 @@ static int	check_echo(t_args *args, int i)
 static void print_n(t_args *args)
 {
 	args = args->next;
-	while (args && args->to_use == 1)
+	while (args && args->to_use == 1
+			&& args->is_separator == 0)
 	{
 		printf("%s", args->parsed_arg);
 		args = args->next;
-		if (args != NULL && args->to_use == 1)
+		if (args != NULL && args->is_separator == 0)
 			printf(" ");
 	}
 }
@@ -33,7 +34,7 @@ int	builtin_echo(t_args *args)
 		}
 	}
 	args = args->next;
-	while (args && args->to_use == 1)
+	while (args && args->to_use == 1 && args->is_separator == 0)
 	{
 		printf("%s", args->parsed_arg);
 		printf(" ");

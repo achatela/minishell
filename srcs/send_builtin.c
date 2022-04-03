@@ -15,6 +15,9 @@ static int	get_next_index(t_args *args, int i)
 		return (j);
 }
 
+/* Faire qqch comme while (args != NULL) > fork dans 
+ * send_builtin quand on gèrera les separateurs */
+
 int	send_builtin(t_args *args, int j)
 {
 //	static int	i = 0;
