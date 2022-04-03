@@ -7,21 +7,44 @@
 	//maxi parsing à faire + set args->to_print
 }*/
 
+static int	str_is_sep(char *str)
+{
+	if (ft_strlen(str) > 3)
+		return (0);
+	else if (str[0] == '|' && str[1] == '\0')
+		return (1);
+	else if (str[0] == '<' && str[1] == '\0')
+		return (1);
+	else if (str[0] == '>' && str[1] == '\0')
+		return (1);
+	else if (str[0] == '<' && str[1] == '<'
+			&& str[2] == '\0')
+		return (1);
+	else if (str[0] == '>' && str[1] == '>'
+			&& str[2] == '\0')
+		return (1);
+	else
+		return (0);
+
+}
+
 void	fill_args(t_args *args, char *str, int index)
 {
 	//redéfinir is_separator en fonction de str
 	if (index == 0)
 	{
-		args->is_separator = 0;
 		args->to_use = 0;
 		args->is_command = 1;
 	}
 	else if (index > 0)
 	{
-		args->is_separator = 0;
 		args->to_use = 1;
 		args->is_command = 0;
 	}
+	args->is_separator = 0;
+	if (str_is_sep(str) == 1)
+		args->is_separator = 1;
+	printf("str = %s sep = %d\n", str, args->is_separator);
 	args->index = index;
 	args->parsed_arg = str;
 }

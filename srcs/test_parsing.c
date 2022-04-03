@@ -101,16 +101,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 						i++;
 				}
 				i++;
-			/*	j = i;
-				while (cmd[i] && cmd[i] != cmd[j])
-				{
-					i++;
-					if (cmd[i + 1] == cmd[j] && (cmd[i + 2] == '"' || cmd[i + 2] == 39))
-					{
-						j = i + 2;
-						i += 3;
-					}
-				}*/
 			}
 			else
 				i++;
@@ -137,9 +127,14 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 			}
 			if (cmd[j] != '"' && cmd[j] != 39)
 			{
-				cmds[l][k] = cmd[j];
-				k++;
-				j++;
+				if (cmd[j] == ' ' && cmd[j + 1])
+					j++;
+				else
+				{
+					cmds[l][k] = cmd[j];
+					k++;
+					j++;
+				}
 			}
 			else
 				j++;

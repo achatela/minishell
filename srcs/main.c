@@ -6,7 +6,7 @@ static char	**init_env(char **env, int i, int j, int k)
 {
 	while (env[k] != 0)
 		k++;
-	g_env = malloc(sizeof(char *) * (k + 1));
+	g_env = malloc(sizeof(char *) * env_lines(env));
 	if (!g_env)
 		return (NULL);
 	while (i < k)
@@ -30,7 +30,6 @@ static char	**init_env(char **env, int i, int j, int k)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	**cmds;
 	char	*cmd;
 
 	argc = -1;
@@ -41,12 +40,11 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		cmd = readline(get_prompt(g_env, -1));
-		add_history(cmd);
-		if (cmd != NULL)
+		if (cmd[0] != '\0')
+		{
+			add_history(cmd);
 			parsing(cmd);
-		(void)cmds;
-	//	if (cmds)
-	//		free_cmds(cmds, 0);
+		}
 		free(cmd);
 	}
 	clear_history();

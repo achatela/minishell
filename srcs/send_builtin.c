@@ -26,7 +26,7 @@ int	send_builtin(t_args *args, int j)
 //	while (head && ++j < i)
 //		head = head->next;
 	if (ft_strcmp(head->parsed_arg, "echo") == 0)
-		return(builtin_echo(head));								/*Remplacer par strncmp partout parce que "command   " == invalid*/
+		return(builtin_echo(head));								
 	else if (ft_strcmp(head->parsed_arg, "cd") == 0)
 		return(builtin_cd(head, 0));
 	else if (ft_strcmp(head->parsed_arg, "pwd") == 0)
@@ -36,9 +36,9 @@ int	send_builtin(t_args *args, int j)
 	else if (ft_strcmp(head->parsed_arg, "unset") == 0)
 		return (builtin_unset(g_env, head), 0);
 	else if (ft_strcmp(head->parsed_arg, "env") == 0)
-		return (builtin_env(0), 0);/*
+		return (builtin_env(0), 0);
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
-		return(builtin_exit(head));*/
+		return(builtin_exit(head));
 //	i = get_next_index(args, i);
 	return (-1);
 }

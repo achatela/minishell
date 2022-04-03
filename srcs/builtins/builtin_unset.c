@@ -90,18 +90,21 @@ void    builtin_unset(char **env, t_args *args)
 		args = args->next;
 //		if (args->next == NULL || args->next->to_use == 0)
 //			return ;
-		tmp = cut_var_modif(args->parsed_arg, 0);
 		if (check_name(args->parsed_arg) == 1)
-			printf("minishell: unset: `%s': not a valid identifier\n", args->parsed_arg);
+			printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
 		else
 		{
+			tmp = cut_var_modif(args->parsed_arg, 0);
 			i = -1;
 			while (g_env[++i] != 0)
 			{
 				if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) == 0)
+				{
 					g_env = remove_var(g_env, tmp, -1, 0);
+					break;
+				}
 			}
+			free(tmp);
 		}
-		free(tmp);
 	}
 }

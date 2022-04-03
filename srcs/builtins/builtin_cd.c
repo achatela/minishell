@@ -46,7 +46,8 @@ static char	*home_path(t_args *args)
 static int	cd_errors(t_args *args)
 {
 	if (args->next == NULL /*|| (args->next != NULL && args->next->parsed_arg == NULL)
-		*/|| (args->next != NULL && args->next->parsed_arg[0] == '~'))
+		*/|| (args->next != NULL && args->next->parsed_arg[0] == '~')
+		|| (args->next != NULL && args->next->is_separator == 1))
 	{
 		if (args->next == NULL || home_path(args) == NULL)
 		{

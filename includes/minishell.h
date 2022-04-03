@@ -26,7 +26,7 @@ char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 int		send_builtin(t_args *args, int j);
 int		builtin_cd(t_args *args, int i);
-int		builtin_exit(char **cmds);
+int		builtin_exit(t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(int i);
 char	*get_prompt(char **env, int i);
