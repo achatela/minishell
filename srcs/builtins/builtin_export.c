@@ -18,26 +18,26 @@ static char	*exported_var(char *str)
 	return (ret);
 }
 
-static char	**copy_env(char **env, char **cmds, int i, int j)
+static char	**copy_env(char **env, t_args *args, int i, int j)
 {
 	char	**new;
 
 	new = malloc(sizeof(char *) * (env_lines(g_env) + 1));
-	while (env[i] != 0)
+	while (g_env[i] != 0)
 	{
 		j = 0;
-		new[i] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
+		new[i] = malloc(sizeof(char) * (ft_strlen(g_env[i]) + 1));
 		if (!new)
 			return (NULL);
-		while (env[i][j])
+		while (g_env[i][j])
 		{
-			new[i][j] = env[i][j];
+			new[i][j] = g_env[i][j];
 			j++;
 		}
 		new[i][j] = '\0';
 		i++;
 	}
-	new[i] = exported_var(cmds[1]);
+	new[i] = exported_var(args->parsed_arg);
 	new[i + 1] = malloc(sizeof(char));
 	new[i + 1] = 0;
 	free_env(env, 0);
@@ -55,37 +55,23 @@ static int	cmd_is_valid(char *str, int i)
 	return (1);
 }
 
-void	builtin_export(char **env, char **cmds)
+void	builtin_export(char **env, t_args *args)
 {
-	char	*str;
-	char	*tmp;
-
-//	if (existing_var(env, cmds))
-//		return ;
-	if (cmds[1] == NULL)
+	if (args->next == NULL || args->next->to_use == 0)
 	{
 		export_no_arg(env, 0, 0);
 		return ;
 	}
-	if (exisiting_var(g_env, cmds) == 2)
-		return ;
-/*	if (cmds[1] != NULL)
+	while (args->next != NULL && args->next->to_use == 1) 
 	{
-		tmp = cut_var_begin(cmds[1], 0, 0);
-		str = get_env_var(g_env, tmp, 0);
-		free(tmp);
+		args = args->next;
+		if (exisiting_var(g_env, args) == 2)
+			printf("ici");
+		else if (args->to_use == 1)
+		{
+			if(cmd_is_valid(args->parsed_arg, 0) == 1)
+				return ;
+		}
+		g_env = copy_env(g_env, args, 0, 0);
 	}
-	else
-		return ;
-	if (str != NULL)
-		exisiting_var(env, cmds);
-	free(str);*/
-	(void)str;
-	(void)tmp;
-	if (cmds[1] != NULL)
-	{
-		if(cmd_is_valid(cmds[1], 0) == 1)
-			return ;
-	}
-	g_env = copy_env(g_env, cmds, 0, 0);
 }

@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-void	builtin_env(char **env, int i)
+void	builtin_env(int i)
 {
-	while (env[i] != 0)
+	while (g_env[i] != 0)
 	{
-		printf("%s\n", env[i]);
+		printf("%s\n", g_env[i]);
 		i++;
 	}
 	return ;

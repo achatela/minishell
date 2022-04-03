@@ -1,6 +1,49 @@
 #include "minishell.h"
 
-char	*search_env(char *str, int i, int j)
+static char	*cut_var_modif(char *str, int j)
+{
+	char	*ret;
+
+	ret = malloc(sizeof(char) * (ft_strlen(str) + 2));
+	if (!ret)
+		return (NULL);
+	while (str[j] && str[j] != '=')
+	{
+		ret[j] = str[j];
+		j++;
+	}
+	ret[j] = '=';
+	ret[j + 1] = '\0';
+	return (ret);
+}
+
+char	**remove_var(char **env, char *tmp, int i, int j)
+{
+	char	**new;
+	int		k;
+
+	new = malloc(sizeof(char *) * (env_lines(g_env)));
+	if (!new)
+		return (NULL);
+	while (g_env[++i] != 0)
+	{
+		k = -1;
+		if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) != 0)
+		{
+			new[j] = malloc(sizeof(char) * (ft_strlen(g_env[i]) + 1));
+			while (g_env[i][++k])
+				new[j][k] = g_env[i][k];
+			new[j][k] = '\0';
+			j++;
+		}
+	}
+	new[j] = malloc(sizeof(char));
+	new[j] = 0;
+	free_env(env, 0);
+	return (new);
+}
+
+/*char	*search_env(char *str, int i, int j)
 {
 	char	*ret;
 
@@ -18,42 +61,46 @@ char	*search_env(char *str, int i, int j)
 	}
 	ret[j] = '\0';
 	return (ret);
-}
+}*/
 
 int	check_name(char *str)
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	if (!ft_isalpha(str[0]))
 		return (1);
 	while (str[++i])
 	{
-		if (ft_isalnum(str[i]) == 0)
+		if (ft_isalnum(str[i]) == 0 && str[i + 1] != '\0')
 			return (1);
 	}
 	return (0);
 	
 }
 
-void    builtin_unset(char **env, char **cmds)
+void    builtin_unset(char **env, t_args *args)
 {
 	int i;
 	char *tmp;
 
-	i= 1;
-	if (!cmds[1])
-		return ;
-	while (env[++i])
+	(void)env;
+	while (args->next != NULL && args->next->to_use == 1)
 	{
-		tmp = search_env(env[i], 0, 0);
-		if (check_name(cmds[1]) == 1)
-			printf("bash: unset: `%s': not a valid identifier\n", cmds[1]);
-		else if (ft_strcmp(tmp, cmds[1]) == 0)
+		args = args->next;
+//		if (args->next == NULL || args->next->to_use == 0)
+//			return ;
+		tmp = cut_var_modif(args->parsed_arg, 0);
+		if (check_name(args->parsed_arg) == 1)
+			printf("minishell: unset: `%s': not a valid identifier\n", args->parsed_arg);
+		else
 		{
-			tmp = 0;
-			env[i] = tmp;
-			free(tmp);
+			i = -1;
+			while (g_env[++i] != 0)
+			{
+				if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) == 0)
+					g_env = remove_var(g_env, tmp, -1, 0);
+			}
 		}
 		free(tmp);
 	}

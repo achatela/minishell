@@ -7,7 +7,8 @@ static char	*get_session(char **env, int i, int j, int k)
 	char	*tmp;
 	char	*ret;
 
-	tmp = get_env_var(env, "SESSION_MANAGER", 0);
+	(void)env;
+	tmp = get_env_var(g_env, "SESSION_MANAGER", 0);
 	while (tmp[i] && tmp[i] != '/')
 		i++;
 	j = i;
@@ -53,7 +54,8 @@ static char	*get_home(char **env, int i, int j)
 	char	*tmp2;
 
 	(void)j;
-	tmp = get_env_var(env, "HOME", 0);
+	(void)env;
+	tmp = get_env_var(g_env, "HOME", 0);
 	tmp2 = getcwd(NULL, 0);
 	i = ft_strncmp(tmp, tmp2, (ft_strlen(tmp) + 1));
 	free(tmp);
@@ -96,9 +98,9 @@ char	*get_prompt(char **env, int i)
 	char	**ret;
 
 	ret = malloc(sizeof(char *) * 4);
-	ret[0] = get_env_var(env, "USER", 0);
-	ret[1] = get_session(env, 0, 0, 0);
-	ret[2] = get_home(env, 0, 0);
+	ret[0] = get_env_var(g_env, "USER", 0);
+	ret[1] = get_session(g_env, 0, 0, 0);
+	ret[2] = get_home(g_env, 0, 0);
 	if (ret[2] != NULL && ft_strlen(ret[2]) != 2)
 		ret[3] = NULL;
 	else

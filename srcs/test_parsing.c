@@ -74,7 +74,10 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	l = 0;
 	tmp = '\0';
 	if (arg_number2(cmd, 0, 0, 0) == -1)
-		return (printf("Quotes non fermées\n"), NULL);
+	{
+		cmds = NULL;
+		return (printf("Quotes non fermées\n"), cmds);
+	}
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 1));
 	if (!cmds)
 		return (NULL);

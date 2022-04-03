@@ -21,20 +21,20 @@ int	arg_number(char *cmd, int i, int j)
 	return (j);
 }
 
-char	**parsing(char *cmd)
+void	parsing(char *cmd)
 {
 	char	**cmds;
 	t_args	*args;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
-	if (cmds[0] == NULL)
+	if (cmds == NULL)
 	{
 		free(cmds);
-		return (NULL);
+		return ;
 	}
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);
 	send_builtin(args, -1);
-	return (cmds);
+	free_list(args);
 }

@@ -23,6 +23,7 @@ static char	**init_env(char **env, int i, int j, int k)
 		g_env[i][j] = '\0';
 		i++;
 	}
+	g_env[i] = malloc(sizeof(char));
 	g_env[i] = 0;
 	return (g_env);
 }
@@ -42,9 +43,10 @@ int	main(int argc, char **argv, char **env)
 		cmd = readline(get_prompt(g_env, -1));
 		add_history(cmd);
 		if (cmd != NULL)
-			cmds = parsing(cmd);
-		if (cmds)
-			free_cmds(cmds, 0);
+			parsing(cmd);
+		(void)cmds;
+	//	if (cmds)
+	//		free_cmds(cmds, 0);
 		free(cmd);
 	}
 	clear_history();

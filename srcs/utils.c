@@ -52,3 +52,18 @@ void	free_env(char **env, int i)
 	free(env[i]);
 	free(env);
 }
+
+void	free_list(t_args *args)
+{
+	t_args	*head;
+	t_args	*head_tmp;
+
+	head = args;
+	while (head)
+	{
+		head_tmp = head;
+		head = head->next;
+		free(head_tmp);
+	}
+	free(head);
+}
