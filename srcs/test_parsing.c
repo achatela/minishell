@@ -72,6 +72,8 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	char	tmp;
 
 	l = 0;
+	if (cmd[0] == '\0')
+		return (NULL);
 	tmp = '\0';
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 	{
