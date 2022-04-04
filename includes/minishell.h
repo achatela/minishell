@@ -15,6 +15,7 @@
 
 extern char	**g_env;
 
+char	*parse_arg(char *str, int i);
 char	**remove_var(char **env, char *tmp, int i, int j);
 void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index);

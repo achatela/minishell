@@ -45,7 +45,8 @@ void	fill_args(t_args *args, char *str, int index)
 	if (str_is_sep(str) == 1)
 		args->is_separator = 1;
 	args->index = index;
-	args->parsed_arg = str;
+//	args->parsed_arg = str;
+	args->parsed_arg = parse_arg(str, 0);
 }
 
 t_args	*init_args(t_args *args, char **cmds)

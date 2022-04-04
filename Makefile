@@ -14,6 +14,7 @@ SRCS =	srcs/main.c						\
 		srcs/existing_var.c				\
 		srcs/init_args.c				\
 		srcs/test_parsing.c				\
+		srcs/parse_arg.c				\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\
