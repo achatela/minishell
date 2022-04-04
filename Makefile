@@ -12,6 +12,7 @@ SRCS =	srcs/main.c						\
 		srcs/switch_pwds.c				\
 		srcs/export_no_arg.c			\
 		srcs/existing_var.c				\
+		srcs/str_no_quotes.c			\
 		srcs/init_args.c				\
 		srcs/test_parsing.c				\
 		srcs/parse_arg.c				\
