@@ -52,10 +52,12 @@ static int	cd_errors(t_args *args)
 		if (args->next == NULL || home_path(args) == NULL)
 		{
 			chdir(getenv("HOME"));
+			switch_pwds(g_env, 0, 0);
 			return (1);
 		}
 		else if (home_path(args) != NULL)
 			chdir(home_path(args));
+		switch_pwds(g_env, 0, 0);
 		return (1);
 	}
 	if (access(args->next->parsed_arg, F_OK) == -1)
@@ -84,8 +86,12 @@ int	builtin_cd(t_args *args, int i)
 	{
 	//	path = cd_paths(cmds[1]);
 		if (chdir(args->next->parsed_arg) == 0)
+		{
+			switch_pwds(g_env, 0, 0);
 			return (0);
+		}
 	}
 	i = cd_errors(args);
+	switch_pwds(g_env, 0, 0);
 	return (i);
 }
