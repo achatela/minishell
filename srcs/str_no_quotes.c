@@ -64,7 +64,6 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 			tmp[k] = '\0';
 			k = -1;
 			tmp2 = get_env_var(g_env, tmp, 0);
-			printf("tmp %s\ntmp2 %s\n", tmp, tmp2);
 			free(tmp);
 			while (tmp2[++k])
 				ret[l++] = tmp2[k];
