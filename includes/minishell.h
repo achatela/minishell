@@ -11,6 +11,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include "../libft/libft.h"
 
 extern char	**g_env;
@@ -43,5 +44,6 @@ void    builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		exisiting_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds);
+int     exec_bin(char **args);
 
 #endif
