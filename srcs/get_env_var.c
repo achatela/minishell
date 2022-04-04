@@ -23,15 +23,18 @@ char	*cut_var_end(char *str, int i, int j)
 
 char	*get_env_var(char **env, char *var, int i)
 {
+	char	*ret;
+
 	(void)env;
-	if (var == NULL)
-		return (NULL);
 	while (g_env[i] != 0)
 	{
+		if (var == NULL)
+			break;
 		if (ft_strncmp(g_env[i], var, ft_strlen(var)) == 0)
 			return (cut_var_end(g_env[i], 0, 0));
 		i++;
 	}
-	i = 0;
-	return (NULL);
+	ret = malloc(sizeof(char));
+	ret[0] = '\0';
+	return (ret);
 }

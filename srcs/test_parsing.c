@@ -62,7 +62,6 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 		else
 			i++;
 	}
-	printf("arg_number = %d\n", k);
 	return (k);
 }
 
@@ -149,12 +148,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	}
 	cmds[l] = malloc(sizeof(char));
 	cmds[l] = 0;
-	l = 0;
-	while (cmds[l] != 0)
-	{
-		printf("%s\n", cmds[l]);
-		l++;
-	}
 	return (cmds);
 }
 
