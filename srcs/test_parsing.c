@@ -105,7 +105,7 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 			else
 				i++;
 		}
-		cmds[l] = malloc(sizeof(char) * ((i - (k)) + 1));
+		cmds[l] = malloc(sizeof(char) * ((i - (k)) + 3));
 		if (!cmds[l])
 			return (NULL);
 		j = k;

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:36:20 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/04 17:36:54 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:36:18 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void    *ft_memdel(void *ptr)
     if (ptr)
     {
         free(ptr);
-        pre = NULL;
+        ptr = NULL;
     }
     return (NULL);
 }
