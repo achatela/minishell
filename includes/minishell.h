@@ -28,7 +28,7 @@ int		builtin_echo(t_args *args);
 void	parsing(char *cmd);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
-int		send_builtin(t_args *args, int j);
+int		send_builtin(t_args *args, int j, char **cmds);
 int		builtin_cd(t_args *args, int i);
 int		builtin_exit(t_args *args);
 char	*get_env_var(char **env, char *var, int i);

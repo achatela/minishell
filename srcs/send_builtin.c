@@ -18,7 +18,7 @@ static int	get_next_index(t_args *args, int i)
 /* Faire qqch comme while (args != NULL) > fork dans 
  * send_builtin quand on gèrera les separateurs */
 
-int	send_builtin(t_args *args, int j)
+int	send_builtin(t_args *args, int j, char **cmds)
 {
 //	static int	i = 0;
 	t_args		*head;
@@ -42,6 +42,8 @@ int	send_builtin(t_args *args, int j)
 		return (builtin_env(0), 0);
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
 		return(builtin_exit(head));
+	else 
+		exec_bin(cmds);
 //	i = get_next_index(args, i);
 	return (-1);
 }
