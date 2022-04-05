@@ -72,7 +72,8 @@ int	check_name(char *str)
 		return (1);
 	while (str[++i])
 	{
-		if (ft_isalnum(str[i]) == 0 && str[i + 1] != '\0')
+		if (!(str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
+			|| str[i] == '_')))
 			return (1);
 	}
 	return (0);
