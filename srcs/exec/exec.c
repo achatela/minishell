@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/04 17:52:06 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:52:05 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,29 @@ int child(char *path, char **args)
 {
     char **env_array;
     char *tmp;
+    int i;
     int ret;
     pid_t pid;
 
     ret = 0;
+    i = 0;
     pid = fork();
+    printf("[%d]\n", pid);
     if (pid == 0)
     {
-        tmp = 
+        printf("hey");
+        while (g_env != NULL)
+            tmp = g_env[i];
+        env_array = ft_split(tmp, '\n');
+        ft_memdel(tmp);
+        if (ft_strchr(path, '/'))
+            execve(path, args, env_array);
+        ret = 1;
+        exit(ret);
     }
+    else if (pid > 0)
+        waitpid(pid, &ret, 0);
+    return (ret);
 }
 
 char    *path_join(const char *s1, const char *s2)
@@ -37,6 +51,7 @@ char    *path_join(const char *s1, const char *s2)
     tmp = ft_strjoin(s1, "/");
     path = ft_strjoin(tmp, s2);
     ft_memdel(tmp);
+    printf("%s\n", path);
     return (path);
 }
 
@@ -84,6 +99,6 @@ int exec_bin(char **args)
     i = 1;
     while (args[0] && bin[i] && path == NULL)
         path = check_dir(bin[i++], args[0]);
-    ret = path;
+    ret = child(path, args);
     return (ret);
 }
