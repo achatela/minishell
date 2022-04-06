@@ -5,6 +5,7 @@ SRCS =	srcs/main.c						\
 		srcs/send_builtin.c 			\
 		srcs/str_to_tabs.c 				\
 		srcs/utils.c 					\
+		srcs/utils2.c 					\
 		srcs/cd_paths.c					\
 		srcs/get_env_var.c				\
 		srcs/get_prompt.c				\
@@ -27,7 +28,7 @@ SRCS =	srcs/main.c						\
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 INC = -I./includes
 RM = rm -rf
 

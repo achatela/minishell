@@ -10,6 +10,10 @@ static int	check_echo(t_args *args, int i)
 static void print_n(t_args *args)
 {
 	args = args->next;
+	while (args && ft_strlen(args->parsed_arg) == 2 
+			&& args->parsed_arg[0] == '-' && args->parsed_arg[1] == 'n'
+			&& args->parsed_arg[2] == '\0')
+		args = args->next;
 	while (args && args->to_use == 1
 			&& args->is_separator == 0)
 	{

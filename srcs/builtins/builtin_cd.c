@@ -1,6 +1,7 @@
 #include "minishell.h"
 
-//à refaire pour gérer "cd ~///////dossier_valide///
+/*	Manque gestion cd $var inexistante 
+	et c'est la merde*/
 
 static int	simple_path(char *arg)
 {

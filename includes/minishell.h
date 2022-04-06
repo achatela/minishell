@@ -20,6 +20,7 @@
 
 extern char	**g_env;
 
+int		invalid_identifiers(char c);
 char	*str_no_quotes(char *str, int i, int j, int k);
 char	*parse_arg(char *str, int i);
 char	**remove_var(char **env, char *tmp, int i, int j);

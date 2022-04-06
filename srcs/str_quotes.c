@@ -40,8 +40,8 @@ static int	length_quotes(char *str, int i, int length)
 				if (str[i] == '$')
 				{
 					length += var_length(str, i, i + 1, -1);
-					while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
-							|| str[i] == '_'))
+					while (str[i] && invalid_identifiers(str[i]) == 0)/*(ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
+							|| str[i] == '_'))*/
 						i++;
 					i++;
 				}
