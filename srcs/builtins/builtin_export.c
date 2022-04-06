@@ -48,10 +48,11 @@ static int	cmd_is_valid(char *str, int i)
 {
 	while (str[i])
 	{
-		if (str[i] == '=')
+		if (str[i] == '=' && i != 0)
 			return (0);
 		i++;
 	}
+	printf("export: `%s': not a valid identifier\n", str);
 	return (1);
 }
 
@@ -66,12 +67,13 @@ void	builtin_export(char **env, t_args *args)
 	{
 		args = args->next;
 		if (exisiting_var(g_env, args) == 2)
-			printf("ici");
+			printf("ici\n");
 		else if (args->to_use == 1)
 		{
 			if(cmd_is_valid(args->parsed_arg, 0) == 1)
 				return ;
+			else
+				g_env = copy_env(g_env, args, 0, 0);
 		}
-		g_env = copy_env(g_env, args, 0, 0);
 	}
 }
