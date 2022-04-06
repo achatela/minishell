@@ -25,6 +25,7 @@ void	parsing(char *cmd)
 {
 	char	**cmds;
 	t_args	*args;
+//	int	i	= 0;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds == NULL)
@@ -32,6 +33,12 @@ void	parsing(char *cmd)
 		free(cmds);
 		return ;
 	}
+/*	while (cmds[i] != 0)
+	{
+		printf("%s", cmds[i]);
+		i++;
+	}
+	printf("\n");*/
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);

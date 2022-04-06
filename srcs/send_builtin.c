@@ -43,7 +43,7 @@ int	send_builtin(t_args *args, int j, char **cmds)
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
 		return(builtin_exit(head));
 	else 
-		exec_bin(cmds);
+		exec_bin(cmds, head);
 //	i = get_next_index(args, i);
 	return (-1);
 }

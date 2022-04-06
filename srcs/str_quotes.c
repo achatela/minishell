@@ -145,8 +145,14 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 char	*str_quotes(char *str)
 {
 	char	*ret;
+	int		i;
 
 	ret = fill_quotes_ret(str, 0, 0, -1);
+	i = ft_strlen(ret);
+	while (i > 0 && ret[i] == ' ')
+		ret[i--] = '\0';
+	if (ret[2] == ' ')
+		printf("espace\n");
 	//printf("length = %d\n", length_quotes(str, 0, 0));
 	return (ret);
 }

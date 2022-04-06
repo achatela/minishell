@@ -46,7 +46,7 @@ void    builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		exisiting_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds);
-int     exec_bin(char **args);
+int     exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 
 #endif
