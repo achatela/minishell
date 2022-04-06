@@ -19,7 +19,7 @@ static int	length_no_quotes(char *str, int i, int j, int k)
 			i++;
 			j = i;
 			while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-					|| str[j] == '_' /*|| str[j] == '/')*/))
+					|| str[j] == '_' || str[j] == '-' /*|| str[j] == '/')*/))
 				j++;
 			tmp = malloc(sizeof(char) * (j - i) + 2);
 			k = -1;
@@ -53,8 +53,10 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 		{
 			i++;
 			j = i;
-			while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-					|| str[j] == '_' /*|| str[j] == '/')*/))
+			while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1/*	Refaire la partie invalid identifiers
+																					(ils sont dans le .h)
+																					*/
+					|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
 				j++;
 			tmp = malloc(sizeof(char) * (j - i) + 2);
 			k = -1;

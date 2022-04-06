@@ -24,7 +24,7 @@ int	builtin_echo(t_args *args)
 {
 	if (check_echo(args, 0) == -1)
 		return (-1);
-	if (args->next != NULL)
+	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
 	{
 		if (args->next->parsed_arg[0] == '-' 
 			&& args->next->parsed_arg[1] == 'n')

@@ -1,7 +1,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// Pour compiler : gcc *.c -I./includes ./libft/libft.a -lreadline
+//	Pour compiler : gcc *.c -I./includes ./libft/libft.a -lreadline
+//	Illegal:  soh tab nl sp ! " # $ % & ' ( ) * 0 1 2 3 4 5 6 7 8 9 ; < > \ ` { | } ~ del
+//	Illegal:  soh " $ & ' ( ) ; < > [ \ ` | del
 
 # include <stdio.h>
 # include <stdlib.h>

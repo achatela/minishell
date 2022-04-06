@@ -85,7 +85,9 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 		return (NULL);
 	while (i < ft_strlen(cmd) && cmd[i])
 	{
-		while (cmd[i] && (isprintable(cmd[i]) != 1))
+		if (l == arg_number2(cmd, 0, 0, 0))
+			break;
+		while (cmd[i] && isprintable(cmd[i]) != 1)
 			i++;
 		k = i;
 		while (cmd[i] && isprintable(cmd[i]) == 1)

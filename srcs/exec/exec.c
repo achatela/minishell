@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/06 13:24:00 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:38:15 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int child(char *path, char **cmds)
      //   env_array = ft_split(tmp, '\n');
      //   ft_memdel(tmp);
 	 	tmp = ft_strchr(path, '/');
-		printf("tmp = %s\n", tmp);
         if (tmp != NULL)
             execve(path, cmds, g_env);
         ret = 1;
@@ -79,7 +78,6 @@ char *check_dir(char *bin, char *cmd)
             path = path_join(bin, dir->d_name);
         dir = readdir(folder);
     }
-	printf("path = %s\n", path);
     closedir(folder);
     return (path);
 

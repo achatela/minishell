@@ -51,14 +51,27 @@ void	fill_args(t_args *args, char *str, int index)
 
 t_args	*init_args(t_args *args, char **cmds)
 {
-	int	i;
+	int		i;
+	t_args	*head;
 
 	i = 1;
-	while (cmds[i] != NULL)
+	while (cmds[i] != NULL && cmds[i][0] != '\0')
 	{
 		ft_lstadd_back(args, ft_lstnew(NULL));
 		fill_args(ft_lstlast(args), cmds[i], i);
 		i++;
 	}
+	i = 0;
+	head = args;
+	while (head)
+	{
+		free(cmds[i]);
+		cmds[i] = head->parsed_arg;
+		i++;
+		head = head->next;
+	}
+	free(cmds[i]);
+	cmds[i] = malloc(sizeof(char));
+	cmds[i] = 0;
 	return (args);
 }

@@ -63,6 +63,14 @@ static int	length_quotes(char *str, int i, int length)
 			}
 			i++;
 		}
+		else if (str[i] == '$')
+		{
+			length += var_length(str, i, i + 1, -1);
+			while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
+					|| str[i] == '_'))	//	Rajouter tous les invalid identifiers > .h
+				i++;
+			i++;
+		}
 		else
 		{
 			i++;
@@ -101,7 +109,9 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 		tmp[j++] = str[i++];
 	while (str[i])
 	{
-		if (str[i] == '"')
+		if (str[i] == ' ' && i != 0 && str[i - 1] != '"' && str[i - 1] != 39)
+			i++;
+		else if (str[i] == '"')
 		{
 			i++;
 			while (str[i] && str[i] != '"')
@@ -124,7 +134,8 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 				else
 					tmp[j++] = str[i++];
 			}
-			i++;
+			if (str[++i] == ' ')
+				break;
 		}
 		else if (str[i] == 39)
 		{
@@ -133,8 +144,21 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 				tmp[j++] = str[i++];
 			i++;
 		}
-		/* else if str[i] == '$'
-		 * en dehors des quotes*/
+		else if (str[i] == '$')
+		{
+		tmp2 = var_str(str, i, i + 1, -1);
+			if (tmp2 != NULL)
+			{
+				k = -1;
+				while (tmp2[++k])
+					tmp[j++] = tmp2[k];
+			}
+			i++;
+			while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
+					|| str[i] == '_'))
+				i++;
+			free(tmp2);
+		}
 		else
 			tmp[j++] = str[i++];
 	}
@@ -145,14 +169,12 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 char	*str_quotes(char *str)
 {
 	char	*ret;
-	int		i;
 
+	if (str[0] == '\0' || str[0] == 32)
+		return (NULL);
 	ret = fill_quotes_ret(str, 0, 0, -1);
-	i = ft_strlen(ret);
-	while (i > 0 && ret[i] == ' ')
-		ret[i--] = '\0';
-	if (ret[2] == ' ')
-		printf("espace\n");
+//	while (i > 0 && ret[i] == ' ')
+//		ret[i--] = '\0';
 	//printf("length = %d\n", length_quotes(str, 0, 0));
 	return (ret);
 }
