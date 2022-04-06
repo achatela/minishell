@@ -36,5 +36,6 @@ void	parsing(char *cmd)
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);
 	send_builtin(args, -1, cmds);
+	free_cmds(cmds, 0);
 	free_list(args);
 }

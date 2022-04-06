@@ -68,6 +68,11 @@ static char	*home_path(t_args *args)
 
 static int	cd_errors(t_args *args, char *tmp)
 {
+	if (tmp == NULL)
+	{
+		chdir(getenv("HOME"));
+		return (1);
+	}
 	if (access(tmp, F_OK) == -1)
 	{
 		printf("cd: %s: No such file or directory\n", tmp);
@@ -78,7 +83,7 @@ static int	cd_errors(t_args *args, char *tmp)
 		printf("cd: %s: Permission denied\n", tmp);
 		return (1);
 	}
-	else if (args->next == NULL /*|| (args->next != NULL && args->next->parsed_arg == NULL)
+	if (args->next == NULL /*|| (args->next != NULL && args->next->parsed_arg == NULL)
 		*/|| (args->next != NULL && args->next->parsed_arg[0] == '~')
 		|| (args->next != NULL && args->next->is_separator == 1))
 	{
@@ -140,10 +145,10 @@ int	builtin_cd(t_args *args, int i)
 			}
 		}
 	}
-	if (simple_path(args->next->parsed_arg) == 2)
+	if (args->next != NULL && simple_path(args->next->parsed_arg) == 2)
 		i = cd_errors(args, tmp);
-	else
-		i = cd_errors(args, args->next->parsed_arg);
+	else if (args->next == NULL)
+		i = cd_errors(args, NULL);
 	switch_pwds(g_env, 0, 0);
 	if (tmp != NULL)
 		free(tmp);

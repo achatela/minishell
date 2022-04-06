@@ -36,7 +36,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_env = init_env(env, 0, 0, 0);
-//	path = get_path(g_env, 0);	/*à deplacer plus tard*/
 	while (1)
 	{
 		cmd = readline(get_prompt(g_env, -1));
