@@ -25,11 +25,11 @@ static int	var_length(char *str, int i, int j, int k)
 
 static int	length_quotes(char *str, int i, int length)
 {
-	while (str[i] && str[i] != '"' && str[i] != 39)
+/*	while (str[i] && str[i] != '"' && str[i] != 39)
 	{
 		length++;
 		i++;
-	}
+	}*/
 	while (str[i])
 	{
 		if (str[i] == '"'/*&& i == 0*/)
@@ -105,11 +105,13 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 	char	*tmp2;
 
 	tmp = malloc(sizeof(char) * (length_quotes(str, 0, 0) + 1));
-	while (str[i] && str[i] != '"' && str[i] != 39)
-		tmp[j++] = str[i++];
+//	while (str[i] && str[i] != '"' && str[i] != 39)
+//		tmp[j++] = str[i++];
 	while (str[i])
 	{
 		if (str[i] == ' ' && i != 0 && str[i - 1] != '"' && str[i - 1] != 39)
+			i++;
+		else if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == 39))
 			i++;
 		else if (str[i] == '"')
 		{
@@ -146,7 +148,7 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 		}
 		else if (str[i] == '$')
 		{
-		tmp2 = var_str(str, i, i + 1, -1);
+			tmp2 = var_str(str, i, i + 1, -1);
 			if (tmp2 != NULL)
 			{
 				k = -1;
