@@ -28,7 +28,7 @@ void	parsing(char *cmd)
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	(void)parse_separators;
-//	cmds = parse_separators(cmds, 0);
+	cmds = parse_separators(cmds, 0);
 	if (cmds == NULL)
 	{
 		free(cmds);

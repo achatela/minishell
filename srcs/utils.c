@@ -23,13 +23,12 @@ char	*cut_var_begin(char *str, int i, int j)
 
 void	free_cmds(char **cmds, int i)
 {
-	while (cmds[i] != NULL)
+	while (cmds[i] != 0)
 	{
 		free(cmds[i]);
 		i++;
 	}
 	free(cmds[i]);
-	free(cmds);
 }
 
 int	env_lines(char **env)
