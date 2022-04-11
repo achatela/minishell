@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/08 14:50:19 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:41:18 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ int exec_bin(char **cmds, t_args *args)
 	{
         path = check_dir(bin[i++], args->parsed_arg);
 	}
+	i = -1;
+	while (bin[++i] != 0)
+		free(bin[i]);
+	free(bin);
 	if (path != NULL)
     	ret = child(path, cmds);
     return (ret);

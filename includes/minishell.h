@@ -47,7 +47,7 @@ char	*cut_var_begin(char *str, int i, int j);
 char	*cut_var_end(char *str, int i, int j);
 void    builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
-int		exisiting_var(char **env, t_args *args);
+int		existing_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds);
 int     exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);

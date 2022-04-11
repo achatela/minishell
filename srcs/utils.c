@@ -29,6 +29,7 @@ void	free_cmds(char **cmds, int i)
 		i++;
 	}
 	free(cmds[i]);
+	free(cmds);
 }
 
 int	env_lines(char **env)

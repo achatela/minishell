@@ -19,7 +19,7 @@ static int	exact_copy(char **env, t_args *args)
 	return (0);
 }
 
-int	exisiting_var(char **env, t_args *args)
+int	existing_var(char **env, t_args *args)
 {
 	char	*tmp;
 	int		i;

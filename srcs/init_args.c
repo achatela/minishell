@@ -71,7 +71,6 @@ t_args	*init_args(t_args *args, char **cmds)
 		head = head->next;
 	}
 	free(cmds[i]);
-	cmds[i] = malloc(sizeof(char));
 	cmds[i] = 0;
 	return (args);
 }

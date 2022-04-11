@@ -23,7 +23,6 @@ static char	**init_env(char **env, int i, int j, int k)
 		g_env[i][j] = '\0';
 		i++;
 	}
-	g_env[i] = malloc(sizeof(char));
 	g_env[i] = 0;
 	return (g_env);
 }
@@ -32,15 +31,16 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	*prompt;
+	int	i = 4;
 
 	argc = -1;
 	(void)argc;
 	(void)argv;
 	g_env = init_env(env, 0, 0, 0);
-	while (1)
+	while (--i)
 	{
 		prompt = get_prompt(g_env, -1);
-		cmd = readline(get_prompt(g_env, -1));
+		cmd = readline(prompt);
 		if (cmd[0] != '\0')
 		{
 			add_history(cmd);

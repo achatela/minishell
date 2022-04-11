@@ -39,6 +39,7 @@ static char	*parsed_path(char *str, int i, int j)
 	while (str[i])
 		ret[j++] = str[i++];
 	ret[j] = '\0';
+	free(tmp);
 	return (ret);
 }
 
@@ -127,6 +128,7 @@ int	builtin_cd(t_args *args, int i)
 		if (simple_path(args->next->parsed_arg) != 2 && chdir(args->next->parsed_arg) == 0)
 		{
 			switch_pwds(g_env, 0, 0);
+			free(tmp);
 			return (0);
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)

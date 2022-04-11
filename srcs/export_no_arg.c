@@ -32,7 +32,6 @@ static void	sort_env(char **env, int i, int j)
 		new[i][j] = '\0';
 		i++;
 	}
-	new[i] = malloc(sizeof(char));
 	new[i] = 0;
 	j = 0;
 	i = 0;

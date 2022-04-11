@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:59:48 by achatela          #+#    #+#             */
-/*   Updated: 2021/12/02 17:27:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:50:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -34,5 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		b++;
 	}
 	str[a] = '\0';
+	free((char *)s1);
 	return (str);
 }

@@ -148,7 +148,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 		l++;
 		i++;
 	}
-	cmds[l] = malloc(sizeof(char));
 	cmds[l] = 0;
 	return (cmds);
 }

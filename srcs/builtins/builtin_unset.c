@@ -37,7 +37,6 @@ char	**remove_var(char **env, char *tmp, int i, int j)
 			j++;
 		}
 	}
-	new[j] = malloc(sizeof(char));
 	new[j] = 0;
 	free_env(env, 0);
 	return (new);
