@@ -31,6 +31,7 @@ static char	**init_env(char **env, int i, int j, int k)
 int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
+	char	*prompt;
 
 	argc = -1;
 	(void)argc;
@@ -38,12 +39,14 @@ int	main(int argc, char **argv, char **env)
 	g_env = init_env(env, 0, 0, 0);
 	while (1)
 	{
+		prompt = get_prompt(g_env, -1);
 		cmd = readline(get_prompt(g_env, -1));
 		if (cmd[0] != '\0')
 		{
 			add_history(cmd);
 			parsing(cmd);
 		}
+		free(prompt);
 		free(cmd);
 	}
 	clear_history();

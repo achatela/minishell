@@ -96,7 +96,10 @@ char	*get_end(char **env, int i, int j)
 char	*get_prompt(char **env, int i)
 {
 	char	**ret;
+	char	*tmp;
 
+	tmp = malloc(sizeof(char));
+	tmp[0] = '\0';
 	ret = malloc(sizeof(char *) * 4);
 	ret[0] = get_env_var(g_env, "USER", 0);
 	ret[1] = get_session(g_env, 0, 0, 0);
@@ -105,15 +108,15 @@ char	*get_prompt(char **env, int i)
 		ret[3] = NULL;
 	else
 		ret[3] = get_end(env, 0, 0);
-	if (ret[3] != NULL)
-		printf("%s%s%s%s", ret[0], ret[1], ret[2], ret[3]);
-	else
-		printf("%s%s%s", ret[0], ret[1], ret[2]);
+	while (++i < 4 && ret[i] != NULL)
+		tmp = ft_strjoin(tmp, ret[i]);
+	tmp = ft_strjoin(tmp, "$ ");
+	i = -1;
 	while (++i < 4)
 	{
 		if (ret[i])
 			free(ret[i]);
 	}
 	free(ret);
-	return ("$ ");
+	return (tmp);
 }
