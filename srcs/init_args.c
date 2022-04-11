@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-/*static char	*list_parsing(t_args *args, char *str)
-{
-	(void)args;
-	return (str);
-	//maxi parsing à faire + set args->to_print
-}*/
-
 static int	str_is_sep(char *str)
 {
 	if (ft_strlen(str) > 3)
@@ -30,7 +23,6 @@ static int	str_is_sep(char *str)
 
 void	fill_args(t_args *args, char *str, int index)
 {
-	//redéfinir is_separator en fonction de str
 	if (index == 0)
 	{
 		args->to_use = 0;
@@ -45,7 +37,6 @@ void	fill_args(t_args *args, char *str, int index)
 	if (str_is_sep(str) == 1)
 		args->is_separator = 1;
 	args->index = index;
-//	args->parsed_arg = str;
 	args->parsed_arg = parse_arg(str, 0);
 }
 
