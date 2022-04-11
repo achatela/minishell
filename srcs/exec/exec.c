@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/11 13:41:18 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:42:39 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char    *path_join(const char *s1, const char *s2)
 
     tmp = ft_strjoin(s1, "/");
     path = ft_strjoin(tmp, s2);
-    ft_memdel(tmp);
+//  ft_memdel(tmp);
     return (path);
 }
 
@@ -79,6 +79,7 @@ char *check_dir(char *bin, char *cmd)
         dir = readdir(folder);
     }
     closedir(folder);
+//	free(dir);
     return (path);
 
 }
@@ -88,10 +89,9 @@ int exec_bin(char **cmds, t_args *args)
     int     i;
     char    **bin;
     char    *path;
-    int     ret;
+	int		j;
 
     i = 0;
-    ret = 0;
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
     if (g_env[i] == 0)
@@ -105,11 +105,19 @@ int exec_bin(char **cmds, t_args *args)
 	{
         path = check_dir(bin[i++], args->parsed_arg);
 	}
+	j = i - 1;
 	i = -1;
 	while (bin[++i] != 0)
-		free(bin[i]);
-	free(bin);
+	{
+		if (bin[i] != NULL && i != j)
+			free(bin[i]);
+	}
+	i = 0;
 	if (path != NULL)
-    	ret = child(path, cmds);
-    return (ret);
+    	i = child(path, cmds);
+	else
+		free(bin[j]);
+	free(bin);
+	free(path);
+	return (i);
 }

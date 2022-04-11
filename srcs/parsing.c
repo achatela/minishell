@@ -25,10 +25,11 @@ void	parsing(char *cmd)
 {
 	char	**cmds;
 	t_args	*args;
+//	int	i = -1;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	cmds = parse_separators(cmds, 0);
-	if (cmds == NULL)
+	if (cmds[0] == 0)
 	{
 		free(cmds);
 		return ;
