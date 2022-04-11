@@ -28,12 +28,12 @@ void	parsing(char *cmd)
 //	int	i = -1;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
-	cmds = parse_separators(cmds, 0);
-	if (cmds[0] == 0)
+	if (cmds == NULL || cmds[0] == 0)
 	{
 		free(cmds);
 		return ;
 	}
+	cmds = parse_separators(cmds, 0);
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);

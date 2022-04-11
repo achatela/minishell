@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/11 15:42:39 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:24:15 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int exec_bin(char **cmds, t_args *args)
     bin = ft_split(g_env[i], ':');
     if (!args->parsed_arg && !bin[0])
         return (1);
-    path = check_dir(bin[0] + 5, args->parsed_arg);
+    path = check_dir(bin[0], args->parsed_arg);
     i = 1;
     while (args->parsed_arg && bin[i] && path == NULL)
 	{
@@ -116,7 +116,12 @@ int exec_bin(char **cmds, t_args *args)
 	if (path != NULL)
     	i = child(path, cmds);
 	else
+	{
+		printf("%s: command not found\n", args->parsed_arg);
 		free(bin[j]);
+	}
+//	UTILISER /usr/lib/command-not-found
+//	QUAND LA COMMAND EST NOT FOUND
 	free(bin);
 	free(path);
 	return (i);
