@@ -26,6 +26,7 @@ static void print_n(t_args *args)
 
 int	builtin_echo(t_args *args)
 {
+	int fd;
 	if (check_echo(args, 0) == -1)
 		return (-1);
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
@@ -43,6 +44,17 @@ int	builtin_echo(t_args *args)
 		printf("%s", args->parsed_arg);
 		printf(" ");
 		args = args->next;
+	}
+	if (args && args->to_use == 1 && args->is_separator == 1)
+	{
+		fd = open(args->next->parsed_arg, O_WRONLY | O_CREAT, 0666);
+		if (fd < 0)
+		{
+			printf("file not found\n");
+			return (2);
+		}
+		write(fd, "ff\n", 3); // OUE
+		close(fd);
 	}
 	printf("\n");
 	return (1);

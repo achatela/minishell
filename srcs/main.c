@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	*prompt;
-	int		i = 10;
+	int		i = 60;
 
 	argc = -1;
 	(void)argc;
