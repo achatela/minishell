@@ -27,6 +27,9 @@ static void print_n(t_args *args)
 int	builtin_echo(t_args *args)
 {
 	int fd;
+	t_args *head;
+
+	head = args;
 	if (check_echo(args, 0) == -1)
 		return (-1);
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
@@ -53,7 +56,14 @@ int	builtin_echo(t_args *args)
 			printf("file not found\n");
 			return (2);
 		}
-		write(fd, "ff\n", 3); // OUE
+		head = head->next;
+		while (head && head->is_separator == 0)
+		{
+			write(fd, head->parsed_arg, ft_strlen(head->parsed_arg));
+			write(fd, " ", 1);
+			head = head->next;
+		}
+		write(fd, "\n", 1);
 		close(fd);
 	}
 	printf("\n");
