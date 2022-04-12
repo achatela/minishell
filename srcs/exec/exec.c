@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/11 18:24:15 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/12 13:46:03 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,45 @@ char *check_dir(char *bin, char *cmd)
 
 }
 
+static char	**command_not_found(t_args *args, int i, char *str)
+{
+	char	**new;
+
+	(void)str;
+	new = malloc(sizeof(char *) * 2);
+	if (!new)
+		return (NULL);
+	new[0] = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[i++])
+		new[0][i] = str[i];
+	new[0][i] = '\0';
+	i = -1;
+	new[1] = malloc(sizeof(char) * ft_strlen(args->parsed_arg) + 1);
+	while (args->parsed_arg[++i])
+		new[1][i] = args->parsed_arg[i];
+	new[1][i] = '\0';
+/*	if (args->next != NULL)
+	{
+		new[0] = malloc(sizeof(char) * ft_strlen(args->next->parsed_arg) + 1);
+		while (args->next->parsed_arg[++i])
+			new[0][i] = args->next->parsed_arg[i];
+		new[0][i] = '\0';
+		i = -1;
+		new[1] = malloc(sizeof(char) * ft_strlen(args->parsed_arg) + 1);
+		while (args->parsed_arg[++i])
+			new[1][i] = args->parsed_arg[i];
+		new[1][i] = '\0';
+	}*/
+	return (new);
+}
+
 int exec_bin(char **cmds, t_args *args)
 {
     int     i;
     char    **bin;
     char    *path;
 	int		j;
+	char	**tmp;
 
     i = 0;
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
@@ -117,6 +150,9 @@ int exec_bin(char **cmds, t_args *args)
     	i = child(path, cmds);
 	else
 	{
+		tmp = command_not_found(args, -1, "command-not-found");
+		printf("%s, %s\n", tmp[0], tmp[1]);
+		execve("/usr/lib/command-not-found", tmp, g_env);
 		printf("%s: command not found\n", args->parsed_arg);
 		free(bin[j]);
 	}
