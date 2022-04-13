@@ -69,7 +69,7 @@ static char	*home_path(t_args *args)
 
 static int	cd_errors(t_args *args, char *tmp)
 {
-	if (tmp == NULL)
+	if (tmp == NULL || (args->next && args->is_separator == 1))
 	{
 		chdir(getenv("HOME"));
 		return (1);
@@ -150,6 +150,8 @@ int	builtin_cd(t_args *args, int i)
 	if (args->next != NULL && simple_path(args->next->parsed_arg) == 2)
 		i = cd_errors(args, tmp);
 	else if (args->next == NULL)
+		i = cd_errors(args, NULL);
+	else
 		i = cd_errors(args, NULL);
 	switch_pwds(g_env, 0, 0);
 	if (tmp != NULL)

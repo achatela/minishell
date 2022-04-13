@@ -85,7 +85,7 @@ void    builtin_unset(char **env, t_args *args)
 	char *tmp;
 
 	(void)env;
-	while (args->next != NULL && args->next->to_use == 1)
+	while (args->next != NULL && args->next->to_use == 1 && args->next->is_separator != 1)
 	{
 		args = args->next;
 //		if (args->next == NULL || args->next->to_use == 0)

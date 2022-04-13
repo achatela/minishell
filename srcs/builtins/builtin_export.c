@@ -59,12 +59,12 @@ void	builtin_export(char **env, t_args *args)
 {
 	int	i;
 
-	if (args->next == NULL || args->next->to_use == 0)
+	if (args->next == NULL || args->next->to_use == 0 || args->next->is_separator == 1)
 	{
 		export_no_arg(env, 0, 0);
 		return ;
 	}
-	while (args->next != NULL && args->next->to_use == 1) 
+	while (args->next != NULL && args->next->to_use == 1 && args->next->is_separator != 1) 
 	{
 		args = args->next;
 		i = existing_var(g_env, args);

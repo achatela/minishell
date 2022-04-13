@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	is_separator(char *str, int i)
+int	is_separator(char *str, int i)
 {
 //	if ((str[i] == '|' && str[i + 1]) /*|| i > 0 || (str[i] == '|' && i > 0 && str[i - 1])*/)
 

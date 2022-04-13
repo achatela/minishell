@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/13 14:12:28 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:07:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,51 @@
 
 /* EXEC A FAIRE */
 
+static char	**args_exec(char **cmds, char *path, int i, int j)
+{
+	int		k;
+	char	**new;
+
+	k = 0;
+	while (path[k])
+		k++;
+	while (path[k - 1] != '/')
+		k--;
+	while (cmds[++i] != 0)
+	{
+		if (ft_strncmp(cmds[i], path + k, ft_strlen(path + k)) == 0)
+			break;
+	}
+	if (cmds[i + 1] == 0)
+		return (cmds);
+	j = i + 1;
+	while (cmds[i + 1] && is_separator(cmds[i++], 0) == 0)
+		k++;
+	new = malloc(sizeof(char *) * (k + 2));
+	k = 0;
+	while (cmds[j + 1] && is_separator(cmds[j++], 0) == 0)
+	{
+		i = -1;
+		new[k] = malloc(sizeof(char) * (ft_strlen(cmds[j]) + 1));
+		while (cmds[j][++i])
+			new[k][i] = cmds[j][i];
+		new[k][i] = '\0';
+		k++;
+	}
+	new[k] = 0;
+	return (cmds);
+}
+
 int child(char *path, char **cmds)
 {
    // char **env_array;
-    char *tmp;
-    int i;
-    int ret;
-    pid_t pid;
+    char	*tmp;
+    char	**args;
+    int		ret;
+    pid_t	pid;
 
 
     ret = 0;
-    i = 0;
     pid = fork();
     if (pid == 0)
     {
@@ -33,12 +67,12 @@ int child(char *path, char **cmds)
             tmp = g_env[i];
             i++;
         }*/
-		i++;
      //   env_array = ft_split(tmp, '\n');
      //   ft_memdel(tmp);
+	 	args = args_exec(cmds, path, -1, 0);
 	 	tmp = ft_strchr(path, '/');
         if (tmp != NULL)
-            execve(path, cmds, g_env);
+            execve(path, args, g_env);
         ret = 1;
 		free(tmp);
         exit(ret);
@@ -126,7 +160,6 @@ int exec_bin(char **cmds, t_args *args)
 	char	**tmp;
 
     i = 0;
-	(void)command_not_found;
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
     if (g_env[i] == 0)
