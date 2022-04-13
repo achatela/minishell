@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/12 13:46:03 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:12:28 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int child(char *path, char **cmds)
     int i;
     int ret;
     pid_t pid;
+
 
     ret = 0;
     i = 0;
@@ -88,12 +89,11 @@ static char	**command_not_found(t_args *args, int i, char *str)
 {
 	char	**new;
 
-	(void)str;
-	new = malloc(sizeof(char *) * 2);
+	new = malloc(sizeof(char *) * 3);
 	if (!new)
 		return (NULL);
 	new[0] = malloc(sizeof(char) * ft_strlen(str) + 1);
-	while (str[i++])
+	while (str[++i])
 		new[0][i] = str[i];
 	new[0][i] = '\0';
 	i = -1;
@@ -101,6 +101,7 @@ static char	**command_not_found(t_args *args, int i, char *str)
 	while (args->parsed_arg[++i])
 		new[1][i] = args->parsed_arg[i];
 	new[1][i] = '\0';
+	new[2] = 0;
 /*	if (args->next != NULL)
 	{
 		new[0] = malloc(sizeof(char) * ft_strlen(args->next->parsed_arg) + 1);
@@ -125,6 +126,7 @@ int exec_bin(char **cmds, t_args *args)
 	char	**tmp;
 
     i = 0;
+	(void)command_not_found;
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
     if (g_env[i] == 0)
@@ -151,9 +153,7 @@ int exec_bin(char **cmds, t_args *args)
 	else
 	{
 		tmp = command_not_found(args, -1, "command-not-found");
-		printf("%s, %s\n", tmp[0], tmp[1]);
-		execve("/usr/lib/command-not-found", tmp, g_env);
-		printf("%s: command not found\n", args->parsed_arg);
+		child("/usr/lib/command-not-found", tmp);
 		free(bin[j]);
 	}
 //	UTILISER /usr/lib/command-not-found
