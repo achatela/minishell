@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/14 14:27:39 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:37:53 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	return (cmds);*/
 }
 
-int child(char *path, char **cmds)
+int child(char *path, char **cmds, t_args *args)
 {
    // char **env_array;
     char	*tmp;
-    char	**args;
+    char	**new;
     int		ret;
     pid_t	pid;
 
@@ -122,10 +122,10 @@ int child(char *path, char **cmds)
         }*/
      //   env_array = ft_split(tmp, '\n');
      //   ft_memdel(tmp);
-	 	args = args_exec(cmds, path, -1, 0);
+	 	new = args_exec(cmds, path, args->index - 1, 0);
 	 	tmp = ft_strchr(path, '/');
         if (tmp != NULL)
-            execve(path, args, g_env);
+            execve(path, new, g_env);
         ret = 1;
 		free(tmp);
         exit(ret);
@@ -213,6 +213,7 @@ int exec_bin(char **cmds, t_args *args)
 	char	**tmp;
 
     i = 0;
+	printf("index = %d\n", args->index);
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
     if (g_env[i] == 0)
@@ -235,11 +236,11 @@ int exec_bin(char **cmds, t_args *args)
 	}
 	i = 0;
 	if (path != NULL)
-    	i = child(path, cmds);
+    	i = child(path, cmds, args);
 	else
 	{
 		tmp = command_not_found(args, -1, "command-not-found");
-		child("/usr/lib/command-not-found", tmp);
+		child("/usr/lib/command-not-found", tmp, args);
 		free(bin[j]);
 	}
 //	UTILISER /usr/lib/command-not-found
