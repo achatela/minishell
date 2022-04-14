@@ -40,6 +40,7 @@ void	parsing(char *cmd)
 	char	**cmds;
 	t_args	*head;
 	t_args	*args;
+	t_args	*free_head;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds == NULL || cmds[0] == 0)
@@ -51,6 +52,7 @@ void	parsing(char *cmd)
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);
+	free_head = args;
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
 	else if (has_sep(args) == 1)
@@ -73,5 +75,5 @@ void	parsing(char *cmd)
 		}
 	}
 	free_cmds(cmds, 0);
-	free_list(args);
+	free_list(free_head);
 }
