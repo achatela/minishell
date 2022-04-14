@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/14 14:39:55 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:27:25 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	char	**new;
 
 	k = 0;
+	if (ft_strcmp(cmds[0], "command-not-found") == 0)
+		i = -1;
 	while (path[k])
 		k++;
 	while (path[k - 1] != '/')
@@ -72,34 +74,6 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		new[k] = 0;
 	}
 	return (new);
-/*	if (cmds[i + 1] == 0)
-		return (cmds);
-	j = i + 1;
-	while (cmds[i + 1] && is_separator(cmds[i++], 0) == 0)
-		k++;
-	new = malloc(sizeof(char *) * (k + 2));
-	k = 0;
-	while (cmds[j + 1] && is_separator(cmds[j++], 0) == 0)
-	{
-		i = -1;
-		new[k] = malloc(sizeof(char) * (ft_strlen(cmds[j]) + 1));
-		while (cmds[j][++i])
-			new[k][i] = cmds[j][i];
-		new[k][i] = '\0';
-		k++;
-	}
-	if (k == 0)
-	{
-		printf("ici\n");
-		i = -1;
-		new[k] = malloc(sizeof(char) * ft_strlen(cmds[j]) + 1);
-		while (cmds[j][++i])
-			new[k][i] = cmds[j][i];
-		new[k][i] = '\0';
-		new[k + 1] = 0;
-	}
-		new[k] = 0;
-	return (cmds);*/
 }
 
 int child(char *path, char **cmds, t_args *args)
@@ -127,6 +101,7 @@ int child(char *path, char **cmds, t_args *args)
         if (tmp != NULL)
             execve(path, new, g_env);
         ret = 1;
+		free_cmds(new, 0);
 		free(tmp);
         exit(ret);
     }
@@ -213,7 +188,6 @@ int exec_bin(char **cmds, t_args *args)
 	char	**tmp;
 
     i = 0;
-	printf("index = %d\n", args->index);
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
     if (g_env[i] == 0)
@@ -241,6 +215,7 @@ int exec_bin(char **cmds, t_args *args)
 	{
 		tmp = command_not_found(args, -1, "command-not-found");
 		child("/usr/lib/command-not-found", tmp, args);
+		free_cmds(tmp, 0);
 		free(bin[j]);
 	}
 //	UTILISER /usr/lib/command-not-found

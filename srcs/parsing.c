@@ -40,7 +40,6 @@ void	parsing(char *cmd)
 	char	**cmds;
 	t_args	*head;
 	t_args	*args;
-	int	i = -1;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds == NULL || cmds[0] == 0)
@@ -52,10 +51,6 @@ void	parsing(char *cmd)
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds);
-	while (cmds[++i] != 0)
-	{
-		printf("%d\n", i);
-	}
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
 	else if (has_sep(args) == 1)
