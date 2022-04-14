@@ -6,13 +6,24 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/13 17:07:31 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:27:39 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* EXEC A FAIRE */
+
+static int isseparator(char *str, int i)
+{
+	if (str[i] == '|')
+		return (1);
+	if (str[i] == '<')
+		return (1);
+	if (str[i] == '>')
+		return (1);
+	return (0);
+}
 
 static char	**args_exec(char **cmds, char *path, int i, int j)
 {
@@ -29,7 +40,39 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		if (ft_strncmp(cmds[i], path + k, ft_strlen(path + k)) == 0)
 			break;
 	}
+	j = i;
 	if (cmds[i + 1] == 0)
+	{
+		new = malloc(sizeof(char *) * 2);
+		new[0] = cmds[i];
+		new[1] = 0;
+		return (new);
+	}
+	else if (cmds[i] == 0)
+		return (cmds);
+	else if (cmds[i] != 0)
+	{
+		k = 0;
+		while(cmds[i] != 0 && isseparator(cmds[i], 0) == 0)
+		{
+			k++;
+			i++;
+		}
+		new = malloc(sizeof(char *) * (k + 2));
+		k = 0;
+		while (cmds[j] != 0 && isseparator(cmds[j], 0) == 0)
+		{
+			i = -1;
+			new[k] = malloc(sizeof(char) * ft_strlen(cmds[j]) + 1);
+			while (cmds[j][++i])
+				new[k][i] = cmds[j][i];
+			new[k++][i] = '\0';
+			j++;
+		}
+		new[k] = 0;
+	}
+	return (new);
+/*	if (cmds[i + 1] == 0)
 		return (cmds);
 	j = i + 1;
 	while (cmds[i + 1] && is_separator(cmds[i++], 0) == 0)
@@ -45,8 +88,18 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		new[k][i] = '\0';
 		k++;
 	}
-	new[k] = 0;
-	return (cmds);
+	if (k == 0)
+	{
+		printf("ici\n");
+		i = -1;
+		new[k] = malloc(sizeof(char) * ft_strlen(cmds[j]) + 1);
+		while (cmds[j][++i])
+			new[k][i] = cmds[j][i];
+		new[k][i] = '\0';
+		new[k + 1] = 0;
+	}
+		new[k] = 0;
+	return (cmds);*/
 }
 
 int child(char *path, char **cmds)
