@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/04/14 14:37:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:39:55 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 			break;
 	}
 	j = i;
-	if (cmds[i + 1] == 0)
+	if (cmds[i] == 0)
+		return (cmds);
+	else if (cmds[i + 1] == 0)
 	{
 		new = malloc(sizeof(char *) * 2);
 		new[0] = cmds[i];
 		new[1] = 0;
 		return (new);
 	}
-	else if (cmds[i] == 0)
-		return (cmds);
 	else if (cmds[i] != 0)
 	{
 		k = 0;
