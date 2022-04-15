@@ -20,6 +20,25 @@
 
 extern char	**g_env;
 
+typedef struct s_echo	t_echo;
+struct s_echo
+{
+	int	print;
+};
+
+typedef struct s_args	t_args;
+struct	s_args
+{
+	int		index;
+	char	*parsed_arg;
+	int		is_command;
+	int		to_use;
+	int		is_separator;
+	t_echo	*echo;
+	t_args	*next;
+	t_args	*before;
+};
+
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);
 char	*str_no_quotes(char *str, int i, int j, int k);
@@ -29,7 +48,7 @@ void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index);
 char	**new_parsing(char *cmd, int i, int j, int k);
 int		builtin_echo(t_args *args);
-void	parsing(char *cmd);
+void	parsing(char *cmd, t_echo *echo);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 int		send_builtin(t_args *args, int j, char **cmds);
@@ -49,7 +68,7 @@ char	*cut_var_end(char *str, int i, int j);
 void    builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		existing_var(char **env, t_args *args);
-t_args	*init_args(t_args *args, char **cmds);
+t_args	*init_args(t_args *args, char **cmds, t_echo *echo);
 int     exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);

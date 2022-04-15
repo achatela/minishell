@@ -28,6 +28,7 @@ int	builtin_echo(t_args *args)
 {
 	int fd;
 	t_args *head;
+	int		i;
 
 	head = args;
 	if (check_echo(args, 0) == -1)
@@ -44,7 +45,17 @@ int	builtin_echo(t_args *args)
 	args = args->next;
 	while (args && args->to_use == 1 && args->is_separator == 0)
 	{
-		printf("%s", args->parsed_arg);
+		i = -1;
+		while (args->parsed_arg[++i])
+		{
+			if (args->parsed_arg[i] == '$' && args->parsed_arg[i + 1] == '?')
+			{
+				printf("%d", args->echo->print);
+				i++;
+			}
+			else
+				printf("%c", args->parsed_arg[i]);
+		}
 		printf(" ");
 		args = args->next;
 	}

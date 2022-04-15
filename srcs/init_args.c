@@ -40,7 +40,7 @@ void	fill_args(t_args *args, char *str, int index)
 	args->parsed_arg = parse_arg(str, 0);
 }
 
-t_args	*init_args(t_args *args, char **cmds)
+t_args	*init_args(t_args *args, char **cmds, t_echo *echo)
 {
 	int		i;
 	t_args	*head;
@@ -54,9 +54,11 @@ t_args	*init_args(t_args *args, char **cmds)
 	}
 	i = 0;
 	head = args;
+	head->echo = echo;
 	while (head)
 	{
 		free(cmds[i]);
+		head->echo = echo;
 		cmds[i] = head->parsed_arg;
 		i++;
 		head = head->next;

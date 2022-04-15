@@ -17,20 +17,28 @@ static int	length_no_quotes(char *str, int i, int j, int k)
 		else
 		{
 			i++;
-			j = i;
-			while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-					|| str[j] == '_' || str[j] == '-' /*|| str[j] == '/')*/))
-				j++;
-			tmp = malloc(sizeof(char) * (j - i) + 2);
-			k = -1;
-			while (++k > -1 && i < j)
+			if (str[i] == '?' && str[i - 1] == '$')
+			{
+				length += 2;
+				i++;
+			}
+			else
+			{
+				j = i;
+				while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
+						|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
+					j++;
+				tmp = malloc(sizeof(char) * (j - i) + 2);
+				k = -1;
+				while (++k > -1 && i < j)
 				tmp[k] = str[i++];
-			tmp[k++] = '=';
-			tmp[k] = '\0';
-			tmp2 = get_env_var(g_env, tmp, 0);
-			length += ft_strlen(tmp2);
-			free(tmp);
-			free(tmp2);
+				tmp[k++] = '=';
+				tmp[k] = '\0';
+				tmp2 = get_env_var(g_env, tmp, 0);
+				length += ft_strlen(tmp2);
+				free(tmp);
+				free(tmp2);
+			}
 		}
 	}
 	return (length + 1);
@@ -44,7 +52,7 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 	int		l;
 
 	l = 0;
-	ret = malloc(sizeof(char) * (length_no_quotes(str, 0, 0, 0)));
+	ret = malloc(sizeof(char) * (length_no_quotes(str, 0, 0, 0)) + 1);
 	while (str[i])
 	{
 		if (str[i] && str[i] != '$')
@@ -52,24 +60,32 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 		else
 		{
 			i++;
-			j = i;
-			while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1/*	Refaire la partie invalid identifiers
-																					(ils sont dans le .h)
-																					*/
-					|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
-				j++;
-			tmp = malloc(sizeof(char) * (j - i) + 2);
-			k = -1;
-			while (++k > -1 && i < j)
-				tmp[k] = str[i++];
-			tmp[k++] = '=';
-			tmp[k] = '\0';
-			k = -1;
-			tmp2 = get_env_var(g_env, tmp, 0);
-			free(tmp);
-			while (tmp2[++k])
-				ret[l++] = tmp2[k];
-			free(tmp2);
+			if (str[i] == '?' && str[i - 1] == '$')
+			{
+				ret[l++] = '$';
+				ret[l++] = '?';
+				i++;
+			}
+			else
+			{
+				j = i;
+				while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1/*	Refaire la partie invalid identifiers
+																						(ils sont dans le .h)*/
+						|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
+					j++;
+				tmp = malloc(sizeof(char) * (j - i) + 2);
+				k = -1;
+				while (++k > -1 && i < j)
+					tmp[k] = str[i++];
+				tmp[k++] = '=';
+				tmp[k] = '\0';
+				k = -1;
+				tmp2 = get_env_var(g_env, tmp, 0);
+				free(tmp);
+				while (tmp2[++k])
+					ret[l++] = tmp2[k];
+				free(tmp2);
+			}
 		}
 	}
 	ret[l] = '\0';

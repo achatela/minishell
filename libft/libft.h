@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:05:41 by achatela          #+#    #+#             */
-/*   Updated: 2022/04/05 15:43:54 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/04/15 13:22:54 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,9 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
+# include "../includes/minishell.h"
 
 typedef struct s_args	t_args;
-struct	s_args
-{
-	int		index;
-	char	*parsed_arg;
-	int		is_command;
-	int		to_use;
-	int		is_separator;
-	t_args	*next;
-	t_args	*before;
-};
 
 void	ft_lstadd_back(t_args *alst, t_args *new);
 t_args	*ft_lstlast(t_args *lst);

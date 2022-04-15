@@ -35,7 +35,7 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
-void	parsing(char *cmd)
+void	parsing(char *cmd, t_echo *echo)
 {
 	char	**cmds;
 	t_args	*head;
@@ -51,7 +51,7 @@ void	parsing(char *cmd)
 	cmds = parse_separators(cmds, 0);
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0);
-	args = init_args(args, cmds);
+	args = init_args(args, cmds, echo);
 	free_head = args;
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);

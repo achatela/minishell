@@ -31,11 +31,14 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	*prompt;
-	int		i = 4;
+	int		i = 40;
+	t_echo	*echo;
 
 	argc = -1;
 	(void)argc;
 	(void)argv;
+	echo = malloc(sizeof(t_echo));
+	echo->print = 0;
 	g_env = init_env(env, 0, 0, 0);
 	while (--i)
 	{
@@ -44,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 		if (cmd[0] != '\0')
 		{
 			add_history(cmd);
-			parsing(cmd);
+			parsing(cmd, echo);
 		}
 		free(prompt);
 		free(cmd);
