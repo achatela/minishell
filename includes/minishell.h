@@ -39,6 +39,7 @@ struct	s_args
 	t_args	*before;
 };
 
+void	handler(int sig);
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);
 char	*str_no_quotes(char *str, int i, int j, int k);

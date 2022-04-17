@@ -26,11 +26,11 @@ int	main(int argc, char **argv)
 		close(0);
 		dup2(p[0], 0);
 		read(p[0], &tmp, 1);
-		while (tmp != '\0')
+	/*	while (tmp != '\0')
 		{
 			write(1, &tmp, 1);
 			read(p[0], &tmp, 1);
-		}
+		}*/
 	}
 //	printf("sorti\n");
 	return (ret);

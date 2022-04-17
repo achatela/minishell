@@ -27,11 +27,23 @@ static char	**init_env(char **env, int i, int j, int k)
 	return (g_env);
 }
 
+static char	*set_cmd(char *cmd, char *exit)
+{
+	int	i;
+
+	i = -1;
+	cmd = malloc(sizeof(char) * 5);
+	while (exit[++i])
+		cmd[i] = exit[i];
+	cmd[i] = '\0';
+	return (cmd);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	*prompt;
-	int		i = 40;
+	int		i = 4;
 	t_echo	*echo;
 
 	argc = -1;
@@ -40,10 +52,17 @@ int	main(int argc, char **argv, char **env)
 	echo = malloc(sizeof(t_echo));
 	echo->print = 0;
 	g_env = init_env(env, 0, 0, 0);
+	signal(SIGINT, &handler);
+	signal(SIGQUIT, &handler);
 	while (--i)
 	{
 		prompt = get_prompt(g_env, -1);
 		cmd = readline(prompt);
+		if (cmd == NULL)
+		{
+			cmd = set_cmd(cmd, "exit");
+			printf("exit\n");
+		}
 		if (cmd[0] != '\0')
 		{
 			add_history(cmd);
@@ -53,6 +72,7 @@ int	main(int argc, char **argv, char **env)
 		free(cmd);
 	}
 	clear_history();
+	free(echo);
 	free_env(g_env, 0);
 	return (0);
 }
