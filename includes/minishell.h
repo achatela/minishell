@@ -39,6 +39,7 @@ struct	s_args
 	t_args	*before;
 };
 
+int		pip(t_args *args, int start, int fd, int last, char **cmds);
 void	handler(int sig);
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);

@@ -26,11 +26,11 @@ static void print_n(t_args *args)
 
 int	builtin_echo(t_args *args)
 {
-	int fd;
-	t_args *head;
+//	int fd;
+	//t_args *head;
 	int		i;
 
-	head = args;
+//	head = args;
 	if (check_echo(args, 0) == -1)
 		return (-1);
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
@@ -59,7 +59,7 @@ int	builtin_echo(t_args *args)
 		printf(" ");
 		args = args->next;
 	}
-	if (args && args->to_use == 1 && args->is_separator == 1)
+/*	if (args && args->to_use == 1 && args->is_separator == 1)
 	{
 		fd = open(args->next->parsed_arg, O_WRONLY | O_CREAT, 0666);
 		if (fd < 0)
@@ -76,7 +76,7 @@ int	builtin_echo(t_args *args)
 		}
 		write(fd, "\n", 1);
 		close(fd);
-	}
+	}*/
 	printf("\n");
 	return (1);
 }

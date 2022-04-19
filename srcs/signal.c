@@ -2,14 +2,14 @@
 
 void	handler(int sig)
 {
-	char	*prompt;
+//	char	*prompt;
 
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		prompt = get_prompt(g_env, -1);
-		printf("%s", prompt);
-		free(prompt);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 		printf("\b\b  \b\b");

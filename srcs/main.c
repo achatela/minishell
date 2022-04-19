@@ -47,7 +47,6 @@ int	main(int argc, char **argv, char **env)
 	t_echo	*echo;
 
 	argc = -1;
-	(void)argc;
 	(void)argv;
 	echo = malloc(sizeof(t_echo));
 	echo->print = 0;
@@ -56,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, &handler);
 	while (--i)
 	{
-		prompt = get_prompt(g_env, -1);
+		prompt = get_prompt(g_env, argc);
 		cmd = readline(prompt);
 		if (cmd == NULL)
 		{

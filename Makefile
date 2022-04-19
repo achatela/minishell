@@ -5,6 +5,7 @@ SRCS =	srcs/main.c						\
 		srcs/send_builtin.c 			\
 		srcs/str_to_tabs.c 				\
 		srcs/utils.c 					\
+		srcs/test_pipe.c				\
 		srcs/utils2.c 					\
 		srcs/cd_paths.c					\
 		srcs/get_env_var.c				\
