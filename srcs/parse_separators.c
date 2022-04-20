@@ -41,6 +41,8 @@ static int	count_args(char **cmds, int i, int j, int k)
 				}
 				else
 					j++;
+				if (cmds[i][j] == '\0')
+					k++;
 		}
 	}
 	return (k);
@@ -89,7 +91,6 @@ static char **new_cmds(char **cmds, int i, int j, int k)
 			new[l++][m] = '\0';
 		}
 	}
-	new[l] = malloc(sizeof(char));
 	new[l] = 0;
 	return(new);
 }

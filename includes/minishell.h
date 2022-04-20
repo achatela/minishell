@@ -39,6 +39,7 @@ struct	s_args
 	t_args	*before;
 };
 
+void	redir(t_args *args, char **cmds);
 int		pip(t_args *args, int start, int fd, int last, char **cmds);
 void	handler(int sig);
 int		is_separator(char *str, int i);

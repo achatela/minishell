@@ -3,6 +3,7 @@ NAME = minishell
 SRCS =	srcs/main.c						\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
+		srcs/redir.c					\
 		srcs/str_to_tabs.c 				\
 		srcs/utils.c 					\
 		srcs/test_pipe.c				\
