@@ -2,11 +2,11 @@
 
 int	pip(t_args *args, int start, int fd, int last, char **cmds)
 {
-	t_args	*head;
 	int		p[2];
 	int		pid;
+	int		ret;
 
-	head = args;
+	ret = 0;
 	pipe(p);
 	pid = fork();
 	if (pid == 0)
@@ -20,8 +20,12 @@ int	pip(t_args *args, int start, int fd, int last, char **cmds)
 		}
 		else
 			dup2(fd, 0);
-		exec_bin(cmds, head);
+		send_builtin(args, 0, cmds);
+		ret = 1;
+		exit(ret);
 	}
+	waitpid(pid, &ret, 0);
+	close(p[1]);
 	if (fd != 0)
 		close(fd);
 	if (last == 1)

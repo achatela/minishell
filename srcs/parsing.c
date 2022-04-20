@@ -41,8 +41,8 @@ void	parsing(char *cmd, t_echo *echo)
 	t_args	*head;
 	t_args	*args;
 	t_args	*free_head;
-//	int		start = 1;
-//	int		fd = 0;
+	int		start = 1;
+	int		fd = 0;
 
 	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds == NULL || cmds[0] == 0)
@@ -60,15 +60,16 @@ void	parsing(char *cmd, t_echo *echo)
 	else if (has_sep(args) == 1)
 	{
 		head = args;
-		while (args)//&& has_sep(args) == 1)
+		while (args && has_sep(args) == 1)
 		{
-	/*		fd = pip(head, start, fd, 0, cmds);
+			fd = pip(head, start, fd, 0, cmds);
 			while (args && args->is_separator == 0)
 				args = args->next;
 			while (args && args->is_separator == 1)
 				args = args->next;
-			head = args;*/
-			while (args && args->is_separator == 0)
+			head = args;
+			start = 0;
+			/*while (args && args->is_separator == 0)
 				args = args->next;
 			if (args && args->next && args->is_separator == 1)
 			{
@@ -79,9 +80,9 @@ void	parsing(char *cmd, t_echo *echo)
 				send_builtin(head, -1, cmds);
 			else
 				args = args->next;
-			head = args;
+			head = args;*/
 		}
-	//	fd = pip(head, start, fd, 1, cmds);
+		fd = pip(head, start, fd, 1, cmds);
 	}
 	free_cmds(cmds, 0);
 	free_list(free_head);

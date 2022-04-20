@@ -48,5 +48,5 @@ int	send_builtin(t_args *args, int j, char **cmds)
 		exec_bin(cmds, head);
 	free(tmp);
 //	i = get_next_index(args, i);
-	return (-1);
-}
+	return (-1); //dans parsing, if return value = -1, envoyer dans exec custom (sans command_not_found)
+}				// pour recup la valeur de retour dans echo->print
