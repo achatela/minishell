@@ -21,6 +21,7 @@ SRCS =	srcs/main.c						\
 		srcs/str_quotes.c				\
 		srcs/parse_separators.c			\
 		srcs/signal.c					\
+		srcs/d_redir.c					\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\

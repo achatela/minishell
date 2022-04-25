@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	is_last(t_args *args)
+static int	d_is_last(t_args *args)
 {
 	while (args)
 	{
@@ -8,7 +8,8 @@ static int	is_last(t_args *args)
 			args = args->next;
 		if (args && args->is_separator == 1)
 		{
-			if (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0')
+			if (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '>'
+				&& args->parsed_arg[2] == '\0')
 				return (1);
 		}
 		else
@@ -17,7 +18,7 @@ static int	is_last(t_args *args)
 	return (0);
 }
 
-void	redir(t_args *args, char **cmds)
+void	d_redir(t_args *args, char **cmds)
 {
 	int		fd;
 	int		old_fd;
@@ -26,14 +27,14 @@ void	redir(t_args *args, char **cmds)
 
 	head = args;
 	create = head;
-	while (args && is_last(args) != 0)
+	while (args && d_is_last(args) != 0)
 	{
 		while (args && args->is_separator == 0)
 			args = args->next;
 		while (args && args->is_separator == 1)
 			args = args->next;
 	}
-	while (create && is_last(create) != 0) 
+	while (create && d_is_last(create) != 0)
 	{
 		while (create && create->is_separator == 1)
 			create = create->next;
@@ -49,7 +50,7 @@ void	redir(t_args *args, char **cmds)
 	}
 	old_fd = dup(1);
 	close(1);
-	fd = open(args->parsed_arg, O_WRONLY | O_CREAT, 0644);
+	fd = open(args->parsed_arg, O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 		printf("%s\n", "Error");
 	exec_bin(cmds, head);
