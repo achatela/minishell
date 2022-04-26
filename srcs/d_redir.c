@@ -50,7 +50,7 @@ void	d_redir(t_args *args, char **cmds)
 	}
 	old_fd = dup(1);
 	close(1);
-	fd = open(args->parsed_arg, O_APPEND | O_CREAT, 0644);
+	fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 		printf("%s\n", "Error");
 	exec_bin(cmds, head);
