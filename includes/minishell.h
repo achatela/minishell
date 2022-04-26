@@ -41,6 +41,7 @@ struct	s_args
 
 void	redir(t_args *args, char **cmds);
 void	d_redir(t_args *args, char **cmds);
+void	redir_in(t_args *args, char **cmds);
 int		pip(t_args *args, int start, int fd, int last, char **cmds);
 void	handler(int sig);
 int		is_separator(char *str, int i);
