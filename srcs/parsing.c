@@ -35,6 +35,31 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
+static void	has_heredoc(t_args *args)
+{
+	char	*tmp;
+	t_args	*head;
+
+	head = args;
+	tmp = malloc(sizeof(char) * 3);
+	if (!tmp)
+		return ;
+	tmp[0] = '<';
+	tmp[1] = '<';
+	tmp[2] = '\0';
+	while (args)
+	{
+		if (ft_strcmp(tmp, args->parsed_arg) == 0)
+		{
+			remove_heredoc(head, tmp);
+			return ;
+		}
+		else
+			args = args->next;
+	}
+	free(tmp);
+}
+
 void	parsing(char *cmd, t_echo *echo)
 {
 	char	**cmds;
@@ -55,6 +80,7 @@ void	parsing(char *cmd, t_echo *echo)
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds, echo);
 	free_head = args;
+	has_heredoc(args);
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
 	else if (has_sep(args) == 1)
@@ -63,7 +89,7 @@ void	parsing(char *cmd, t_echo *echo)
 		while (args && has_sep(args) == 1)
 		{
 			(void)fd;
-			here_doc(head, 0);
+			(void)head;
 		//	fd = pip(head, start, fd, 0, cmds);
 			while (args && args->is_separator == 0)
 				args = args->next;

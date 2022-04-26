@@ -39,7 +39,7 @@ struct	s_args
 	t_args	*before;
 };
 
-void	here_doc(t_args *args, int i);
+void	remove_heredoc(t_args *args, char *tmp);
 void	redir(t_args *args, char **cmds);
 void	d_redir(t_args *args, char **cmds);
 void	redir_in(t_args *args, char **cmds);
