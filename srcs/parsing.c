@@ -63,7 +63,7 @@ void	parsing(char *cmd, t_echo *echo)
 		while (args && has_sep(args) == 1)
 		{
 			(void)fd;
-			redir_in(head, cmds);
+			here_doc(head, 0);
 		//	fd = pip(head, start, fd, 0, cmds);
 			while (args && args->is_separator == 0)
 				args = args->next;
