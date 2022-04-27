@@ -2,7 +2,6 @@ NAME = minishell
 
 SRCS =	srcs/main.c						\
 		srcs/parsing.c 					\
-		srcs/here_doc.c					\
 		srcs/send_builtin.c 			\
 		srcs/redir.c					\
 		srcs/str_to_tabs.c 				\
@@ -24,6 +23,7 @@ SRCS =	srcs/main.c						\
 		srcs/parse_separators.c			\
 		srcs/signal.c					\
 		srcs/d_redir.c					\
+		srcs/here_doc.c					\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/builtin_echo.c 	\

@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+
+static int	has_sep(t_args *args)
+{
+	t_args	*head;
+
+	head = args;
+	while (head && head->next)
+	{
+		if (head->is_separator == 1)
+			return (1);
+		head = head->next;
+	}
+	if (head->is_separator == 1)
+		return (1);
+	return (0);
+}
+
 static void	here_doc(t_args *args, int i)
 {
 	char	*delimiter;
@@ -23,39 +40,50 @@ static void	here_doc(t_args *args, int i)
 	}
 }
 
-static void	remove_list(t_args *args)
+static void	new_list(t_args *args, char *tmp)
 {
 	t_args	*head;
+	t_args	*head_free;
 
 	head = args;
-	if (args && args->next != NULL)
-		args = args->next;
-	(void)head;
-	if (args->next->parsed_arg != NULL)
+	while (args && has_sep(args) == 1)
 	{
-		return ;
+		while (args && args->next && ft_strcmp(args->next->parsed_arg, tmp) != 0)
+		{
+			head = args;
+			args = args->next;
+		}
+		if (args && ft_strcmp(args->next->parsed_arg, tmp) == 0)
+		{
+			args->next = args->next->next->next;
+		//	head_free = args;
+		//	head->next = args->next->next;
+			(void)head;
+			(void)head_free;
+		//	head_free = args;
+		//	args = head->next;
+		//	free(head);
+		}
+		else if (args->next != NULL)
+			args = args->next;
 	}
 }
 
 void	remove_heredoc(t_args *args, char *tmp)
 {
-	t_args *head;
+	t_args	*head;
 
 	head = args;
 	while (args)
 	{
 		while (args && ft_strcmp(tmp, args->parsed_arg) != 0)
-		{
-			head = args;
 			args = args->next;
-		}
 		if (args && ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
 			here_doc(args, 0);
-			(void)head;
-			(void)remove_list;
 			args = args->next;
 		}
 	}
+	new_list(head, tmp);
 	free(tmp);
 }

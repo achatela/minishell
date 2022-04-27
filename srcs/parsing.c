@@ -81,6 +81,7 @@ void	parsing(char *cmd, t_echo *echo)
 	args = init_args(args, cmds, echo);
 	free_head = args;
 	has_heredoc(args);
+	head = args;
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
 	else if (has_sep(args) == 1)
