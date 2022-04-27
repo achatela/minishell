@@ -53,13 +53,18 @@ static void	new_list(t_args *args, char *tmp)
 			head = args;
 			args = args->next;
 		}
-		if (args && ft_strcmp(args->next->parsed_arg, tmp) == 0)
+		if (args && args->next && ft_strcmp(args->next->parsed_arg, tmp) == 0)
 		{
+			head_free = args->next->next;
+			head = args->next;
 			args->next = args->next->next->next;
 		//	head_free = args;
 		//	head->next = args->next->next;
+			free(head->parsed_arg);
+			free(head);
+			free(head_free->parsed_arg);
+			free(head_free);
 			(void)head;
-			(void)head_free;
 		//	head_free = args;
 		//	args = head->next;
 		//	free(head);

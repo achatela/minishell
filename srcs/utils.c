@@ -63,6 +63,7 @@ void	free_list(t_args *args)
 	{
 		head_tmp = head;
 		head = head->next;
+		free(head_tmp->parsed_arg);
 		free(head_tmp);
 	}
 	free(head);
