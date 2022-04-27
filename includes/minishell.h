@@ -51,7 +51,7 @@ char	*str_no_quotes(char *str, int i, int j, int k);
 char	*parse_arg(char *str, int i);
 char	**remove_var(char **env, char *tmp, int i, int j);
 void	free_list(t_args *args);
-void	fill_args(t_args *args, char *str, int index);
+void	fill_args(t_args *args, char *str, int index, char *pip);
 char	**new_parsing(char *cmd, int i, int j, int k);
 int		builtin_echo(t_args *args);
 void	parsing(char *cmd, t_echo *echo);

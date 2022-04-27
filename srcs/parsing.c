@@ -28,7 +28,7 @@ static int	has_sep(t_args *args)
 	head = args;
 	while (head)
 	{
-		if (head->is_separator == 1)
+		if (head->is_separator == 1 || head->is_separator == 2)
 			return (1);
 		head = head->next;
 	}
@@ -78,7 +78,7 @@ void	parsing(char *cmd, t_echo *echo)
 	}
 	cmds = parse_separators(cmds, 0);
 	args = ft_lstnew(NULL);
-	fill_args(args, cmds[0], 0);
+	fill_args(args, cmds[0], 0, "|");
 	args = init_args(args, cmds, echo);
 	free_head = args;
 	cmds = has_heredoc(args, cmds);
@@ -92,16 +92,15 @@ void	parsing(char *cmd, t_echo *echo)
 		{
 			(void)fd;
 			(void)head;
-		//	fd = pip(head, start, fd, 0, cmds);
+			fd = pip(head, start, fd, 0, cmds);
 			while (args && args->is_separator == 0)
 				args = args->next;
-			while (args && args->is_separator == 1)
+			while (args && args->is_separator == 2)
 				args = args->next;
 			while (args && args->is_separator == 0)
 				args = args->next;
 			head = args;
-			(void)start;
-		//	start = 0;
+			start = 0;
 			/*while (args && args->is_separator == 0)
 				args = args->next;
 			if (args && args->next && args->is_separator == 1)
@@ -115,7 +114,8 @@ void	parsing(char *cmd, t_echo *echo)
 				args = args->next;
 			head = args;*/
 		}
-	//	fd = pip(head, start, fd, 1, cmds);
+		if (head != NULL)
+			fd = pip(head, start, fd, 1, cmds);
 	}
 	free_cmds(cmds, 0);
 	free_list(free_head);

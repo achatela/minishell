@@ -21,7 +21,7 @@ static int	str_is_sep(char *str)
 
 }
 
-void	fill_args(t_args *args, char *str, int index)
+void	fill_args(t_args *args, char *str, int index, char *pip)
 {
 	if (index == 0)
 	{
@@ -34,7 +34,9 @@ void	fill_args(t_args *args, char *str, int index)
 		args->is_command = 0;
 	}
 	args->is_separator = 0;
-	if (str_is_sep(str) == 1)
+	if (ft_strcmp(str, pip) == 0)
+		args->is_separator = 2;
+	else if (str_is_sep(str) == 1)
 		args->is_separator = 1;
 	args->index = index;
 	args->parsed_arg = parse_arg(str, 0);
@@ -49,7 +51,7 @@ t_args	*init_args(t_args *args, char **cmds, t_echo *echo)
 	while (cmds[i] != NULL && cmds[i][0] != '\0')
 	{
 		ft_lstadd_back(args, ft_lstnew(NULL));
-		fill_args(ft_lstlast(args), cmds[i], i);
+		fill_args(ft_lstlast(args), cmds[i], i, "|");
 		i++;
 	}
 	i = 0;

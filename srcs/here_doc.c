@@ -48,13 +48,14 @@ static void	new_list(t_args *args, char *tmp)
 	head = args;
 	while (args && has_sep(args) == 1)
 	{
-		while (args && args->next && ft_strcmp(args->next->parsed_arg, tmp) != 0)
+		while (args /*&& args->next*/ && ft_strcmp(args->parsed_arg, tmp) != 0)
 		{
 			head = args;
 			args = args->next;
 		}
-		if (args && args->next && ft_strcmp(args->next->parsed_arg, tmp) == 0)
+		if (args && /*args->next &&*/ ft_strcmp(args->parsed_arg, tmp) == 0)
 		{
+			args = head;
 			head_free = args->next->next;
 			head = args->next;
 			args->next = args->next->next->next;
