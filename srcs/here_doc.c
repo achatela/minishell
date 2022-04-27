@@ -69,7 +69,52 @@ static void	new_list(t_args *args, char *tmp)
 	}
 }
 
-void	remove_heredoc(t_args *args, char *tmp)
+static char	**realloc_cmds(char **cmds, int i, char *cat)
+{
+	int		j;
+	int		k;
+	char	**new;
+
+	k = 0;
+	j = 0;
+	while (cmds[j] != 0)
+		j++;
+	if (i != 0 && ft_strcmp(cmds[i - 1], cat) == 0)
+		j--;
+	new = malloc(sizeof(char *) * (j - 1));
+	if (!new)
+		return (NULL);
+	j = 0;
+	while (cmds[j])
+	{
+		if (j == i ||  j == i + 1 || (j == i - 1 && i != 0 && ft_strcmp(cmds[i - 1], cat) == 0))
+				j++;
+		else
+			new[k++] = ft_strdup(cmds[j++]);
+	}
+	new[k] = 0;
+	free_cmds(cmds, 0);
+	return(new);
+}
+
+static char	**new_cmds(char **cmds, char *tmp)
+{
+	int	i;
+
+	i = 0;
+	while (cmds[i] != 0)
+	{
+		if (ft_strcmp(cmds[i], tmp) == 0)
+		{
+			cmds = realloc_cmds(cmds, i, "cat");
+			i = -1;
+		}
+		i++;
+	}
+	return (cmds);
+}
+
+char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 {
 	t_args	*head;
 
@@ -85,5 +130,7 @@ void	remove_heredoc(t_args *args, char *tmp)
 		}
 	}
 	new_list(head, tmp);
+	cmds = new_cmds(cmds, tmp);
 	free(tmp);
+	return (cmds);
 }

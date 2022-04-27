@@ -59,7 +59,7 @@ t_args	*init_args(t_args *args, char **cmds, t_echo *echo)
 	{
 		free(cmds[i]);
 		head->echo = echo;
-		cmds[i] = head->parsed_arg;
+		cmds[i] = ft_strdup(head->parsed_arg);
 		i++;
 		head = head->next;
 	}

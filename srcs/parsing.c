@@ -35,7 +35,7 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
-static void	has_heredoc(t_args *args)
+static char **has_heredoc(t_args *args, char **cmds)
 {
 	char	*tmp;
 	t_args	*head;
@@ -43,7 +43,7 @@ static void	has_heredoc(t_args *args)
 	head = args;
 	tmp = malloc(sizeof(char) * 3);
 	if (!tmp)
-		return ;
+		return (NULL);
 	tmp[0] = '<';
 	tmp[1] = '<';
 	tmp[2] = '\0';
@@ -51,13 +51,14 @@ static void	has_heredoc(t_args *args)
 	{
 		if (ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
-			remove_heredoc(head, tmp);
-			return ;
+			cmds = remove_heredoc(head, tmp, cmds);
+			return (cmds);
 		}
 		else
 			args = args->next;
 	}
 	free(tmp);
+	return (cmds);
 }
 
 void	parsing(char *cmd, t_echo *echo)
@@ -80,7 +81,7 @@ void	parsing(char *cmd, t_echo *echo)
 	fill_args(args, cmds[0], 0);
 	args = init_args(args, cmds, echo);
 	free_head = args;
-	has_heredoc(args);
+	cmds = has_heredoc(args, cmds);
 	head = args;
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
