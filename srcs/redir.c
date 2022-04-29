@@ -11,6 +11,8 @@ static int	is_last(t_args *args)
 			if (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0')
 				return (1);
 		}
+		else if (args && args->is_separator == 2)
+			return (2);
 		else
 			return (0);
 	}
@@ -26,14 +28,14 @@ void	redir(t_args *args, char **cmds)
 
 	head = args;
 	create = head;
-	while (args && is_last(args) != 0)
+	while (args && is_last(args) != 0 && args->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
 			args = args->next;
 		while (args && args->is_separator == 1)
 			args = args->next;
 	}
-	while (create && is_last(create) != 0) 
+	while (create && is_last(create) != 0 && create->is_separator != 2) 
 	{
 		while (create && create->is_separator == 1)
 			create = create->next;
@@ -41,6 +43,8 @@ void	redir(t_args *args, char **cmds)
 			create = create->next;
 		if (create && create->next)
 			create = create->next;
+		if (create && create->is_separator == 2)
+			break;
 		if (create && create->parsed_arg)
 		{
 			fd = open(create->parsed_arg, O_CREAT, 0644);

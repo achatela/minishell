@@ -61,6 +61,38 @@ static char **has_heredoc(t_args *args, char **cmds)
 	return (cmds);
 }
 
+static int	has_pip(t_args *args)
+{
+	t_args *head;
+
+	head = args;
+	while (head)
+	{
+		if (head->is_separator == 2)
+			return (1);
+		head = head->next;
+	}
+	return (0);
+}
+
+static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
+{
+	t_args	*head;
+
+	head = args;
+	while (args && has_sep(args) == 1)
+	{
+		fd = pip(head, start, fd, 0, cmds);
+		while (args && (args->is_separator == 0 || args->is_separator == 1))
+			args = args->next;
+		while (args && args->is_separator == 2)
+			args = args->next;
+		head = args;
+		start = 0;
+	}
+	fd = pip(head, start, fd, 1, cmds);
+}
+
 void	parsing(char *cmd, t_echo *echo)
 {
 	char	**cmds;
@@ -90,9 +122,11 @@ void	parsing(char *cmd, t_echo *echo)
 	}
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
-	else if (has_sep(args) == 1)
+	else if (has_sep(args) == 1 && has_pip(args) == 1)
 	{
-		head = args;
+		{
+		test_boucle_pipe(args, start, fd, cmds);
+		/*head = args;
 		while (args && has_sep(args) == 1)
 		{
 			fd = pip(head, start, fd, 0, cmds);
@@ -101,7 +135,7 @@ void	parsing(char *cmd, t_echo *echo)
 			while (args && args->is_separator == 2)
 				args = args->next;
 			head = args;
-			start = 0;
+			start = 0;*/
 			/*while (args && args->is_separator == 0)
 				args = args->next;
 			if (args && args->next && args->is_separator == 1)
@@ -115,8 +149,8 @@ void	parsing(char *cmd, t_echo *echo)
 				args = args->next;
 			head = args;*/
 		}
-		fd = pip(head, start, fd, 1, cmds);
 	}
+	(void)head;
 	free_cmds(cmds, 0);
 	free_list(free_head);
 }
