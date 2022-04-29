@@ -24,7 +24,10 @@ static void	here_doc(t_args *args, int i)
 	int		line;
 
 	line = 0;
-	delimiter = args->next->parsed_arg;
+	if (args->next != NULL)
+		delimiter = args->next->parsed_arg;
+	else
+		return ;
 	while (i != 1)
 	{
 		line++;
@@ -135,8 +138,15 @@ char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 			args = args->next;
 		}
 	}
-	new_list(head, tmp);
-	cmds = new_cmds(cmds, tmp);
+	if (head->next != NULL && head->next->next != NULL)
+	{
+		new_list(head, tmp);
+		cmds = new_cmds(cmds, tmp);
+	}
+	else
+	{
+		head->to_use = 0;
+	}
 	free(tmp);
 	return (cmds);
 }

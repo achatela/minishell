@@ -28,7 +28,7 @@ static int	has_sep(t_args *args)
 	head = args;
 	while (head)
 	{
-		if (head->is_separator == 1 || head->is_separator == 2)
+		if (head && head->is_separator && (head->is_separator == 1 || head->is_separator == 2))
 			return (1);
 		head = head->next;
 	}
@@ -83,6 +83,12 @@ void	parsing(char *cmd, t_echo *echo)
 	free_head = args;
 	cmds = has_heredoc(args, cmds);
 	head = args;
+	if (head->to_use == 0)
+	{
+		free_list(head);
+		free_cmds(cmds, 0);
+		return ;
+	}
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
 	else if (has_sep(args) == 1)
