@@ -144,9 +144,7 @@ char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 		cmds = new_cmds(cmds, tmp);
 	}
 	else
-	{
-		head->to_use = 0;
-	}
+		head->to_use = 2;
 	free(tmp);
 	return (cmds);
 }

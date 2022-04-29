@@ -82,10 +82,9 @@ void	parsing(char *cmd, t_echo *echo)
 	args = init_args(args, cmds, echo);
 	free_head = args;
 	cmds = has_heredoc(args, cmds);
-	head = args;
-	if (head->to_use == 0)
+	if (args->to_use == 2)
 	{
-		free_list(head);
+		free_list(args);
 		free_cmds(cmds, 0);
 		return ;
 	}
