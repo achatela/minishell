@@ -95,14 +95,10 @@ void	parsing(char *cmd, t_echo *echo)
 		head = args;
 		while (args && has_sep(args) == 1)
 		{
-			(void)fd;
-			(void)head;
 			fd = pip(head, start, fd, 0, cmds);
 			while (args && args->is_separator == 0)
 				args = args->next;
 			while (args && args->is_separator == 2)
-				args = args->next;
-			while (args && args->is_separator == 0)
 				args = args->next;
 			head = args;
 			start = 0;
@@ -119,8 +115,7 @@ void	parsing(char *cmd, t_echo *echo)
 				args = args->next;
 			head = args;*/
 		}
-		if (head != NULL)
-			fd = pip(head, start, fd, 1, cmds);
+		fd = pip(head, start, fd, 1, cmds);
 	}
 	free_cmds(cmds, 0);
 	free_list(free_head);
