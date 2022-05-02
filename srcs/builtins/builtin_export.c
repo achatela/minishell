@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 14:42:47 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 14:43:56 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*exported_var(char *str)
@@ -59,12 +71,14 @@ void	builtin_export(char **env, t_args *args)
 {
 	int	i;
 
-	if (args->next == NULL || args->next->to_use == 0 || args->next->is_separator == 1)
+	if (args->next == NULL || args->next->to_use == 0
+		|| args->next->is_separator == 1)
 	{
 		export_no_arg(env, 0, 0);
 		return ;
 	}
-	while (args->next != NULL && args->next->to_use == 1 && args->next->is_separator != 1) 
+	while (args->next != NULL && args->next->to_use == 1
+		&& args->next->is_separator != 1)
 	{
 		args = args->next;
 		i = existing_var(g_env, args);

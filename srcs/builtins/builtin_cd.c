@@ -1,7 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 14:20:17 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*	Manque gestion cd $var inexistante 
-	et c'est la merde*/
+#include "minishell.h"
 
 static int	simple_path(char *arg)
 {
@@ -45,15 +54,10 @@ static char	*parsed_path(char *str, int i, int j)
 
 static char	*full_path(t_args *args)
 {
-//	char	*path;
-
 	if (simple_path(args->next->parsed_arg) == 0)
 		return (getenv("HOME"));
 	else if (simple_path(args->next->parsed_arg) == 2)
 		return (parsed_path(args->next->parsed_arg, 0, 0));
-	/*path = cd_paths(cmds[1]);
-	if (path != NULL)
-		return (path);*/
 	return (NULL);
 }
 
@@ -84,8 +88,8 @@ static int	cd_errors(t_args *args, char *tmp)
 		printf("cd: %s: Permission denied\n", tmp);
 		return (1);
 	}
-	if (args->next == NULL /*|| (args->next != NULL && args->next->parsed_arg == NULL)
-		*/|| (args->next != NULL && args->next->parsed_arg[0] == '~')
+	if (args->next == NULL
+		|| (args->next != NULL && args->next->parsed_arg[0] == '~')
 		|| (args->next != NULL && args->next->is_separator == 1))
 	{
 		if (args->next == NULL || home_path(args) == NULL)
@@ -113,7 +117,7 @@ int	builtin_cd(t_args *args, int i)
 	char	*tmp;
 
 	tmp = NULL;
-	if (tmp != NULL)	/* tmp = pour free home path dans cd errors + gérer ~////dossier_valid// */
+	if (tmp != NULL) /* tmp = pour free home path dans cd errors + gérer ~////dossier_valid// */
 		return (2);
 	if (args->next != NULL && args->next->is_separator == 0
 		&&  args->next->next != NULL && args->next->next->is_separator == 0)
@@ -124,7 +128,6 @@ int	builtin_cd(t_args *args, int i)
 	if (args->next != NULL && args->next->is_separator == 0)
 	{
 		tmp = parsed_path(args->next->parsed_arg, 0, 0);
-	//	path = cd_paths(cmds[1]);
 		if (simple_path(args->next->parsed_arg) != 2 && chdir(args->next->parsed_arg) == 0)
 		{
 			switch_pwds(g_env, 0, 0);

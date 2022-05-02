@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 14:14:46 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-//	Pour compiler : gcc *.c -I./includes ./libft/libft.a -lreadline
-//	Illegal:  soh tab nl sp ! " # $ % & ' ( ) * 0 1 2 3 4 5 6 7 8 9 ; < > \ ` { | } ~ del
-//	Illegal:  soh " $ & ' ( ) ; < > [ \ ` | del
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -15,11 +23,10 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include "../libft/libft.h"
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
-extern char	**g_env;
-
+extern char				**g_env;
 typedef struct s_echo	t_echo;
 struct s_echo
 {
@@ -71,11 +78,11 @@ void	free_cmds(char **cmds, int i);
 void	export_no_arg(char **env, int i, int j);
 char	*cut_var_begin(char *str, int i, int j);
 char	*cut_var_end(char *str, int i, int j);
-void    builtin_unset(char **env, t_args *args);
+void	builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		existing_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds, t_echo *echo);
-int     exec_bin(char **cmds, t_args *args);
+int		exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);
 
