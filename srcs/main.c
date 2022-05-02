@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:32:10 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	**g_env = NULL;
@@ -43,9 +55,10 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	*prompt;
-	int		i = 4;
+	int		i;
 	t_echo	*echo;
 
+	i = 4;
 	argc = -1;
 	(void)argv;
 	echo = malloc(sizeof(t_echo));

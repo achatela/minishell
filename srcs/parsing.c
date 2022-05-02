@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:36:48 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:38:34 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	arg_number(char *cmd, int i, int j)
@@ -35,7 +47,7 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
-static char **has_heredoc(t_args *args, char **cmds)
+static char	**has_heredoc(t_args *args, char **cmds)
 {
 	char	*tmp;
 	t_args	*head;
@@ -63,7 +75,7 @@ static char **has_heredoc(t_args *args, char **cmds)
 
 static int	has_pip(t_args *args)
 {
-	t_args *head;
+	t_args	*head;
 
 	head = args;
 	while (head)
@@ -131,9 +143,11 @@ void	parsing(char *cmd, t_echo *echo)
 	t_args	*head;
 	t_args	*args;
 	t_args	*free_head;
-	int		start = 1;
-	int		fd = 0;
+	int		start;
+	int		fd;
 
+	start = 1;
+	fd = 0;
 	cmds = new_parsing(cmd, 0, 0, 0);
 	if (cmds == NULL || cmds[0] == 0)
 	{
@@ -159,28 +173,28 @@ void	parsing(char *cmd, t_echo *echo)
 		{
 			(void)has_pip;
 			test_boucle_pipe(args, start, fd, cmds);
-		/*head = args;
-		while (args && has_sep(args) == 1)
-		{
-			fd = pip(head, start, fd, 0, cmds);
-			while (args && args->is_separator == 0)
-				args = args->next;
-			while (args && args->is_separator == 2)
-				args = args->next;
-			head = args;
-			start = 0;*/
+			/*head = args;
+			  while (args && has_sep(args) == 1)
+			  {
+			  fd = pip(head, start, fd, 0, cmds);
+			  while (args && args->is_separator == 0)
+			  args = args->next;
+			  while (args && args->is_separator == 2)
+			  args = args->next;
+			  head = args;
+			  start = 0;*/
 			/*while (args && args->is_separator == 0)
-				args = args->next;
-			if (args && args->next && args->is_separator == 1)
-			{
-				while (args && args->is_separator == 1)
-					args = args->next;
-			}
-			if (head->is_separator != 1)
-				send_builtin(head, -1, cmds);
-			else
-				args = args->next;
-			head = args;*/
+			  args = args->next;
+			  if (args && args->next && args->is_separator == 1)
+			  {
+			  while (args && args->is_separator == 1)
+			  args = args->next;
+			  }
+			  if (head->is_separator != 1)
+			  send_builtin(head, -1, cmds);
+			  else
+			  args = args->next;
+			  head = args;*/
 		}
 	}
 	(void)head;

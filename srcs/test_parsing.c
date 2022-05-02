@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:44:11 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:44:33 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	is_whitespace(char c)
@@ -221,7 +233,6 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	}
 	return (cmds);
 }*/
-
 
 /*char	**new_parsing(char *cmd, int i, int j, int k)
 {

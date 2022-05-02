@@ -1,5 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:30:36 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 static int	has_sep(t_args *args)
 {
@@ -34,8 +45,9 @@ static void	here_doc(t_args *args, int i)
 		tmp = readline("> ");
 		if (tmp == NULL)
 		{
-			printf("warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", line, delimiter); 
-			break;
+			printf("warning: here-document at line %d ", line);
+			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
+			break ;
 		}
 		else if (ft_strcmp(tmp, delimiter) == 0)
 			i = 1;
@@ -96,14 +108,15 @@ static char	**realloc_cmds(char **cmds, int i, char *cat)
 	j = 0;
 	while (cmds[j])
 	{
-		if (j == i ||  j == i + 1 || (j == i - 1 && i != 0 && ft_strcmp(cmds[i - 1], cat) == 0))
+		if (j == i || j == i + 1 || (j == i - 1 && i != 0
+				&& ft_strcmp(cmds[i - 1], cat) == 0))
 				j++;
 		else
 			new[k++] = ft_strdup(cmds[j++]);
 	}
 	new[k] = 0;
-	free_cmds(cmds, 0);
-	return(new);
+	free_cmds (cmds, 0);
+	return (new);
 }
 
 static char	**new_cmds(char **cmds, char *tmp)

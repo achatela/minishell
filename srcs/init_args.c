@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_args.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:30:54 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:31:14 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	str_is_sep(char *str)
@@ -11,14 +23,13 @@ static int	str_is_sep(char *str)
 	else if (str[0] == '>' && str[1] == '\0')
 		return (1);
 	else if (str[0] == '<' && str[1] == '<'
-			&& str[2] == '\0')
+		&& str[2] == '\0')
 		return (1);
 	else if (str[0] == '>' && str[1] == '>'
-			&& str[2] == '\0')
+		&& str[2] == '\0')
 		return (1);
 	else
 		return (0);
-
 }
 
 void	fill_args(t_args *args, char *str, int index, char *pip)

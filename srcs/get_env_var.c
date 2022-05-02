@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:24:42 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:25:02 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*cut_var_end(char *str, int i, int j)
@@ -29,7 +41,7 @@ char	*get_env_var(char **env, char *var, int i)
 	while (g_env[i] != 0)
 	{
 		if (var == NULL)
-			break;
+			break ;
 		if (ft_strncmp(g_env[i], var, ft_strlen(var)) == 0)
 			return (cut_var_end(g_env[i], 0, 0));
 		i++;

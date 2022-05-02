@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_no_arg.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:22:35 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:24:23 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	env_is_sorted(char **env, int i)
 {
 	while (env[i] != 0)
 	{
-		if(ft_strcmp(env[i], env[i + 1]) < 0)
+		if (ft_strcmp(env[i], env[i + 1]) < 0)
 			return (1);
 		i++;
 	}
@@ -23,7 +35,7 @@ static void	sort_env(char **env, int i, int j)
 		j = 0;
 		new[i] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
 		if (!new)
-			return ;	
+			return ;
 		while (env[i][j])
 		{
 			new[i][j] = env[i][j];

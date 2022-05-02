@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   d_redir.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 16:09:44 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/05/02 16:21:45 by cjimenez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	d_is_last(t_args *args)
@@ -18,22 +30,14 @@ static int	d_is_last(t_args *args)
 	return (0);
 }
 
-void	d_redir(t_args *args, char **cmds)
+void	create_file(t_args *args)
 {
 	int		fd;
-	int		old_fd;
 	t_args	*head;
 	t_args	*create;
 
 	head = args;
 	create = head;
-	while (args && d_is_last(args) != 0)
-	{
-		while (args && args->is_separator == 0)
-			args = args->next;
-		while (args && args->is_separator == 1)
-			args = args->next;
-	}
 	while (create && d_is_last(create) != 0)
 	{
 		while (create && create->is_separator == 1)
@@ -48,6 +52,23 @@ void	d_redir(t_args *args, char **cmds)
 			close(fd);
 		}
 	}
+}
+
+void	d_redir(t_args *args, char **cmds)
+{
+	int		fd;
+	int		old_fd;
+	t_args	*head;
+
+	head = args;
+	while (args && d_is_last(args) != 0)
+	{
+		while (args && args->is_separator == 0)
+			args = args->next;
+		while (args && args->is_separator == 1)
+			args = args->next;
+	}
+	create_file(args);
 	old_fd = dup(1);
 	close(1);
 	fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
