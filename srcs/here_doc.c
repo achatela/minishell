@@ -126,6 +126,7 @@ static char	**new_cmds(char **cmds, char *tmp)
 char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 {
 	t_args	*head;
+	int		i;
 
 	head = args;
 	while (args)
@@ -142,6 +143,12 @@ char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 	{
 		new_list(head, tmp);
 		cmds = new_cmds(cmds, tmp);
+		i = 0;
+		while (head)
+		{
+			head->index = i++;
+			head = head->next;
+		}
 	}
 	else
 		head->to_use = 2;

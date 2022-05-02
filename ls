@@ -1,0 +1,11 @@
+|
+includes
+libft
+lks
+ls
+lsk
+lss
+Makefile
+minishell
+README.md
+srcs
