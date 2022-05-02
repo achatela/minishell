@@ -24,7 +24,7 @@ void	redir_in(t_args *args, char **cmds)
 	int		old_fd;
 
 	head = args;
-	while (args && last_redir_in(args) != 0)
+	while (args && last_redir_in(args) != 0 && args->next->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
 			args = args->next;
@@ -34,8 +34,11 @@ void	redir_in(t_args *args, char **cmds)
 		close(0);
 		fd = open(args->parsed_arg, O_RDONLY);
 		if (fd < 0)
-			printf("Error\n");
-		exec_bin(cmds, head);
+		{
+			return ;
+		}
+		send_builtin(head, 0, cmds);
+	//	exec_bin(cmds, head);
 		close(0);
 		dup(old_fd);
 	}
