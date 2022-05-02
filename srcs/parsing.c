@@ -28,7 +28,7 @@ static int	has_sep(t_args *args)
 	head = args;
 	while (head)
 	{
-		if (head && head->is_separator && (head->is_separator == 1 || head->is_separator == 2))
+		if (head && (head->is_separator == 1 || head->is_separator == 2))
 			return (1);
 		head = head->next;
 	}
@@ -75,16 +75,48 @@ static int	has_pip(t_args *args)
 	return (0);
 }
 
+static void	send_sep(t_args *args, char **cmds, char *sep)
+{
+	if (sep[0] == '>' && sep[1] == '>' && sep[2] == '\0')
+	{
+		d_redir(args, cmds);
+		return ;
+	}
+	if (sep[0] == '>' && sep[1] == '\0')
+	{
+		redir(args, cmds);
+		return ;
+	}
+	if (sep[0] == '<' && sep[1] == '\0')
+	{
+		redir_in(args, cmds);
+		return ;
+	}
+}
+
 static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 {
-	t_args	*head;
+	t_args		*head;
+	char		*tmp;
 
 	head = args;
+	tmp = NULL;
 	while (args && has_sep(args) == 1)
 	{
+		(void)start;
+		(void)fd;
 		fd = pip(head, start, fd, 0, cmds);
 		while (args && (args->is_separator == 0 || args->is_separator == 1))
+		{
+			if (tmp != NULL && ft_strcmp(tmp, args->parsed_arg) == 0)
+				tmp = args->parsed_arg;
+			if (args->is_separator == 1)
+			{
+				tmp = args->parsed_arg;
+				send_sep(head, cmds, tmp);
+			}
 			args = args->next;
+		}
 		while (args && args->is_separator == 2)
 			args = args->next;
 		head = args;
@@ -122,10 +154,11 @@ void	parsing(char *cmd, t_echo *echo)
 	}
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
-	else if (has_sep(args) == 1 && has_pip(args) == 1)
+	else if (has_sep(args) == 1/* && has_pip(args) == 1*/)
 	{
 		{
-		test_boucle_pipe(args, start, fd, cmds);
+			(void)has_pip;
+			test_boucle_pipe(args, start, fd, cmds);
 		/*head = args;
 		while (args && has_sep(args) == 1)
 		{

@@ -20,8 +20,8 @@ int	pip(t_args *args, int start, int fd, int last, char **cmds)
 		}
 		else
 			dup2(fd, 0);
-	//	send_builtin(args, 0, cmds);
-		redir(args, cmds);
+		send_builtin(args, 0, cmds);
+	//	redir(args, cmds);
 		ret = 1;
 		exit(ret);
 	}

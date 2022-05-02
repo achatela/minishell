@@ -28,14 +28,14 @@ void	redir(t_args *args, char **cmds)
 
 	head = args;
 	create = head;
-	while (args && is_last(args) != 0 && args->is_separator != 2)
+	while (args && is_last(args) != 0 && args->next->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
 			args = args->next;
 		while (args && args->is_separator == 1)
 			args = args->next;
 	}
-	while (create && is_last(create) != 0 && create->is_separator != 2) 
+	while (create && is_last(create) != 0 && create->next->is_separator != 2) 
 	{
 		while (create && create->is_separator == 1)
 			create = create->next;
@@ -43,12 +43,13 @@ void	redir(t_args *args, char **cmds)
 			create = create->next;
 		if (create && create->next)
 			create = create->next;
-		if (create && create->is_separator == 2)
-			break;
 		if (create && create->parsed_arg)
 		{
-			fd = open(create->parsed_arg, O_CREAT, 0644);
-			close(fd);
+			if (create->is_separator != 2)
+			{
+				fd = open(create->parsed_arg, O_CREAT, 0644);
+				close(fd);
+			}
 		}
 	}
 	old_fd = dup(1);
