@@ -37,6 +37,8 @@ int	send_builtin(t_args *args, int j, char **cmds)
 //	static int	i = 0;
 
 	head = args;
+	if (head == NULL)
+		return (1);
 	tmp = getcwd(NULL, 0);
 	(void)j;
 	(void)get_next_index;
