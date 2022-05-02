@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:25:16 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/02 18:26:19 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ static char	*get_session(char **env, int i, int j, int k)
 
 	(void)env;
 	tmp = get_env_var(g_env, "SESSION_MANAGER", 0);
+	if (!tmp)
+		return (NULL);
 	while (tmp[i] && tmp[i] != '/')
 		i++;
 	j = i;
-	while (tmp[++i] != '.')
+	while (tmp[i] && tmp[++i] != '.')
 		k++;
 	ret = malloc(sizeof(char) * k + 3);
 	i = 1;
 	ret[0] = '@';
-	while (tmp[++j] != '.')
+	while (tmp[j] && tmp[++j] != '.')
 	{
 		ret[i] = tmp[j];
 		i++;
@@ -84,6 +86,8 @@ char	*get_end(char **env, int i, int j)
 
 	k = 0;
 	tmp = get_env_var(env, "HOME", 0);
+	if (!tmp)
+		return (NULL);
 	tmp2 = getcwd(NULL, 0);
 	while (tmp[i] == tmp2[i])
 		i++;
@@ -93,9 +97,9 @@ char	*get_end(char **env, int i, int j)
 		k++;
 	tmp = malloc(sizeof(char) * k + 2);
 	k = 0;
-	if (tmp2[j] != '/')
+	if (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[j] != '/')
 		j++;
-	while (tmp2[++j])
+	while (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[++j])
 	{
 		tmp[k] = tmp2[j];
 		k++;
@@ -113,10 +117,17 @@ char	*get_prompt(char **env, int i)
 	tmp = malloc(sizeof(char));
 	tmp[0] = '\0';
 	ret = malloc(sizeof(char *) * 4);
+	(void)get_session;
+	(void)get_home;
 	ret[0] = get_env_var(g_env, "USER", 0);
 	ret[1] = get_session(g_env, 0, 0, 0);
 	ret[2] = get_home(g_env, 0, 0);
-	if (ret[2] != NULL && ft_strlen(ret[2]) != 2)
+	if(ret[0] == NULL || ret[1] == NULL || ret[2] == NULL || ret[3] == NULL)
+	{
+		tmp = ft_strjoin(tmp, "$ ");
+		return (tmp);
+	}
+	else if (ret[2] != NULL && ft_strlen(ret[2]) != 2)
 		ret[3] = NULL;
 	else
 		ret[3] = get_end(env, 0, 0);

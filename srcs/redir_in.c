@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:39:04 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:53:36 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	redir_in(t_args *args, char **cmds)
 		fd = open(args->parsed_arg, O_RDONLY);
 		if (fd < 0)
 		{
-			return ;
+			(void)fd;
+			//return ;
 		}
 		send_builtin(head, 0, cmds);
 	//	exec_bin(cmds, head);

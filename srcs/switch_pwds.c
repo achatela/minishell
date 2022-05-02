@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:43:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:43:59 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/02 18:34:09 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	switch_pwds(char **env, int i, int j)
 		j++;
 	if (env[i] == 0 || env[j] == 0)
 	{
-		if (env[i] == 0)
-			g_env = copy_env2(env, "PWD", 0, 0);
-		if (env[j] == 0)
-			g_env = copy_env2(env, "OLDPWD", 0, 0);
+		if (g_env[i] == 0)
+			g_env = copy_env2(g_env, "PWD", 0, 0);
+		if (g_env[j] == 0)
+			g_env = copy_env2(g_env, "OLDPWD", 0, 0);
 	}
 	else
 	{
