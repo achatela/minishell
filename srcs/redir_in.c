@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 15:34:32 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:00:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,17 @@ void	redir_in(t_args *args, char **cmds)
 	while (args && last_redir_in(args) != 0 && args->next->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
+		{
 			args = args->next;
+		}
 		while (args && args->is_separator == 1)
+		{
 			args = args->next;
+		}
 		if (access(args->parsed_arg, R_OK) == -1)
 		{
 			printf("%s: No such file or directory\n", args->parsed_arg);
-			break ;
+			return ;
 		}
 		old_fd = dup(0);
 		close(0);
@@ -56,8 +60,6 @@ void	redir_in(t_args *args, char **cmds)
 			dup(old_fd);
 			return ;
 		}
-		(void)head;
-		(void)cmds;
 		send_builtin(head, 0, cmds);
 	//	exec_bin(cmds, head);
 		close(0);

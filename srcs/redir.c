@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 14:36:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:57:05 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	redir(t_args *args, char **cmds)
 	while (args && is_last(args) != 0 && args->next->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
+		{
 			args = args->next;
+		}
 		while (args && args->is_separator == 1)
 		{
 			tmp = args->parsed_arg;
@@ -55,9 +57,13 @@ void	redir(t_args *args, char **cmds)
 	while (create && is_last(create) != 0 && create->next->is_separator != 2) 
 	{
 		while (create && create->is_separator == 1)
+		{
 			create = create->next;
+		}
 		while (create && create->is_separator == 0)
+		{
 			create = create->next;
+		}
 		if (create && create->next)
 			create = create->next;
 		if (create && create->parsed_arg)
