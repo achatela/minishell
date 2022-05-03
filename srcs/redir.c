@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 13:58:39 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:36:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	is_last(t_args *args)
 			args = args->next;
 		if (args && args->is_separator == 1)
 		{
-			if (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0')
+			if ((args->parsed_arg[0] == '>' && args->parsed_arg[1] == '>' && args->parsed_arg[2] == '\0')
+				|| (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0'))
 				return (1);
 		}
 		else if (args && args->is_separator == 2)
@@ -35,6 +36,7 @@ void	redir(t_args *args, char **cmds)
 {
 	int		fd;
 	int		old_fd;
+	char	*tmp;
 	t_args	*head;
 	t_args	*create;
 
@@ -45,7 +47,10 @@ void	redir(t_args *args, char **cmds)
 		while (args && args->is_separator == 0)
 			args = args->next;
 		while (args && args->is_separator == 1)
+		{
+			tmp = args->parsed_arg;
 			args = args->next;
+		}
 	}
 	while (create && is_last(create) != 0 && create->next->is_separator != 2) 
 	{
@@ -66,7 +71,10 @@ void	redir(t_args *args, char **cmds)
 	}
 	old_fd = dup(1);
 	close(1);
-	fd = open(args->parsed_arg, O_WRONLY | O_CREAT, 0644);
+	if (tmp[1] == '\0')
+		fd = open(args->parsed_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 		printf("%s\n", "Error");
 	exec_bin(cmds, head);

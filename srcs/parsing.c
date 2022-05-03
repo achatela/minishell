@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 14:10:31 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:32:38 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ static int	has_pip(t_args *args)
 
 static void	send_sep(t_args *args, char **cmds, char *sep)
 {
-	if (sep[0] == '>' && sep[1] == '>' && sep[2] == '\0')
+/*	if (sep[0] == '>' && sep[1] == '>' && sep[2] == '\0')
 	{
 		d_redir(args, cmds);
 		return ;
-	}
-	if (sep[0] == '>' && sep[1] == '\0')
+	}*/
+	if (sep[0] == '>'/* && sep[1] == '\0'*/)
 	{
 		redir(args, cmds);
 		return ;
@@ -125,7 +125,7 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 				tmp = args->parsed_arg;
 				send_sep(head, cmds, tmp);
 			}
-			if (args->is_separator == 1 && ft_strcmp(tmp, args->parsed_arg) != 0)
+			if (args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 			{
 				tmp = args->parsed_arg;
 				send_sep(head, cmds, tmp);
