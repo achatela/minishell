@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:43:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 18:34:09 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:53:17 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static char	**copy_env2(char **env, char *str, int i, int j)
 		i++;
 	}
 	new[i] = create_pwd(str, 0);
-	new[i + 1] = malloc(sizeof(char));
 	new[i + 1] = 0;
 	free_env(env, 0);
 	return (new);

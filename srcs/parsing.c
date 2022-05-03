@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 16:36:48 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 17:52:01 by achatela         ###   ########.fr       */
+/*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
+/*   Updated: 2022/05/03 14:10:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,15 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 	{
 		(void)start;
 		(void)fd;
-//		fd = pip(head, start, fd, 0, cmds);
+	//	fd = pip(head, start, fd, 0, cmds);
 		while (args && (args->is_separator == 0 || args->is_separator == 1))
 		{
-			if (tmp != NULL && ft_strcmp(tmp, args->parsed_arg) == 0)
+			if (tmp == NULL && args->is_separator == 1) 
+			{
 				tmp = args->parsed_arg;
-			if (args->is_separator == 1)
+				send_sep(head, cmds, tmp);
+			}
+			if (args->is_separator == 1 && ft_strcmp(tmp, args->parsed_arg) != 0)
 			{
 				tmp = args->parsed_arg;
 				send_sep(head, cmds, tmp);
@@ -134,7 +137,7 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 		head = args;
 		start = 0;
 	}
-//	fd = pip(head, start, fd, 1, cmds);
+	//fd = pip(head, start, fd, 1, cmds);
 }
 
 void	parsing(char *cmd, t_echo *echo)

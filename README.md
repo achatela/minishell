@@ -6,6 +6,9 @@
 
 **quand PWD unset, builtin cd qui segfault**
 
+**echo "txt" >> file1 > file2 < file-existant == txt dans file2
+mais echo "txt" >> file1 > file2 < file-inexistant == rien faire dans file2 mais le créer**
+
 **segfault quand var prompt manquantes fix mais à gérer (prompt par défaut)**
 
 **quand redir-in n'arrive pas à ouvrir fd -> supprimer tout après <**

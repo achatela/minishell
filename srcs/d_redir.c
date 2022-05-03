@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   d_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 16:09:44 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:21:45 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/05/03 14:06:22 by achatela          #+#    #+#             */
+/*   Updated: 2022/05/03 14:06:23 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	d_redir(t_args *args, char **cmds)
 		while (args && args->is_separator == 1)
 			args = args->next;
 	}
-	create_file(args);
+	create_file(head);
 	old_fd = dup(1);
 	close(1);
 	fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
