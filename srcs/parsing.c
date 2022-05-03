@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 14:32:38 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:30:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,31 +113,55 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 
 	head = args;
 	tmp = NULL;
-	while (args && has_sep(args) == 1)
+	if (has_pip(args) == 0)
 	{
-		(void)start;
-		(void)fd;
-	//	fd = pip(head, start, fd, 0, cmds);
-		while (args && (args->is_separator == 0 || args->is_separator == 1))
+		while (args)
 		{
-			if (tmp == NULL && args->is_separator == 1) 
+			while (args && (args->is_separator == 0 || args->is_separator == 1))
 			{
-				tmp = args->parsed_arg;
-				send_sep(head, cmds, tmp);
+				if (args && tmp == NULL && args->is_separator == 1)
+				{
+					tmp = args->parsed_arg;
+					send_sep(head, cmds, tmp);
+				}
+				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
+				{
+					tmp = args->parsed_arg;
+					send_sep(head, cmds, tmp);
+				}
+				args = args->next;
 			}
-			if (args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
-			{
-				tmp = args->parsed_arg;
-				send_sep(head, cmds, tmp);
-			}
-			args = args->next;
 		}
-		while (args && args->is_separator == 2)
-			args = args->next;
-		head = args;
-		start = 0;
 	}
-	//fd = pip(head, start, fd, 1, cmds);
+	else
+	{
+		while (args)
+		{
+			if (has_pip(args) == 1)
+				fd = pip(head, start, fd, 0, cmds);
+			else
+				fd = pip(head, start, fd, 1, cmds);
+			while (args && (args->is_separator == 0 || args->is_separator == 1))
+			{
+				if (args && tmp == NULL && args->is_separator == 1) 
+				{
+					tmp = args->parsed_arg;
+					send_sep(head, cmds, tmp);
+				}
+				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
+				{
+					tmp = args->parsed_arg;
+					send_sep(head, cmds, tmp);
+				}
+				args = args->next;
+			}
+			while (args && args->is_separator == 2)
+				args = args->next;
+			head = args;
+			tmp = NULL;
+			start = 0;
+		}
+	}
 }
 
 void	parsing(char *cmd, t_echo *echo)
@@ -145,7 +169,6 @@ void	parsing(char *cmd, t_echo *echo)
 	char	**cmds;
 	t_args	*head;
 	t_args	*args;
-	t_args	*free_head;
 	int		start;
 	int		fd;
 
@@ -161,7 +184,7 @@ void	parsing(char *cmd, t_echo *echo)
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0, "|");
 	args = init_args(args, cmds, echo);
-	free_head = args;
+	head = args;
 	cmds = has_heredoc(args, cmds);
 	if (args->to_use == 2)
 	{
@@ -200,7 +223,6 @@ void	parsing(char *cmd, t_echo *echo)
 			  head = args;*/
 		}
 	}
-	(void)head;
 	free_cmds(cmds, 0);
-	free_list(free_head);
+	free_list(head);
 }

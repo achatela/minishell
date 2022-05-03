@@ -4,6 +4,10 @@
 
 **ctrl c dans here doc**
 
+**echo "txt" > file1 | cat < file1 == "txt\ntxt" mais le file est bon**
+
+**redirections après un pipe = ça marche pas**
+
 **quand PWD unset, builtin cd qui segfault**
 
 **echo "txt" >> file1 > file2 < file-existant == txt dans file2
