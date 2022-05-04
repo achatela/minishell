@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 13:55:50 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:12:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	redir_in(t_args *args, char **cmds)
 	{
 		tmp = get_file_name(args);
 		if (access(tmp, R_OK) != 0)
+		{
+			printf("%s: No such file or directory\n", tmp);
 			not_existing(head);
+		}
 		return ;
 	}
 	else

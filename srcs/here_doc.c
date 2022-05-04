@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 14:04:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:06:52 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	here_doc(t_args *args, int i)
 {
 	char	*delimiter;
 	char	*tmp;
-	static int		line = 0;
+	static int		line = 1;
 
 	if (args->next != NULL)
 		delimiter = args->next->parsed_arg;
@@ -40,7 +40,6 @@ static void	here_doc(t_args *args, int i)
 		return ;
 	while (i != 1)
 	{
-		line++;
 		tmp = readline("> ");
 		if (tmp == NULL)
 		{
@@ -51,6 +50,7 @@ static void	here_doc(t_args *args, int i)
 		else if (ft_strcmp(tmp, delimiter) == 0)
 			i = 1;
 		free(tmp);
+		line++;
 	}
 }
 
