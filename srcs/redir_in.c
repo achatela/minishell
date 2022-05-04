@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 14:12:13 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 16:25:12 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,8 @@ void	redir_in(t_args *args, char **cmds)
 	if (has_redir(args) == 1)
 	{
 		tmp = get_file_name(args);
-		if (access(tmp, R_OK) != 0)
-		{
-			printf("%s: No such file or directory\n", tmp);
+		if (ft_check_access(tmp, 0) != 0)
 			not_existing(head);
-		}
 		return ;
 	}
 	else
@@ -101,11 +98,8 @@ void	redir_in(t_args *args, char **cmds)
 				args = args->next;
 			while (args && args->is_separator == 1)
 				args = args->next;
-			if (access(args->parsed_arg, R_OK) == -1)
-			{
-				printf("%s: No such file or directory\n", args->parsed_arg);
+			if (ft_check_access(args->parsed_arg, 0) != 0)
 				return ;
-			}
 			old_fd = dup(0);
 			close(0);
 			fd = open(args->parsed_arg, O_RDONLY);

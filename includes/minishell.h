@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 19:30:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 16:25:21 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_args	*init_args(t_args *args, char **cmds, t_echo *echo);
 int		exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);
+int		ft_check_access(char *file, int i);
 
 #endif

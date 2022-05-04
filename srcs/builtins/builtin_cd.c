@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 14:20:17 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/04 16:25:00 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,8 @@ static int	cd_errors(t_args *args, char *tmp)
 		chdir(getenv("HOME"));
 		return (1);
 	}
-	if (access(tmp, F_OK) == -1)
-	{
-		printf("cd: %s: No such file or directory\n", tmp);
+	if (ft_check_access(tmp, 1) != 0)
 		return (1);
-	}
-	else if (access(tmp, R_OK) == -1)
-	{
-		printf("cd: %s: Permission denied\n", tmp);
-		return (1);
-	}
 	if (args->next == NULL
 		|| (args->next != NULL && args->next->parsed_arg[0] == '~')
 		|| (args->next != NULL && args->next->is_separator == 1))
