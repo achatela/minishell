@@ -2,6 +2,8 @@
 
 ## ERREURS A GERER
 
+**Gérer erreurs dans redir.c**
+
 **ctrl c dans here doc**
 
 **segfault prompt fix manque manque prompt par défaut/static prompt

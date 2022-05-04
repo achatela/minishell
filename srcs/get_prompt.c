@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 12:23:15 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:37:06 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,59 +81,29 @@ static char	*get_home(char **env, int i, int j)
 	return (tmp);
 }
 
-char	*get_end(char **env, int i, int j)
+static char	**fill_ret(char **ret, char *tmp)
 {
-	char	*tmp;
-	char	*tmp2;
-	int		k;
-
-	k = 0;
-	tmp = get_env_var(env, "HOME", 0);
-	if (!tmp)
-		return (NULL);
-	tmp2 = getcwd(NULL, 0);
-	while (tmp[i] == tmp2[i])
-		i++;
-	j = i - 1;
-	free(tmp);
-	while (tmp2[++i])
-		k++;
-	tmp = malloc(sizeof(char) * k + 2);
-	k = 0;
-	if (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[j] != '/')
-		j++;
-	while (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[++j])
-	{
-		tmp[k] = tmp2[j];
-		k++;
-	}
-	tmp[k] = '\0';
-	free(tmp2);
-	return (tmp);
+	(void)tmp;
+	ret = malloc(sizeof(char *) * 4);
+	ret[0] = get_env_var(g_env, "USER", 0);
+	ret[1] = get_session(g_env, 0, 0, 0);
+	ret[2] = get_home(g_env, 0, 0);
+	if (ret[2] != NULL && ft_strlen(ret[2]) != 2)
+		ret[3] = NULL;
+	else
+		ret[3] = get_end(g_env, 0, 0, 0);
+	return (ret);
 }
 
-char	*get_prompt(char **env, int i)
+char	*get_prompt(int i)
 {
 	char	**ret;
 	char	*tmp;
 
 	tmp = malloc(sizeof(char));
 	tmp[0] = '\0';
-	ret = malloc(sizeof(char *) * 4);
-	(void)get_session;
-	(void)get_home;
-	ret[0] = get_env_var(g_env, "USER", 0);
-	ret[1] = get_session(g_env, 0, 0, 0);
-	ret[2] = get_home(g_env, 0, 0);
-	if(ret[0] == NULL || ret[1] == NULL || ret[2] == NULL || ret[3] == NULL)
-	{
-		tmp = ft_strjoin(tmp, "$ ");
-		return (tmp);
-	}
-	else if (ret[2] != NULL && ft_strlen(ret[2]) != 2)
-		ret[3] = NULL;
-	else
-		ret[3] = get_end(env, 0, 0);
+	ret = NULL;
+	ret = fill_ret(ret, tmp);
 	while (++i < 4 && ret[i] != NULL)
 		tmp = ft_strjoin(tmp, ret[i]);
 	tmp = ft_strjoin(tmp, "$ ");

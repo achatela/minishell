@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 16:25:21 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:43:58 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ struct	s_args
 	t_args	*before;
 };
 
+char	**realloc_cmds(char **cmds, int i, char *cat);
+char	**new_cmds(char **cmds, char *tmp);
+char	*get_end(char **env, int i, int j, int k);
 char	**remove_heredoc(t_args *args, char *tmp, char **cmds);
-void	redir(t_args *args, char **cmds);
+void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
 void	redir_in(t_args *args, char **cmds);
 int		pip(t_args *args, int start, int fd, int last, char **cmds);
@@ -69,7 +72,7 @@ int		builtin_cd(t_args *args, int i);
 int		builtin_exit(t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(int i);
-char	*get_prompt(char **env, int i);
+char	*get_prompt(int i);
 void	builtin_export(char **env, t_args *args);
 void	free_env(char **env, int i);
 void	switch_pwds(char **env, int i, int j);

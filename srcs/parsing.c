@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/04 15:37:45 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:17:03 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,54 @@ static int	has_pip(t_args *args)
 
 static void	send_sep(t_args *args, char **cmds, char *sep)
 {
-/*	if (sep[0] == '>' && sep[1] == '>' && sep[2] == '\0')
+	if (sep[0] == '>')
 	{
-		d_redir(args, cmds);
-		return ;
-	}*/
-	if (sep[0] == '>'/* && sep[1] == '\0'*/)
-	{
-		redir(args, cmds);
+		redir(args, cmds, args, 0);
 		return ;
 	}
 	if (sep[0] == '<' && sep[1] == '\0')
 	{
 		redir_in(args, cmds);
 		return ;
+	}
+}
+
+static void	while_pip(t_args *args, int start, int fd, char **cmds)
+{
+	t_args	*head;
+	int		i;
+	char	*tmp;
+
+	tmp = NULL;
+	i = 0;
+	head = args;
+	while (args)
+	{
+		if (has_pip(args) == 1)
+			fd = pip(head, start, fd, 0, cmds);
+		else
+			fd = pip(head, start, fd, 1, cmds);
+		while (args && (args->is_separator == 0 || args->is_separator == 1) && i == 0)
+		{
+			if (args && tmp == NULL && args->is_separator == 1)
+			{
+				tmp = args->parsed_arg;
+				send_sep(head, cmds, tmp);
+			}
+			if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
+			{
+				tmp = args->parsed_arg;
+				send_sep(head, cmds, tmp);
+				i = 1;
+			}
+			args = args->next;
+		}
+		i = 0;
+		while (args && args->is_separator == 2)
+			args = args->next;
+		head = args;
+		tmp = NULL;
+		start = 0;
 	}
 }
 
@@ -113,7 +147,6 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 	int			i;
 
 	head = args;
-	tmp = NULL;
 	i = 0;
 	if (has_pip(args) == 0)
 	{
@@ -135,38 +168,9 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 				args = args->next;
 			}
 		}
+		return ;
 	}
-	else
-	{
-		while (args)
-		{
-			if (has_pip(args) == 1)
-				fd = pip(head, start, fd, 0, cmds);
-			else
-				fd = pip(head, start, fd, 1, cmds);
-			while (args && (args->is_separator == 0 || args->is_separator == 1) && i == 0)
-			{
-				if (args && tmp == NULL && args->is_separator == 1) 
-				{
-					tmp = args->parsed_arg;
-					send_sep(head, cmds, tmp);
-				}
-				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
-				{
-					tmp = args->parsed_arg;
-					send_sep(head, cmds, tmp);
-					i = 1;
-				}
-				args = args->next;
-			}
-			i = 0;
-			while (args && args->is_separator == 2)
-				args = args->next;
-			head = args;
-			tmp = NULL;
-			start = 0;
-		}
-	}
+	while_pip(args, start, fd, cmds);
 }
 
 void	parsing(char *cmd, t_echo *echo)
@@ -184,7 +188,7 @@ void	parsing(char *cmd, t_echo *echo)
 	{
 		free(cmds);
 		return ;
-	}
+	}	
 	cmds = parse_separators(cmds, 0);
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0, "|");
@@ -199,35 +203,8 @@ void	parsing(char *cmd, t_echo *echo)
 	}
 	if (has_sep(args) == 0)
 		send_builtin(args, -1, cmds);
-	else if (has_sep(args) == 1/* && has_pip(args) == 1*/)
-	{
-		{
-			(void)has_pip;
-			test_boucle_pipe(args, start, fd, cmds);
-			/*head = args;
-			  while (args && has_sep(args) == 1)
-			  {
-			  fd = pip(head, start, fd, 0, cmds);
-			  while (args && args->is_separator == 0)
-			  args = args->next;
-			  while (args && args->is_separator == 2)
-			  args = args->next;
-			  head = args;
-			  start = 0;*/
-			/*while (args && args->is_separator == 0)
-			  args = args->next;
-			  if (args && args->next && args->is_separator == 1)
-			  {
-			  while (args && args->is_separator == 1)
-			  args = args->next;
-			  }
-			  if (head->is_separator != 1)
-			  send_builtin(head, -1, cmds);
-			  else
-			  args = args->next;
-			  head = args;*/
-		}
-	}
+	else if (has_sep(args) == 1)
+		test_boucle_pipe(args, start, fd, cmds);
 	free_cmds(cmds, 0);
 	free_list(head);
 }

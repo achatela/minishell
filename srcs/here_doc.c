@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 14:23:56 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:46:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	has_sep(t_args *args)
 
 static void	here_doc(t_args *args, int i)
 {
-	char	*delimiter;
-	char	*tmp;
+	char			*delimiter;
+	char			*tmp;
 	static int		line = 1;
 
 	if (args->next != NULL)
@@ -45,7 +45,7 @@ static void	here_doc(t_args *args, int i)
 		{
 			printf("warning: here-document at line %d ", line++);
 			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
-			break;
+			break ;
 		}
 		else if (ft_strcmp(tmp, delimiter) == 0)
 			i = 1;
@@ -62,85 +62,29 @@ static void	new_list(t_args *args, char *tmp)
 	head = args;
 	while (args && has_sep(args) == 1)
 	{
-		while (args /*&& args->next*/ && ft_strcmp(args->parsed_arg, tmp) != 0)
+		while (args && ft_strcmp(args->parsed_arg, tmp) != 0)
 		{
 			head = args;
 			args = args->next;
 		}
-		if (args && /*args->next &&*/ ft_strcmp(args->parsed_arg, tmp) == 0)
+		if (args && ft_strcmp(args->parsed_arg, tmp) == 0)
 		{
 			args = head;
 			head_free = args->next->next;
 			head = args->next;
 			args->next = args->next->next->next;
-		//	head_free = args;
-		//	head->next = args->next->next;
 			free(head->parsed_arg);
 			free(head);
 			free(head_free->parsed_arg);
 			free(head_free);
-			(void)head;
-		//	head_free = args;
-		//	args = head->next;
-		//	free(head);
 		}
 		else if (args->next != NULL)
 			args = args->next;
 	}
 }
 
-static char	**realloc_cmds(char **cmds, int i, char *cat)
+static void	while_heredoc(t_args *args, char *tmp)
 {
-	int		j;
-	int		k;
-	char	**new;
-
-	k = 0;
-	j = 0;
-	while (cmds[j] != 0)
-		j++;
-	if (i != 0 && ft_strcmp(cmds[i - 1], cat) == 0)
-		j--;
-	new = malloc(sizeof(char *) * (j - 1));
-	if (!new)
-		return (NULL);
-	j = 0;
-	while (cmds[j])
-	{
-		if (j == i || j == i + 1 || (j == i - 1 && i != 0
-				&& ft_strcmp(cmds[i - 1], cat) == 0))
-				j++;
-		else
-			new[k++] = ft_strdup(cmds[j++]);
-	}
-	new[k] = 0;
-	free_cmds (cmds, 0);
-	return (new);
-}
-
-static char	**new_cmds(char **cmds, char *tmp)
-{
-	int	i;
-
-	i = 0;
-	while (cmds[i] != 0)
-	{
-		if (ft_strcmp(cmds[i], tmp) == 0)
-		{
-			cmds = realloc_cmds(cmds, i, "cat");
-			i = -1;
-		}
-		i++;
-	}
-	return (cmds);
-}
-
-char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
-{
-	t_args	*head;
-	int		i;
-
-	head = args;
 	while (args)
 	{
 		while (args && ft_strcmp(tmp, args->parsed_arg) != 0)
@@ -151,6 +95,15 @@ char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
 			args = args->next;
 		}
 	}
+}
+
+char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
+{
+	t_args	*head;
+	int		i;
+
+	head = args;
+	while_heredoc(args, tmp);
 	if (head->next != NULL && head->next->next != NULL)
 	{
 		new_list(head, tmp);
