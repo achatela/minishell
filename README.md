@@ -4,9 +4,6 @@
 
 **ctrl c dans here doc**
 
-**echo "txt" >> file1 > file2 < file-existant == txt dans file2
-mais echo "txt" >> file1 > file2 < file-inexistant == rien faire dans file2 mais le créer**
-
 **segfault prompt fix manque manque prompt par défaut/static prompt**
 
 **quand redir-in n'arrive pas à ouvrir fd -> supprimer tout après <**

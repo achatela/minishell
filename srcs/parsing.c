@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 19:06:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:25:15 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 				{
 					tmp = args->parsed_arg;
-				//	send_sep(head, cmds, tmp);
+					send_sep(head, cmds, tmp);
 				}
 				args = args->next;
 			}

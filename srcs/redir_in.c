@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 19:00:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:55:50 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,94 @@ static int	last_redir_in(t_args *args)
 	return (0);
 }
 
-void	redir_in(t_args *args, char **cmds)
+static int	has_redir(t_args *args)
 {
-	t_args	*head;
-	int		fd;
-	int		old_fd;
-
-	head = args;
-	while (args && last_redir_in(args) != 0 && args->next->is_separator != 2)
+	while (args)
 	{
-		while (args && args->is_separator == 0)
-		{
-			args = args->next;
-		}
+		if (args->parsed_arg[0] == '>' && args->is_separator == 1)
+			return (1);
+		args = args->next;
+	}
+	return (0);
+}
+
+static char	*get_file_name(t_args *args)
+{
+	while (args && args->parsed_arg[0] != '<')
+		args = args->next;
+	if (args)
+		args = args->next;
+	return (args->parsed_arg);
+}
+
+static void	not_existing(t_args *args)
+{
+	int	fd;
+
+	while (args && args->parsed_arg[0] != '<')
+	{
 		while (args && args->is_separator == 1)
 		{
 			args = args->next;
 		}
-		if (access(args->parsed_arg, R_OK) == -1)
+		while (args && args->is_separator == 0)
+			args = args->next;
+		if (args && args->next)
 		{
-			printf("%s: No such file or directory\n", args->parsed_arg);
-			return ;
+			if (args->parsed_arg[0] == '<')
+				break;
+			args = args->next;
 		}
-		old_fd = dup(0);
-		close(0);
-		fd = open(args->parsed_arg, O_RDONLY);
-		if (fd < 0)
+		if (args && args->parsed_arg)
 		{
+			fd = open(args->parsed_arg, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			close(fd);
+		}
+	}
+}
+
+void	redir_in(t_args *args, char **cmds)
+{
+	t_args	*head;
+	char	*tmp;
+	int		fd;
+	int		old_fd;
+
+	head = args;
+	if (has_redir(args) == 1)
+	{
+		tmp = get_file_name(args);
+		if (access(tmp, R_OK) != 0)
+			not_existing(head);
+		return ;
+	}
+	else
+	{
+		while (args && last_redir_in(args) != 0 && args->next->is_separator != 2)
+		{
+			while (args && args->is_separator == 0)
+				args = args->next;
+			while (args && args->is_separator == 1)
+				args = args->next;
+			if (access(args->parsed_arg, R_OK) == -1)
+			{
+				printf("%s: No such file or directory\n", args->parsed_arg);
+				return ;
+			}
+			old_fd = dup(0);
+			close(0);
+			fd = open(args->parsed_arg, O_RDONLY);
+			if (fd < 0)
+			{
+				close(0);
+				dup(old_fd);
+				printf("fd < 0\n");
+				return ;
+			}
+			send_builtin(head, 0, cmds);
+		//	exec_bin(cmds, head);
 			close(0);
 			dup(old_fd);
-			return ;
 		}
-		send_builtin(head, 0, cmds);
-	//	exec_bin(cmds, head);
-		close(0);
-		dup(old_fd);
 	}
 }

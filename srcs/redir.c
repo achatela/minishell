@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 19:20:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:33:42 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	is_last(t_args *args)
 			if ((args->parsed_arg[0] == '>' && args->parsed_arg[1] == '>' && args->parsed_arg[2] == '\0')
 				|| (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0'))
 				return (1);
+			else if (args->parsed_arg[0] == '<')
+				return (0);
 		}
 		else if (args && args->is_separator == 2)
 			return (2);
@@ -41,13 +43,11 @@ void	redir(t_args *args, char **cmds)
 	t_args	*create;
 
 	head = args;
-	create = head;
+	create = args;
 	while (args && is_last(args) != 0 && args->next->is_separator != 2)
 	{
 		while (args && args->is_separator == 0)
-		{
 			args = args->next;
-		}
 		while (args && args->is_separator == 1)
 		{
 			tmp = args->parsed_arg;
@@ -79,7 +79,8 @@ void	redir(t_args *args, char **cmds)
 		fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 		printf("%s\n", "Error");
-	exec_bin(cmds, head);
+	send_builtin(head, 0, cmds);
+	//exec_bin(cmds, head);
 	close(1);
 	dup(old_fd);
 }
