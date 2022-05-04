@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 13:51:46 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:23:15 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ static char	*get_home(char **env, int i, int j)
 	(void)env;
 	tmp = get_env_var(g_env, "HOME", 0);
 	tmp2 = getcwd(NULL, 0);
-	i = ft_strncmp(tmp, tmp2, (ft_strlen(tmp) + 1));
+	if (tmp && tmp2)
+		i = ft_strncmp(tmp, tmp2, (ft_strlen(tmp) + 1));
+	else
+		i = 0;
 	free(tmp);
 	free(tmp2);
 	tmp = fill_tmp(tmp, i);

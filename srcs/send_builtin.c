@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 17:49:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:44:57 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	send_builtin(t_args *args, int j, char **cmds)
 	if (head == NULL)
 		return (1);
 	tmp = getcwd(NULL, 0);
+	if (tmp == NULL && ft_strcmp(head->parsed_arg, "pwd") == 0)
+		tmp = get_env_var(g_env, "PWD", 0);
 	(void)j;
 	(void)get_next_index;
 //	while (head && ++j < i)
