@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/04 13:33:42 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:41:24 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void	redir(t_args *args, char **cmds)
 			}
 		}
 	}
+	if (tmp == NULL)
+		tmp = args->parsed_arg;
 	old_fd = dup(1);
 	close(1);
-	if (tmp[1] == '\0')
+	if (tmp[0] && tmp[1] == '\0')
 		fd = open(args->parsed_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);

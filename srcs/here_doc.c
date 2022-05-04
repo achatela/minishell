@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 14:06:52 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:23:56 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	here_doc(t_args *args, int i)
 		tmp = readline("> ");
 		if (tmp == NULL)
 		{
-			printf("warning: here-document at line %d ", line);
+			printf("warning: here-document at line %d ", line++);
 			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
-			break ;
+			break;
 		}
 		else if (ft_strcmp(tmp, delimiter) == 0)
 			i = 1;
