@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/04 13:25:15 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:37:45 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,27 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 {
 	t_args		*head;
 	char		*tmp;
+	int			i;
 
 	head = args;
 	tmp = NULL;
+	i = 0;
 	if (has_pip(args) == 0)
 	{
-		while (args)
+		while (args && i == 0)
 		{
 			while (args && (args->is_separator == 0 || args->is_separator == 1))
 			{
-				if (args && tmp == NULL && args->is_separator == 1)
+				if (args && tmp == NULL && args->is_separator == 1 && i == 0)
 				{
 					tmp = args->parsed_arg;
 					send_sep(head, cmds, tmp);
 				}
-				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
+				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0 && i == 0)
 				{
 					tmp = args->parsed_arg;
 					send_sep(head, cmds, tmp);
+					i = 1;
 				}
 				args = args->next;
 			}
@@ -141,7 +144,7 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 				fd = pip(head, start, fd, 0, cmds);
 			else
 				fd = pip(head, start, fd, 1, cmds);
-			while (args && (args->is_separator == 0 || args->is_separator == 1))
+			while (args && (args->is_separator == 0 || args->is_separator == 1) && i == 0)
 			{
 				if (args && tmp == NULL && args->is_separator == 1) 
 				{
@@ -152,9 +155,11 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 				{
 					tmp = args->parsed_arg;
 					send_sep(head, cmds, tmp);
+					i = 1;
 				}
 				args = args->next;
 			}
+			i = 0;
 			while (args && args->is_separator == 2)
 				args = args->next;
 			head = args;

@@ -4,8 +4,6 @@
 
 **ctrl c dans here doc**
 
-**dans redir-in gérer les retours de access (no such file, permission denied...)**
-
 **segfault prompt fix manque manque prompt par défaut/static prompt
 -> créer une variable PROMPT= au lancement**
 
@@ -18,10 +16,17 @@
 **echo $? pour voir la valeur du return.**
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
-**problème plusieurs redir in == devrait arrêter de parser au premier '<'**
+**problème plusieurs redir in après pipe == devrait arrêter de parser au premier '<'**
 
-**cat | ls == écrit ls après le prompt après un ctrl c/d**
+**cat | ls == écrit ls après le prompt après un ctrl c**
 
 **ctrl c dans un cat/qqch d'infini == double prompt**
+
+**test**
+|   |   |   |   |   |
+|---|---|---|---|---|
+|   |   |   |   |   |
+|   |   |   |   |   |
+|   |   |   |   |   |
 
 _et la norminette lol_

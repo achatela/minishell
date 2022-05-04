@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 12:44:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:59:56 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	send_builtin(t_args *args, int j, char **cmds)
 	else
 		exec_bin(cmds, head);
 	free(tmp);
+	//get_ret_echo(cmds, head);
 //	i = get_next_index(args, i);
 	return (-1); //dans parsing, if return value = -1, envoyer dans exec custom (sans command_not_found)
 }// pour recup la valeur de retour dans echo->print
