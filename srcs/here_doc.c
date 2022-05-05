@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 17:46:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:51:27 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	new_list(t_args *args, char *tmp)
 			free(head_free->parsed_arg);
 			free(head_free);
 		}
-		else if (args->next != NULL)
+		else if (args && args->next != NULL)
 			args = args->next;
 	}
 }

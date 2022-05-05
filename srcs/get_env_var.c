@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:24:42 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:25:02 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:06:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*get_env_var(char **env, char *var, int i)
 			return (cut_var_end(g_env[i], 0, 0));
 		i++;
 	}
-	ret = malloc(sizeof(char));
-	ret[0] = '\0';
-	return (ret);
+//	ret = malloc(sizeof(char));
+//	ret[0] = '\0';
+	(void)ret;
+	return (NULL);
 }

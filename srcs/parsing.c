@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/04 18:17:03 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:46:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 	int			i;
 
 	head = args;
+	tmp = NULL;
 	i = 0;
 	if (has_pip(args) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 17:23:21 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:06:14 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	env_is_sorted(char **env, int i)
 {
-	while (env[i] != 0)
+	while (env[i] != 0 && env[i + 1] != 0)
 	{
 		if (ft_strcmp(env[i], env[i + 1]) < 0)
 			return (1);

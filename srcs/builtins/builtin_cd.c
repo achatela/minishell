@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 16:25:00 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:55:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ static char	*home_path(t_args *args)
 
 static int	cd_errors(t_args *args, char *tmp)
 {
+	if (getenv("HOME") == NULL && args->next == NULL)
+	{
+		printf("cd: HOME not set\n");
+		return (1);
+	}
 	if (tmp == NULL || (args->next && args->is_separator == 1))
 	{
 		chdir(getenv("HOME"));
