@@ -8,6 +8,8 @@
 
 **Gérer erreurs dans redir.c**
 
+**command avec un path quand PATH est unset doit fonctionner**
+
 **ctrl c dans here doc**
 
 **segfault prompt fix manque manque prompt par défaut/static prompt

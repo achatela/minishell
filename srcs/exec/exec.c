@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 17:26:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:46:38 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,25 @@ char    *path_join(const char *s1, const char *s2)
 
 char *check_dir(char *bin, char *cmd)
 {
-    DIR *folder;
-    struct dirent *dir;
-    char *path;
+    DIR		*folder;
+    struct	dirent *dir;
+    char	*path;
+	int		i;
 
+	i = 0;
+	while (cmd[i] != '\0')
+		i++;
+	while (i != 0 && cmd[i] != '/')
+		i--;
+	if (i == 0 || cmd[i] == '/')
+	{
+		if (cmd[i] == '/')
+		{
+			i++;
+			while (i-- != 0)
+				cmd++;
+		}
+	}
     path = NULL;
     folder = opendir(bin);
     if (!folder)
@@ -142,7 +157,6 @@ char *check_dir(char *bin, char *cmd)
         dir = readdir(folder);
     }
     closedir(folder);
-//	free(dir);
     return (path);
 
 }
