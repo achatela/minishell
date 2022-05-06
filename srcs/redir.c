@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/04 16:57:05 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:32:26 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 		}
 	}
 	create_while(head, fd);
+	if (ft_check_access(args->parsed_arg, 0) == -1)
+		return ;
 	if (tmp == NULL)
 		tmp = args->parsed_arg;
 	old_fd = dup(1);

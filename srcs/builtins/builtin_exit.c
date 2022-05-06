@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 14:27:15 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:11:25 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	builtin_exit(t_args *args)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			args->parsed_arg);
-		printf("[%s]\n", args->parsed_arg);
 		exit(2);
 	}
 	else if (args && args->next)
