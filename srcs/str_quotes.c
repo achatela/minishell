@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/03 14:05:58 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 15:09:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	length_quotes(char *str, int i, int length)
 	}*/
 	while (str[i])
 	{
-		if (str[i] == '"'/*&& i == 0*/)
+		if (str[i] && str[i] == '"'/*&& i == 0*/)
 		{
 			i++;
 			while (str[i] && str[i] != '"')
@@ -65,7 +65,7 @@ static int	length_quotes(char *str, int i, int length)
 			}
 			i++;
 		}
-		else if (str[i] == 39/* && i == 0*/)
+		else if (str[i] && str[i] == 39/* && i == 0*/)
 		{
 			i++;
 			while (str[i] && str[i] != 39)
@@ -75,7 +75,7 @@ static int	length_quotes(char *str, int i, int length)
 			}
 			i++;
 		}
-		else if (str[i] == '$')
+		else if (str[i] && str[i] == '$')
 		{
 			length += var_length(str, i, i + 1, -1);
 			while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1

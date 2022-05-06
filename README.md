@@ -2,6 +2,8 @@
 
 ## ERREURS A GERER
 
+**echo -n "$?" segfault**
+
 **Gérer erreurs dans redir.c**
 
 **ctrl c dans here doc**

@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:32:45 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 17:56:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 15:28:34 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ static int	length_word(char *str, int i)
 	if (is_separator(str, i) == 2)
 		return (2);
 	if (is_separator(str, i) == 1)
-		return (1);
+		return(1);
 	while (str[i])
 	{
-		if (is_separator(str, i) == 2 || is_separator(str, i) == 1)
-			return (ret);
+//		if (is_separator(str, i) == 2 || is_separator(str, i) == 1)
+//			return (ret);
 		i++;
 		ret++;
 	}
