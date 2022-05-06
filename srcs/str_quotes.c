@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/06 15:09:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 15:32:53 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static int	var_length(char *str, int i, int j, int k)
 	tmp[k++] = '=';
 	tmp[k] = '\0';
 	tmp2 = get_env_var(g_env, tmp, 0);
+	if (tmp2 == NULL)
+	{
+		tmp2 = malloc(sizeof(char));
+		tmp2[0] = '\0';
+	}
 	length += ft_strlen(tmp2);
 	free(tmp);
 	free(tmp2);

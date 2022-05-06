@@ -4,6 +4,8 @@
 
 **echo -n "$?" segfault**
 
+**Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
+
 **Gérer erreurs dans redir.c**
 
 **ctrl c dans here doc**
@@ -33,6 +35,8 @@ peut-être par get-env-var mais il renvoyait "\0" au lieu de NULL**
 **cat | ls == écrit ls après le prompt après un ctrl c**
 
 **ctrl c dans un cat/qqch d'infini == double prompt**
+
+**cd ...... va dans home**
 
 **test**
 |   |   |   |   |   |

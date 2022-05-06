@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 15:08:26 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:02:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*get_home(char **env, int i, int j)
 		i = ft_strncmp(tmp, tmp2, (ft_strlen(tmp) + 1));
 	else
 		i = 0;
-	if (tmp[0] == '\0')
+	if (tmp == NULL)
 		i = 1;
 	free(tmp);
 	free(tmp2);
