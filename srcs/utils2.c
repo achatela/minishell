@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:45:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 15:09:03 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/06 15:33:37 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ int	ft_check_access(char *file, int i)
 {
 	if (i == 1)
 		printf("cd : ");
-	if (access(file, R_OK) == -1)
+	if (access(file, F_OK) == -1)
+	{
+		printf("%s: No such file or directory\n", file);
+		return (-1);
+	}
+	else if (access(file, R_OK) == -1)
 	{
 		printf("%s: No such file or directory\n", file);
 		return (-1);
@@ -38,16 +43,11 @@ int	ft_check_access(char *file, int i)
 		printf("%s: Permission denied\n", file);
 		return (-1);
 	}
-	else if (access(file, X_OK) == -1)
-	{
-		printf("%s: Permission denied\n", file);
-		return (-1);
-	}
-	else if (access(file, F_OK) == -1)
-	{
-		printf("%s: No suck file or directory\n", file);
-		return (-1);
-	}
+	// else if (access(file, X_OK) == -1)
+	// {
+	// 	printf("%s: Permission denied\n", file);
+	// 	return (-1);
+	// }
 	return (0);
 }
 
