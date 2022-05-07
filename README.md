@@ -8,12 +8,7 @@
 
 **Gérer erreurs dans redir.c**
 
-**command avec un path quand PATH est unset doit fonctionner**
-
 **ctrl c dans here doc**
-
-**segfault prompt fix manque manque prompt par défaut/static prompt
--> créer une variable PROMPT= au lancement**
 
 **segfault quand mkdir 1 -> cd 1 -> mkdir 2 -> cd 2 - > rm -rf ../../1/ fix mais cd .. fonctionne bizzarement**
 
