@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/06 16:46:38 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:56:06 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,12 @@ int exec_bin(char **cmds, t_args *args)
     i = 0;
     while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
         i++;
-    if (g_env[i] == 0)
-        return (1);
-    bin = ft_split(g_env[i], ':');
+    if (g_env[i] == 0 && getenv("PATH") != NULL)
+		bin = ft_split(getenv("PATH"), ':');
+	else if (g_env[i] != 0)
+		bin = ft_split(g_env[i], ':');
+	else
+		return (printf("%s: PATH not set\n", args->parsed_arg), 1);
     if (!args->parsed_arg && !bin[0])
         return (1);
     path = check_dir(bin[0], args->parsed_arg);
