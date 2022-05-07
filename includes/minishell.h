@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/04 17:43:58 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:55:07 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
 void	redir_in(t_args *args, char **cmds);
 int		pip(t_args *args, int start, int fd, int last, char **cmds);
-void	handler(int sig);
+void	handler(int sig, siginfo_t *info, void *null);
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);
 char	*str_no_quotes(char *str, int i, int j, int k);

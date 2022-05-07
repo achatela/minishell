@@ -6,16 +6,22 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:41:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 19:30:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:27:29 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handler(int sig)
+void	handler(int sig, siginfo_t *info, void *null)
 {
-	//char	*prompt;
-	if (sig == SIGINT)
+	(void)null;
+	printf("%d", info->si_pid);
+	if (sig == SIGINT && info->si_pid == 0)
+	{
+		printf("\n");
+		kill(info->si_pid, SIGQUIT);
+	}
+	if (sig == SIGINT && info->si_pid != 0)
 	{
 		printf("\n");
 		rl_on_new_line();

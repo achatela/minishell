@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:43:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/03 13:53:17 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:28:48 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,27 @@ static char	*new_pwd(char *env, char *str, char *str2)
 	j = 0;
 	i = -1;
 	free(env);
-	env = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(str2) + 1));
+	if (str)
+		j += ft_strlen(str);
+	if (str2)
+		j += ft_strlen(str2);
+	env = malloc(sizeof(char) * (j + 1));
+	j = 0;
 	if (!env)
 		return (NULL);
-	while (str[++i])
-		env[i] = str[i];
-	while (str2[j])
+	if (str)
 	{
-		env[i] = str2[j];
-		i++;
-		j++;
+		while (str[++i])
+			env[i] = str[i];
+	}
+	if (str2)
+	{
+		while (str2[j])
+		{
+			env[i] = str2[j];
+			i++;
+			j++;
+		}
 	}
 	env[i] = '\0';
 	return (env);

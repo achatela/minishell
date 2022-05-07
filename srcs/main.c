@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 16:02:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:57:02 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int argc, char **argv, char **env)
 	char	*prompt;
 	int		i;
 	t_echo	*echo;
+	struct sigaction	act;
 
 	i = 4;
 	argc = -1;
@@ -64,8 +65,11 @@ int	main(int argc, char **argv, char **env)
 	echo = malloc(sizeof(t_echo));
 	echo->print = 0;
 	g_env = init_env(env, 0, 0, 0);
-	signal(SIGINT, &handler);
-	signal(SIGQUIT, &handler);
+	sigemptyset(&act.sa_mask);
+	act.sa_sigaction = handler;
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 	while (--i < 10)
 	{
 		prompt = get_prompt(argc);
