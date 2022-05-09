@@ -68,7 +68,8 @@ int	builtin_echo(t_args *args)
 			else
 				printf("%c", args->parsed_arg[i]);
 		}
-		printf(" ");
+		if (!(args->next && args->next->is_separator != 0))
+			printf(" ");
 		args = args->next;
 	}
 	/*	if (args && args->to_use == 1 && args->is_separator == 1)
