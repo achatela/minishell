@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 17:17:08 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:53:02 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
-static void	here_doc(t_args *args, int i)
+static void	here_doc(t_args *args, int i, char *stop)
 {
 	char			*delimiter;
 	char			*tmp;
 	static int		line = 1;
 
+	(void)stop;
 	if (args->next != NULL)
 		delimiter = args->next->parsed_arg;
 	else
@@ -91,7 +92,7 @@ static void	while_heredoc(t_args *args, char *tmp)
 			args = args->next;
 		if (args && ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
-			here_doc(args, 0);
+			here_doc(args, 0, "");
 			args = args->next;
 		}
 	}

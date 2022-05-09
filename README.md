@@ -4,6 +4,8 @@
 
 **Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
 
+**Je sais pas quoi casse le terminal, transforme (dans cat, ed etc...) Entrée en ^M même dans bash**
+
 **ctrl c dans here doc, essayer de fork ?**
 
 **"." et ".." ignorés**

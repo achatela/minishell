@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:41:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 17:27:29 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:34:42 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	handler(int sig, siginfo_t *info, void *null)
 {
 	(void)null;
-	printf("%d", info->si_pid);
 	if (sig == SIGINT && info->si_pid == 0)
 	{
 		printf("\n");
