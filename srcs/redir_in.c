@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/06 16:24:21 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/09 17:20:58 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	redir_in(t_args *args, char **cmds)
 	}
 	else
 	{
-		while (args && last_redir_in(args) != 0 && args->next->is_separator != 2)
+		while (args && last_redir_in(args) != 0 && args->next && args->next->is_separator != 2)
 		{
 			while (args && args->is_separator == 0)
 				args = args->next;
