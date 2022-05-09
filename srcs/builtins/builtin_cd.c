@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 16:21:48 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:14:43 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,10 @@ static int	cd_errors(t_args *args, char *tmp, char	*home)
 	if (tmp != NULL && ft_check_access(tmp, 1) != 0)
 		return (1);
 	home = get_env_var(g_env, "HOME", 0);
+	if (home == NULL && args->next == NULL)
+		return (printf("cd: HOME not set\n"), 1);
 	if (access(home, R_OK) == -1)
 		return (printf("cd: %s: No such file or directory\n", home), free(home), 1);
-	if (home == NULL && args->next == NULL)
-	{
-		printf("cd: HOME not set\n");
-		return (1);
-	}
 	if (tmp == NULL || (args->next && args->is_separator == 1))
 	{
 		chdir(home);
