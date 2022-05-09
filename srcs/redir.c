@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/06 16:37:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:12:02 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	close(1);
 	fd = open_fd(args, tmp);
 	if (fd < 0)
-		printf("%s\n", "Error");
+		printf("%s\n", "Cannot open fd");
 	send_builtin(head, 0, cmds);
 	close(1);
 	dup(old_fd);
