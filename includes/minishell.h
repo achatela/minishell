@@ -25,7 +25,6 @@
 # include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <math.h>
 
 extern char				**g_env;
 typedef struct s_echo	t_echo;
