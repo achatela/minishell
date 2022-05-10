@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:32:45 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 13:56:10 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 15:39:50 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**parse_separators(char **cmds, int i)
 	j = 0;
 	while (cmds[i] != 0)
 		i++;
-	sep_no_quotes(cmds, i, 0);
+	cmds = sep_no_quotes(cmds, i, 0);
 	j = count_args(cmds, -1, 0, 0);
 	if (j == 0)
 		return (cmds);

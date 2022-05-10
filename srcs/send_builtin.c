@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 14:40:42 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:41:19 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	send_builtin(t_args *args, int j, char **cmds)
 	else if (ft_strcmp(head->parsed_arg, "env") == 0)
 		return (free(tmp), builtin_env(0), 0);
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
-		return (free(tmp), builtin_exit(head));
+		return (free(tmp), builtin_exit(head), 0);
 	else
 		exec_bin(cmds, head);
 	free(tmp);

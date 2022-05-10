@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/06 16:11:25 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:41:09 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void	builtin_exit(t_args *args)
 	}
 	else if (args && ft_strisnum(args->parsed_arg) == 0)
 		exit_return(args, i);
+	return ;
 }
