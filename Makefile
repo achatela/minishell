@@ -5,6 +5,7 @@ SRCS =	srcs/main.c						\
 		srcs/send_builtin.c 			\
 		srcs/redir.c					\
 		srcs/str_to_tabs.c 				\
+		srcs/sep_no_quotes.c			\
 		srcs/redir_in.c					\
 		srcs/utils.c 					\
 		srcs/test_pipe.c				\

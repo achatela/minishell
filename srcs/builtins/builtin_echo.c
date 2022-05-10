@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:21:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 14:22:48 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:28:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,27 @@ static int	check_echo(t_args *args, int i)
 	return (0);
 }
 
+static int	is_n(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] && str[i++] == '-')
+	{
+		while (str[i] && str[i] == 'n')
+			i++;
+		if (str[i] == '\0')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
 static void	print_n(t_args *args)
 {
 	args = args->next;
-	while (args && ft_strlen(args->parsed_arg) == 2
-		&& args->parsed_arg[0] == '-' && args->parsed_arg[1] == 'n'
-		&& args->parsed_arg[2] == '\0')
+	while (args && is_n(args->parsed_arg) == 1)
 		args = args->next;
 	while (args && args->to_use == 1
 			&& args->is_separator == 0)

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/06 15:28:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:40:30 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,40 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 	while_pip(args, start, fd, cmds);
 }
 
+static int	sep_error(t_args *args, char **cmds)
+{
+	t_args	*head;
+
+	head = args;
+	while (args)
+	{
+		if (args->is_separator != 0 && args->next == NULL)
+		{
+			printf("syntax error near unexpected token `newline'\n");
+			free_cmds(cmds, 0);
+			free_list(head);
+			return (-1);
+		}
+		else if ((args->is_separator == 1 && args->next->is_separator == 2)
+			|| (args->is_separator == 2 && args->next->is_separator == 2))
+		{
+			printf("syntax error near unexepected token `|'\n");
+			free_cmds(cmds, 0);
+			free_list(head);
+			return (-1);
+		}
+		else if (args->is_separator == 1 && args->next->is_separator == 1)
+		{
+			printf("syntax error near unexepected token `%s'\n", args->next->parsed_arg);
+			free_cmds(cmds, 0);
+			free_list(head);
+			return (-1);
+		}
+		args = args->next;
+	}
+	return (0);
+}
+
 void	parsing(char *cmd, t_echo *echo)
 {
 	char	**cmds;
@@ -194,8 +228,11 @@ void	parsing(char *cmd, t_echo *echo)
 	args = ft_lstnew(NULL);
 	fill_args(args, cmds[0], 0, "|");
 	args = init_args(args, cmds, echo);
+	if (sep_error(args, cmds) == -1)
+		return ;
 	head = args;
 	cmds = has_heredoc(args, cmds);
+	head = args;
 	if (args->to_use == 2)
 	{
 		free_list(args);
