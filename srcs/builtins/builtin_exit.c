@@ -21,7 +21,7 @@ void	check_null(t_args *args)
 	}
 }
 
-void	return_exit(t_args *args, int i)
+void	exit_return(t_args *args, int i)
 {
 	i = ft_atoi(args->parsed_arg) % 256;
 	free_env(g_env, 0);
@@ -53,5 +53,5 @@ void	builtin_exit(t_args *args)
 		args->echo->print = 1;
 	}
 	else if (args && ft_strisnum(args->parsed_arg) == 0)
-		return_exit(args, i);
+		exit_return(args, i);
 }
