@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 14:31:25 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:52:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	char	**new;
 
 	k = 0;
+	if (cmds[0] == 0)
+		return (NULL);
 	if (ft_strcmp(cmds[0], "command-not-found") == 0)
 		i = -1;
 	while (path[k])
@@ -97,6 +99,8 @@ int child(char *path, char **cmds, t_args *args)
      //   env_array = ft_split(tmp, '\n');
      //   ft_memdel(tmp);
 	 	new = args_exec(cmds, path, args->index - 1, 0);
+		if (new == NULL)
+			exit(ret);
 	 	tmp = ft_strchr(path, '/');
         if (tmp != NULL)
             execve(path, new, g_env);

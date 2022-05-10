@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:45:39 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/10 16:35:24 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:44:37 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static char	*new_string(char **cmds, int i, int j, int k)
 
 	while (cmds[i][j] && (cmds[i][j] != '<' && cmds[i][j] != '>'))
 		j++;
-	printf("%d\n", (j - (k - 1)));
 	str = malloc(sizeof(char) * (j - (k - 1)));
 	if (!str)
 		return (NULL);
