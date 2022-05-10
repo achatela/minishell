@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 13:53:02 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:15:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,31 @@ static void	here_doc(t_args *args, int i, char *stop)
 	char			*delimiter;
 	char			*tmp;
 	static int		line = 1;
+	pid_t			pid;
 
+	pid = fork();
 	(void)stop;
-	if (args->next != NULL)
-		delimiter = args->next->parsed_arg;
-	else
-		return ;
-	while (i != 1)
+	if (pid == 0)
 	{
-		tmp = readline("> ");
-		if (tmp == NULL)
+		if (args->next != NULL)
+			delimiter = args->next->parsed_arg;
+		else
+			return ;
+		while (i != 1)
 		{
-			printf("warning: here-document at line %d ", line++);
-			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
-			break ;
+			signal(SIGINT, &heredoc_handler);
+			tmp = readline("> ");
+			if (tmp == NULL)
+			{
+				printf("warning: here-document at line %d ", line++);
+				printf("delimited by end-of-file (wanted `%s')\n", delimiter);
+				break ;
+			}
+			else if (ft_strcmp(tmp, delimiter) == 0 || tmp[0] == '\0')
+				i = 1;
+			free(tmp);
+			line++;
 		}
-		else if (ft_strcmp(tmp, delimiter) == 0)
-			i = 1;
-		free(tmp);
-		line++;
 	}
 }
 

@@ -6,6 +6,8 @@
 
 **Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
 
+**faire une gestion de $SHLVL au dessus de 9**
+
 **ctrl c dans here doc, essayer de fork ?**
 
 **_ctrl d dans here-doc = line inexacte mais vas-y aussi c'est quoi ça_**

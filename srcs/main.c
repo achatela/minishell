@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 15:07:06 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 18:14:52 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,18 @@
 
 char	**g_env = NULL;
 
+static int	is_shlvl(char *str)
+{
+	if (str[0] == 'S' && str[1] == 'H' && str[2] == 'L'
+		&& str[3] == 'V' && str[4] == 'L' && str[5] == '=')
+		return (1);
+	return (0);
+}
+
 static char	**init_env(char **env, int i, int j, int k)
 {
+	int	tmp;
+
 	while (env[k] != 0)
 		k++;
 	g_env = malloc(sizeof(char *) * env_lines(env));
@@ -27,9 +37,14 @@ static char	**init_env(char **env, int i, int j, int k)
 		if (!g_env[i])
 			return (NULL);
 		j = 0;
+		if (ft_strlen(env[i]) > 6)
+			tmp = is_shlvl(env[i]);
 		while (env[i][j])
 		{
-			g_env[i][j] = env[i][j];
+			if (tmp == 1 && j == 6)
+				g_env[i][j] = env[i][j] + 1;
+			else
+				g_env[i][j] = env[i][j];
 			j++;
 		}
 		g_env[i][j] = '\0';
@@ -84,6 +99,8 @@ int	main(int argc, char **argv, char **env)
 			add_history(cmd);
 			parsing(cmd, echo);
 		}
+		sigaction(SIGINT, &act, NULL);
+		sigaction(SIGQUIT, &act, NULL);
 		free(prompt);
 		free(cmd);
 	}
