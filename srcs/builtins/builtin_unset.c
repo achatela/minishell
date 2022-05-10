@@ -74,18 +74,26 @@ char	**remove_var(char **env, char *tmp, int i, int j)
   return (ret);
   }*/
 
-int	check_name(char *str)
+int	check_name(char *str, t_args *args)
 {
 	int	i;
 
 	i = 0;
 	if (!ft_isalpha(str[0]))
+	{
+		printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
+		args->echo->print = 1;
 		return (1);
+	}
 	while (str[++i])
 	{
 		if (!(str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
 					|| str[i] == '_')))
+		{
+			printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
+			args->echo->print = 1;
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -100,11 +108,7 @@ void	builtin_unset(char **env, t_args *args)
 		&& args->next->is_separator != 1)
 	{
 		args = args->next;
-		//		if (args->next == NULL || args->next->to_use == 0)
-		//			return ;
-		if (check_name(args->parsed_arg) == 1)
-			printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
-		else
+		if (check_name(args->parsed_arg, args) == 0)
 		{
 			tmp = cut_var_modif(args->parsed_arg, 0);
 			i = -1;

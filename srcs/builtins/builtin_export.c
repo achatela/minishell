@@ -55,15 +55,16 @@ static char	**copy_env(char **env, t_args *args, int i, int j)
 	return (new);
 }
 
-static int	cmd_is_valid(char *str, int i)
+static int	cmd_is_valid(char *str, int i, t_args *args)
 {
 	while (str[i])
 	{
-		if (str[i] == '=' && i != 0)
+		if (str[i] == '=' && i != 0 && ft_isalpha(str[i]) == 1)
 			return (0);
 		i++;
 	}
 	printf("export: `%s': not a valid identifier\n", str);
+	args->echo->print = 1;
 	return (1);
 }
 
@@ -84,7 +85,7 @@ void	builtin_export(char **env, t_args *args)
 		i = existing_var(g_env, args);
 		if (args->to_use == 1 && i != 2)
 		{
-			i = cmd_is_valid(args->parsed_arg, 0);
+			i = cmd_is_valid(args->parsed_arg, 0, args);
 			if (i != 1)
 				g_env = copy_env(g_env, args, 0, 0);
 		}

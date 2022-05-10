@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void check_null(t_args *args)
+void	check_null(t_args *args)
 {
 	if (args == NULL)
 	{
@@ -21,7 +21,14 @@ void check_null(t_args *args)
 	}
 }
 
-int	builtin_exit(t_args *args)
+void	return_exit(t_args *args, int i)
+{
+	i = ft_atoi(args->parsed_arg) % 256;
+	free_env(g_env, 0);
+	exit(i);
+}
+
+void	builtin_exit(t_args *args)
 {
 	int	i;
 
@@ -30,7 +37,10 @@ int	builtin_exit(t_args *args)
 	check_null(args);
 	if (ft_strisnum(args->parsed_arg) == 1
 		&& args->next != NULL)
+	{
 		printf("minishell: exit: too many arguments\n");
+		args->echo->print = 1;
+	}
 	else if (ft_strisnum(args->parsed_arg) == 1)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
@@ -40,13 +50,8 @@ int	builtin_exit(t_args *args)
 	else if (args && args->next)
 	{
 		printf("minishell: exit: too many arguments\n");
-		exit(2);
+		args->echo->print = 1;
 	}
 	else if (args && ft_strisnum(args->parsed_arg) == 0)
-	{
-		i = ft_atoi(args->parsed_arg) % 256;
-		free_env(g_env, 0);
-		exit(i);
-	}
-	return (0);
+		return_exit(args, i);
 }
