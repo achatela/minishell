@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/09 18:42:25 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:40:30 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,16 +232,6 @@ void	parsing(char *cmd, t_echo *echo)
 		return ;
 	head = args;
 	cmds = has_heredoc(args, cmds);
-	int	i = 0;
-	printf("cmds:\n");
-	while(cmds[i])
-		printf("%s\n", cmds[i++]);
-	printf("args\n");
-	while (head)
-	{
-		printf("%s\n", head->parsed_arg);
-		head = head->next;
-	}
 	head = args;
 	if (args->to_use == 2)
 	{

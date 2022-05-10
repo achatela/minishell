@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 14:14:43 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:39:45 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int	builtin_cd(t_args *args, int i)
 				switch_pwds(g_env, 0, 0);
 				free(tmp);
 				return (0);
+				args->echo->print = 0;
 			}
 			else
 			{

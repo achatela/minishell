@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 16:55:07 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:56:37 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*parse_arg(char *str, int i);
 char	**remove_var(char **env, char *tmp, int i, int j);
 void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index, char *pip);
+char	**sep_no_quotes(char **cmds, int i, int j);
 char	**new_parsing(char *cmd, int i, int j, int k);
 int		builtin_echo(t_args *args);
 void	parsing(char *cmd, t_echo *echo);
