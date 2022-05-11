@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 18:14:52 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:06:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,29 @@ static int	is_shlvl(char *str)
 		&& str[3] == 'V' && str[4] == 'L' && str[5] == '=')
 		return (1);
 	return (0);
+}
+
+static char	*get_shlvl(char *str, int i, char *to_free)
+{
+	int		sh_lvl;
+	char	*ret;
+	char	*tmp;
+
+	sh_lvl = ft_atoi(str + i) + 1;
+	free(to_free);
+	tmp = ft_itoa(sh_lvl);
+	if (!tmp)
+		return (NULL);
+	ret = malloc(sizeof(char) * 7);
+	if (!ret)
+		return (NULL);
+	i = -1;
+	while (++i < 6)
+		ret[i] = str[i];
+	ret[i] = '\0';
+	ret = ft_strjoin(ret, tmp);
+	free(tmp);
+	return (ret);
 }
 
 static char	**init_env(char **env, int i, int j, int k)
@@ -39,15 +62,17 @@ static char	**init_env(char **env, int i, int j, int k)
 		j = 0;
 		if (ft_strlen(env[i]) > 6)
 			tmp = is_shlvl(env[i]);
-		while (env[i][j])
-		{
-			if (tmp == 1 && j == 6)
-				g_env[i][j] = env[i][j] + 1;
-			else
+		if (tmp == 1)
+			g_env[i] = get_shlvl(env[i], 6, g_env[i]);
+		else
+		{	
+			while (env[i][j])
+			{
 				g_env[i][j] = env[i][j];
-			j++;
+				j++;
+			}
+			g_env[i][j] = '\0';
 		}
-		g_env[i][j] = '\0';
 		i++;
 	}
 	g_env[i] = 0;
