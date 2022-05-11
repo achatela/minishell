@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/11 14:06:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/11 16:21:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ int	main(int argc, char **argv, char **env)
 			add_history(cmd);
 			parsing(cmd, echo);
 		}
-		sigaction(SIGINT, &act, NULL);
-		sigaction(SIGQUIT, &act, NULL);
+	//	sigaction(SIGINT, &act, NULL);
+	//	sigaction(SIGQUIT, &act, NULL);
 		free(prompt);
 		free(cmd);
 	}
