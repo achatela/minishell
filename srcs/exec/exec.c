@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 16:52:10 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/11 15:27:41 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int child(char *path, char **cmds, t_args *args)
     int		ret;
     pid_t	pid;
 
-
     ret = 0;
     pid = fork();
+	args->echo->print = 0;
     if (pid == 0)
     {
         /*while (g_env[i] != NULL)
@@ -110,7 +110,17 @@ int child(char *path, char **cmds, t_args *args)
         exit(ret);
     }
     else
+	{
         waitpid(pid, &ret, 0);
+	}
+	if (WIFEXITED(ret))
+		args->echo->print = WEXITSTATUS(ret);
+	if (WIFSIGNALED(ret))
+	{
+		args->echo->print = WTERMSIG(ret);
+		if (args->echo->print != 131)
+			args->echo->print += 128;
+	}
     return (ret);
 }
 
