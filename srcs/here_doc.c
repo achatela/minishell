@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 19:15:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:46:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,22 @@ static void	here_doc(t_args *args, int i, char *stop)
 	char			*tmp;
 	static int		line = 1;
 	pid_t			pid;
+	struct sigaction	act;
 
 	pid = fork();
 	(void)stop;
 	if (pid == 0)
 	{
+		sigemptyset(&act.sa_mask);
+		act.sa_sigaction = heredoc_handler;
+		act.sa_flags = SA_SIGINFO;
+		sigaction(SIGINT, &act, NULL);
 		if (args->next != NULL)
 			delimiter = args->next->parsed_arg;
 		else
 			return ;
 		while (i != 1)
 		{
-			signal(SIGINT, &heredoc_handler);
 			tmp = readline("> ");
 			if (tmp == NULL)
 			{
@@ -53,12 +57,15 @@ static void	here_doc(t_args *args, int i, char *stop)
 				printf("delimited by end-of-file (wanted `%s')\n", delimiter);
 				break ;
 			}
-			else if (ft_strcmp(tmp, delimiter) == 0 || tmp[0] == '\0')
+			else if (ft_strcmp(tmp, delimiter) == 0)
 				i = 1;
 			free(tmp);
 			line++;
 		}
+		exit(0);
 	}
+	else
+		waitpid(pid, 0, 0);
 }
 
 static void	new_list(t_args *args, char *tmp)

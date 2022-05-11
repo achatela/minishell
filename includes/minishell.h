@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 18:21:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:25:02 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ struct	s_args
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 char	**new_cmds(char **cmds, char *tmp);
-void	heredoc_handler(int sig);
+void	heredoc_handler(int sig, siginfo_t *info, void *null);
 char	*get_end(char **env, int i, int j, int k);
 char	**remove_heredoc(t_args *args, char *tmp, char **cmds);
 void	redir(t_args *args, char **cmds, t_args *head, int fd);
