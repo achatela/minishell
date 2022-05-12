@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:42:47 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 14:10:02 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 12:18:18 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,14 @@ static char	**copy_env(char **env, t_args *args, int i, int j)
 
 static int	cmd_is_valid(char *str, int i, t_args *args)
 {
+	if (ft_isalpha(str[0]) == 0)
+	{
+		printf("export: `%s': not a valid identifier\n", str);
+		return (1);
+	}
 	while (str[i])
 	{
-		if (str[i] == '=' && i != 0 && ft_isalpha(str[i]) == 1)
+		if (str[i] == '=' && i != 0 && ft_isalpha(str[i]) == 0)
 			return (0);
 		i++;
 	}
