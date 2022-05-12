@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:21:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 15:28:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:44:04 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ static void	print_n(t_args *args)
 int	builtin_echo(t_args *args)
 {
 	int	i;
-	//	int fd;
-	//t_args *head;
-
-	//	head = args;
 	if (check_echo(args, 0) == -1)
 		return (-1);
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
@@ -87,24 +83,6 @@ int	builtin_echo(t_args *args)
 			printf(" ");
 		args = args->next;
 	}
-	/*	if (args && args->to_use == 1 && args->is_separator == 1)
-		{
-		fd = open(args->next->parsed_arg, O_WRONLY | O_CREAT, 0666);
-		if (fd < 0)
-		{
-		printf("file not found\n");
-		return (2);
-		}
-		head = head->next;
-		while (head && head->is_separator == 0)
-		{
-		write(fd, head->parsed_arg, ft_strlen(head->parsed_arg));
-		write(fd, " ", 1);
-		head = head->next;
-		}
-		write(fd, "\n", 1);
-		close(fd);
-		}*/
 	printf("\n");
 	return (1);
 }

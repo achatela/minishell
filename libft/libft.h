@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:05:41 by achatela          #+#    #+#             */
-/*   Updated: 2022/04/15 13:22:54 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:49:46 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_lstsize(t_args *lst);
 void	ft_lstadd_front(t_args **alst, t_args *new);
 t_args	*ft_lstnew(void *content);
 int		ft_atoi(const char *nptr);
+long long	ft_atoll(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_isalnum(int c);

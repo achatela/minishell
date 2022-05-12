@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strisnum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmsjuice <cmsjuice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 10:50:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 14:11:30 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:53:44 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strisnum(const char *str)
 	i = 0;
 	if (str == NULL)
 		return (1);
-	else if (str[1] == '-')
+	else if (str[0] == '-')
 		i++;
 	while (str[i])
 	{

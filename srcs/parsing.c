@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/10 17:33:20 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:48:21 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,10 @@ void	parsing(char *cmd, t_echo *echo)
 	fill_args(args, cmds[0], 0, "|");
 	args = init_args(args, cmds, echo);
 	if (sep_error(args, cmds) == -1)
+	{
+		args->echo->print = 2;
 		return ;
+	}
 	head = args;
 	cmds = has_heredoc(args, cmds);
 	head = args;
