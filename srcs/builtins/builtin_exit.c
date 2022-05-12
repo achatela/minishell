@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 19:17:26 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:25:18 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int	check_max(t_args *args)
 {
-	int i;
-
-	i = 0;
-	if (ft_strlen(args->parsed_arg[0]) > 20)
+	if (ft_strlen(args->parsed_arg) > 20)
 			return (1);
 	if (args->parsed_arg[0] == '-')
 	{
