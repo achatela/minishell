@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/11 16:24:36 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 16:48:58 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,21 @@ static int	has_sep(t_args *args)
 	return (0);
 }
 
-static void	here_doc(t_args *args, int i, char *stop)
+static void	here_doc(t_args *args, int i, pid_t pid)
 {
-	char			*delimiter;
-	char			*tmp;
-	static int		line = 1;
-	pid_t			pid;
+	char				*delimiter;
+	char				*tmp;
+	static int			line = 1;
 	struct sigaction	act;
 
 	pid = fork();
-	(void)stop;
 	if (pid == 0)
 	{
 		sigemptyset(&act.sa_mask);
 		act.sa_sigaction = heredoc_handler;
 		act.sa_flags = SA_SIGINFO;
 		sigaction(SIGINT, &act, NULL);
-		if (args->next != NULL)
-			delimiter = args->next->parsed_arg;
-		else
-			return ;
+		delimiter = args->next->parsed_arg;
 		while (i != 1)
 		{
 			tmp = readline("> ");
@@ -105,7 +100,7 @@ static void	while_heredoc(t_args *args, char *tmp)
 			args = args->next;
 		if (args && ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
-			here_doc(args, 0, "");
+			here_doc(args, 0, 1);
 			args = args->next;
 		}
 	}

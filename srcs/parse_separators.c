@@ -6,29 +6,11 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:32:45 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 13:41:16 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 16:55:34 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_separator(char *str, int i)
-{
-	if ((str[i] == '>' && str[i + 1] == '>'))
-		return (2);
-	else if ((str[i] == '<' && str[i + 1] == '<'))
-		return (2);
-	else if ((str[i] == '|' && i != 0 && str[i - 1])
-		|| (str[i] == '|' && str[i + 1]))
-		return (1);
-	else if ((str[i] == '<' && i != 0 && str[i - 1])
-		|| (str[i] == '<' && str[i + 1]))
-		return (1);
-	else if ((str[i] == '>' && i != 0 && str[i - 1])
-		|| (str[i] == '>' && str[i + 1]))
-		return (1);
-	return (0);
-}
 
 static int	count_args(char **cmds, int i, int j, int k)
 {
@@ -63,11 +45,9 @@ static int	length_word(char *str, int i)
 	if (is_separator(str, i) == 2)
 		return (2);
 	if (is_separator(str, i) == 1)
-		return(1);
+		return (1);
 	while (str[i])
 	{
-//		if (is_separator(str, i) == 2 || is_separator(str, i) == 1)
-//			return (ret);
 		i++;
 		ret++;
 	}
@@ -112,7 +92,7 @@ static int	has_sep_no_quotes(char **cmds, int i, int j)
 			if (cmds[i][j] && (cmds[i][j] == '"' || cmds[i][j] == 39))
 			{
 				i++;
-				break;
+				break ;
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 NAME = minishell
 
 SRCS =	srcs/main.c						\
+		srcs/utils3.c					\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
 		srcs/redir.c					\

@@ -6,42 +6,19 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 12:46:50 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:31:19 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_last(t_args *args)
-{
-	while (args)
-	{
-		while (args && args->is_separator == 0)
-			args = args->next;
-		if (args && args->is_separator == 1)
-		{
-			if ((args->parsed_arg[0] == '>' && args->parsed_arg[1] == '>'
-					&& args->parsed_arg[2] == '\0')
-				|| (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0'))
-				return (1);
-			else if (args->parsed_arg[0] == '<')
-				return (0);
-		}
-		else if (args && args->is_separator == 2)
-			return (2);
-		else
-			return (0);
-	}
-	return (0);
-}
-
 static void	create_while_sep(t_args *create, int fd)
 {
 	while (create && is_last(create) != 0 && create->next->is_separator != 2)
 	{
 		while (create && create->is_separator == 1)
-			 create = create->next;
+			create = create->next;
 		if (create && create->parsed_arg)
 		{
 			if (create->is_separator != 2)
@@ -59,7 +36,8 @@ static void	create_while(t_args *create, int fd)
 {
 	if (create->is_separator == 0)
 	{
-		while (create && is_last(create) != 0 && create->next->is_separator != 2)
+		while (create && is_last(create) != 0
+			&& create->next->is_separator != 2)
 		{
 			while (create && create->is_separator == 1)
 				create = create->next;
@@ -93,9 +71,8 @@ static int	open_fd(t_args *args, char *tmp)
 	return (fd);
 }
 
-void	redir(t_args *args, char **cmds, t_args *head, int fd)
+static char	*get_tmp(t_args *args)
 {
-	int		old_fd;
 	char	*tmp;
 
 	while (args && is_last(args) != 0 && args->next->is_separator != 2)
@@ -108,6 +85,22 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 			args = args->next;
 		}
 	}
+	return (tmp);
+}
+
+void	redir(t_args *args, char **cmds, t_args *head, int fd)
+{
+	int		old_fd;
+	char	*tmp;
+
+	while (args && is_last(args) != 0 && args->next->is_separator != 2)
+	{
+		while (args && args->is_separator == 0)
+			args = args->next;
+		while (args && args->is_separator == 1)
+			args = args->next;
+	}
+	tmp = get_tmp(head);
 	create_while(head, fd);
 	if (ft_check_access(args->parsed_arg, 0) == -1)
 		return ;
@@ -127,6 +120,12 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 		send_builtin(head, 0, cmds);
 	else if (head->next->next)
 		send_builtin(head->next->next, 0, cmds);
-	close(1);
+/*	if (fd < 0)
+		printf("%s\n", "Cannot open fd");
+	else if (head->is_separator == 0)
+		send_builtin(head, 0, cmds);
+	else if (head->next->next)
+		send_builtin(head->next->next, 0, cmds);
+*/	close(1);
 	dup(old_fd);
 }
