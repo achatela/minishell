@@ -2,8 +2,6 @@
 
 ## ERREURS A GERER
 
-**> fichier prendre la sortie standard (je crois)**
-
 **Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
 
 **rm "<" == segfault**
