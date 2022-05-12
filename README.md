@@ -2,8 +2,9 @@
 
 ## ERREURS A GERER
 
+**
 
-**echo "< $HOME" segfault et sans quotes est mal géré**
+**unset PATH et env -i bash == bizzare**
 
 **Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
 
@@ -11,6 +12,8 @@
 
 **ctrl c dans un heredoc = interaction aléatoire entre le \n et ^C**
 **ctrl c dans heredoc doit tout stop**
+
+**ctrl c doit set args->echo->print à 130 (envoyer args dans signal?)**
 
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
