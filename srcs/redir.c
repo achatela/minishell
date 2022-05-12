@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 17:31:19 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:45:57 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -49,6 +49,7 @@ static void	create_while(t_args *create, int fd)
 			{
 				if (create->is_separator != 2)
 				{
+					printf("delete %s\n", create->parsed_arg);
 					fd = open(create->parsed_arg, O_CREAT, 0644);
 					close(fd);
 				}
