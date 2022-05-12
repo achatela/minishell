@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/06 15:32:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:05:55 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	length_quotes(char *str, int i, int length)
 			i++;
 			while (str[i] && str[i] != '"')
 			{
-				if (str[i] == '$')
+				if (str[i] && str[i] == '$')
 				{
 					length += var_length(str, i, i + 1, -1);
 					while (str[i] && invalid_identifiers(str[i]) == 0)/*(ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
@@ -68,7 +68,8 @@ static int	length_quotes(char *str, int i, int length)
 					length++;
 				}
 			}
-			i++;
+			if (str[i])
+				i++;
 		}
 		else if (str[i] && str[i] == 39/* && i == 0*/)
 		{
@@ -126,16 +127,16 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 //		tmp[j++] = str[i++];
 	while (str[i])
 	{
-		if (str[i] == ' ' && i != 0 && str[i - 1] != '"' && str[i - 1] != 39)
+		if (str[i] && str[i] == ' ' && i != 0 && str[i - 1] != '"' && str[i - 1] != 39)
 			i++;
-		else if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == 39))
+		else if (str[i] && str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == 39))
 			i++;
-		else if (str[i] == '"')
+		else if (str[i] && str[i] == '"')
 		{
 			i++;
 			while (str[i] && str[i] != '"')
 			{
-				if (str[i] == '$')
+				if (str[i] && str[i] == '$')
 				{
 					tmp2 = var_str(str, i, i + 1, -1);
 					if (tmp2 != NULL)
@@ -153,17 +154,17 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 				else
 					tmp[j++] = str[i++];
 			}
-			if (str[++i] == ' ')
+			if (str[i] && str[++i] == ' ')
 				break;
 		}
-		else if (str[i] == 39)
+		else if (str[i] && str[i] == 39)
 		{
 			i++;
 			while (str[i] && str[i] != 39)
 				tmp[j++] = str[i++];
 			i++;
 		}
-		else if (str[i] == '$')
+		else if (str[i] && str[i] == '$')
 		{
 			tmp2 = var_str(str, i, i + 1, -1);
 			if (tmp2 != NULL)

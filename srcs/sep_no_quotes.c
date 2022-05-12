@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:45:39 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/10 16:44:37 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:21:08 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,23 @@ static char	**new_separated(char **cmds, int i, int j, char	**new)
 	while (cmds[i])
 	{
 		j = 0;
-		while (cmds[i][j])
+		while (cmds[i] != 0 && cmds[i][j])
 		{
-			if (cmds[i][j] != '<' && cmds[i][j] != '>')
+			if (cmds[i] != 0 && cmds[i][j] && (cmds[i][j] == '"' || cmds[i][j] == 39))
+			{
+				new[k++] = ft_strdup(cmds[i]);
+				break;
+			}
+			else if (cmds[i] != 0 && cmds[i][j] && cmds[i][j] != '<' && cmds[i][j] != '>')
 			{
 				new[k++] = new_string(cmds, i, j, j);
-				while (cmds[i][j] && cmds[i][j] != '<' && cmds[i][j] != '>')
+				while (cmds[i] && cmds[i][j] && cmds[i][j] != '<' && cmds[i][j] != '>')
 					j++;
 			}
-			else if (cmds[i][j] == '<' || cmds[i][j] == '>')
+			else if (cmds[i] != 0 && cmds[i][j] && (cmds[i][j] == '<' || cmds[i][j] == '>'))
 			{
 				new[k++] = new_separator(cmds, i, j, j);
-				while (cmds[i][j] && (cmds[i][j] == '>' || cmds[i][j] == '<'))
+				while (cmds[i] && cmds[i][j] && (cmds[i][j] == '>' || cmds[i][j] == '<'))
 					j++;
 			}
 		}

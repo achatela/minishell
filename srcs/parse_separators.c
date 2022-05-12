@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:32:45 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 15:39:50 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:41:16 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,33 @@ static char	**new_array(char **cmds, int i, int j, int k)
 	return (new);
 }
 
+static int	has_sep_no_quotes(char **cmds, int i, int j)
+{
+	while (cmds[i])
+	{
+		j = 0;
+		while (cmds[i][j])
+		{
+			if (cmds[i][j] && (cmds[i][j] == '"' || cmds[i][j] == 39))
+			{
+				i++;
+				break;
+			}
+			else
+			{
+				while (cmds[i][j])
+				{	
+					if (cmds[i][j] == '<' || cmds[i][j] == '>')
+						return (0);
+					j++;
+				}
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
 char	**parse_separators(char **cmds, int i)
 {
 	int		j;
@@ -110,6 +137,7 @@ char	**parse_separators(char **cmds, int i)
 	j = 0;
 	while (cmds[i] != 0)
 		i++;
+	(void)has_sep_no_quotes;
 	cmds = sep_no_quotes(cmds, i, 0);
 	j = count_args(cmds, -1, 0, 0);
 	if (j == 0)
