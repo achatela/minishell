@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:44:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:44:33 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:44:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,15 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 	{
 		cmds = NULL;
-		return (printf("Quotes non fermées\n"), cmds);
+		return (printf("Quotes non ferméeeeees\n"), cmds);
 	}
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 2));
 	if (!cmds)
 		return (NULL);
-//	while (cmd[i] && is_whitespace(cmd[i]) == 1)
-//		i++;
 	while (i < ft_strlen(cmd) && cmd[i])
 	{
 		if (l == arg_number2(cmd, 0, 0, 0) + 1)
-			break;
+			break ;
 		while (cmd[i] && isprintable(cmd[i]) != 1)
 			i++;
 		k = i;

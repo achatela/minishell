@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 17:48:21 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:48:04 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	send_sep(t_args *args, char **cmds, char *sep)
 	}
 	if (sep[0] == '<' && sep[1] == '\0')
 	{
-		redir_in(args, cmds);
+		redir_in(args, args, cmds);
 		return ;
 	}
 }
@@ -116,14 +116,16 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 			fd = pip(head, start, fd, 0, cmds);
 		else
 			fd = pip(head, start, fd, 1, cmds);
-		while (args && (args->is_separator == 0 || args->is_separator == 1) && i == 0)
+		while (args && (args->is_separator == 0
+				|| args->is_separator == 1) && i == 0)
 		{
 			if (args && tmp == NULL && args->is_separator == 1)
 			{
 				tmp = args->parsed_arg;
 				send_sep(head, cmds, tmp);
 			}
-			if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0)
+			if (args && args->is_separator == 1
+				&& ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 			{
 				tmp = args->parsed_arg;
 				send_sep(head, cmds, tmp);
@@ -160,7 +162,8 @@ static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
 					tmp = args->parsed_arg;
 					send_sep(head, cmds, tmp);
 				}
-				if (args && args->is_separator == 1 && ft_strncmp(tmp, args->parsed_arg, 1) != 0 && i == 0)
+				if (args && args->is_separator == 1
+					&& ft_strncmp(tmp, args->parsed_arg, 1) != 0 && i == 0)
 				{
 					tmp = args->parsed_arg;
 					send_sep(head, cmds, tmp);
@@ -198,7 +201,8 @@ static int	sep_error(t_args *args, char **cmds)
 		}
 		else if (args->is_separator == 1 && args->next->is_separator == 1)
 		{
-			printf("syntax error near unexepected token `%s'\n", args->next->parsed_arg);
+			printf("syntax error near unexepected token ");
+			printf("`%s'\n", args->next->parsed_arg);
 			free_cmds(cmds, 0);
 			free_list(head);
 			return (-1);
@@ -243,7 +247,7 @@ void	parsing(char *cmd, t_echo *echo)
 		return ;
 	}
 	if (has_sep(args) == 0)
-		send_builtin(args, -1, cmds);
+		send_builtin(args, cmds);
 	else if (has_sep(args) == 1)
 		test_boucle_pipe(args, start, fd, cmds);
 	free_cmds(cmds, 0);

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 13:38:41 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 16:45:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,20 @@ struct	s_args
 	t_args	*next;
 };
 
+/* Built-in cd*/
+char	*full_path(t_args *args);
+int		builtin_cd(t_args *args, int i);
+int		simple_path_return(t_args *args, char *tmp, int i);
+int		simple_path(char *arg);
+char	*parsed_path(char *str, int i, int j);
+char	*home_path(t_args *args);
+int		print_cd_errors(char *tmp, char *home, t_args *args);
+int		cd_errors(t_args *args, char *tmp, char *home);
+int		cd_end(t_args *args, char *tmp);
+
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 char	**new_cmds(char **cmds, char *tmp);
+void	get_fd(t_args *head, t_args *args, int fd, char **cmds);
 t_args	*get_args(t_args *args);
 int		is_last(t_args *args);
 void	heredoc_handler(int sig, siginfo_t *info, void *null);
@@ -54,7 +66,7 @@ char	*get_end(char **env, int i, int j, int k);
 char	**remove_heredoc(t_args *args, char *tmp, char **cmds);
 void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
-void	redir_in(t_args *args, char **cmds);
+void	redir_in(t_args *args, t_args *head, char **cmds);
 int		pip(t_args *args, int start, int fd, int last, char **cmds);
 void	handler(int sig, siginfo_t *info, void *null);
 int		is_separator(char *str, int i);
@@ -66,13 +78,12 @@ void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index, char *pip);
 char	**sep_no_quotes(char **cmds, int i, int j);
 char	**new_parsing(char *cmd, int i, int j, int k);
-int		builtin_echo(t_args *args);
+int		builtin_echo(t_args *args, int i);
 void	parsing(char *cmd, t_echo *echo);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
-int		send_builtin(t_args *args, int j, char **cmds);
-int		builtin_cd(t_args *args, int i);
-void		builtin_exit(t_args *args);
+int		send_builtin(t_args *head, char **cmds);
+void	builtin_exit(t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(int i);
 char	*get_prompt(int i);

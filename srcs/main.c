@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 16:52:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:45:21 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ static char	*set_cmd(char *cmd, char *exit)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*cmd;
-	char	*prompt;
-	int		i;
-	t_echo	*echo;
+	char				*cmd;
+	char				*prompt;
+	int					i;
+	t_echo				*echo;
 	struct sigaction	act;
 
 	i = 4;

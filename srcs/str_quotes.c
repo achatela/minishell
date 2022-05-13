@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 14:59:07 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:08:05 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,52 +40,54 @@ static int	var_length(char *str, int i, int j, int k)
 	return (length);
 }
 
-static int	length_quotes(char *str, int i, int length)
+static int	length_d_quotes(char *str, int *i, int length)
 {
-/*	while (str[i] && str[i] != '"' && str[i] != 39)
+	(*i)++;
+	while (str[(*i)] && str[(*i)] != '"')
+	{
+		if (str[(*i)] && str[(*i)] == '$')
+		{
+			length += var_length(str, (*i), (*i) + 1, -1);
+			while (str[(*i)] && invalid_identifiers(str[(*i)]) == 0)
+				(*i)++;
+			(*i)++;
+		}
+		else
+		{
+			(*i)++;
+			length++;
+		}
+	}
+	if (str[(*i)])
+		(*i)++;
+	return (length);
+}
+
+static int	length_s_quotes(char *str, int *i, int length)
+{
+	(*i)++;
+	while (str[(*i)] && str[(*i)] != 39)
 	{
 		length++;
-		i++;
-	}*/
+		(*i)++;
+	}
+	(*i)++;
+	return (length);
+}
+
+static int	length_quotes(char *str, int i, int length)
+{
 	while (str[i])
 	{
-		if (str[i] && str[i] == '"'/*&& i == 0*/)
-		{
-			i++;
-			while (str[i] && str[i] != '"')
-			{
-				if (str[i] && str[i] == '$')
-				{
-					length += var_length(str, i, i + 1, -1);
-					while (str[i] && invalid_identifiers(str[i]) == 0)/*(ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
-							|| str[i] == '_'))*/
-						i++;
-					i++;
-				}
-				else
-				{
-					i++;
-					length++;
-				}
-			}
-			if (str[i])
-				i++;
-		}
-		else if (str[i] && str[i] == 39/* && i == 0*/)
-		{
-			i++;
-			while (str[i] && str[i] != 39)
-			{
-				length++;
-				i++;
-			}
-			i++;
-		}
+		if (str[i] && str[i] == '"')
+			length = length_d_quotes(str, &i, length);
+		else if (str[i] && str[i] == 39)
+			length = length_s_quotes(str, &i, length);
 		else if (str[i] && str[i] == '$')
 		{
 			length += var_length(str, i, i + 1, -1);
 			while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
-					|| str[i] == '_'))	//	Rajouter tous les invalid identifiers > .h
+					|| str[i] == '_'))
 				i++;
 			i++;
 		}
@@ -123,13 +125,13 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 	char	*tmp2;
 
 	tmp = malloc(sizeof(char) * (length_quotes(str, 0, 0) + 1));
-//	while (str[i] && str[i] != '"' && str[i] != 39)
-//		tmp[j++] = str[i++];
 	while (str[i])
 	{
-		if (str[i] && str[i] == ' ' && i != 0 && str[i - 1] != '"' && str[i - 1] != 39)
+		if (str[i] && str[i] == ' ' && i != 0
+			&& str[i - 1] != '"' && str[i - 1] != 39)
 			i++;
-		else if (str[i] && str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == 39))
+		else if (str[i] && str[i] == '$'
+			&& (str[i + 1] == '"' || str[i + 1] == 39))
 			i++;
 		else if (str[i] && str[i] == '"')
 		{
@@ -146,7 +148,8 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 							tmp[j++] = tmp2[k];
 					}
 					i++;
-					while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
+					while (str[i] && (ft_isalpha(str[i]) == 1
+							|| ft_isalnum(str[i]) == 1
 							|| str[i] == '_'))
 						i++;
 					free(tmp2);
@@ -155,7 +158,7 @@ static char	*fill_quotes_ret(char *str, int i, int j, int k)
 					tmp[j++] = str[i++];
 			}
 			if (str[i] && str[++i] == ' ')
-				break;
+				break ;
 		}
 		else if (str[i] && str[i] == 39)
 		{
@@ -193,8 +196,5 @@ char	*str_quotes(char *str)
 	if (str[0] == '\0' || str[0] == 32)
 		return (NULL);
 	ret = fill_quotes_ret(str, 0, 0, -1);
-//	while (i > 0 && ret[i] == ' ')
-//		ret[i--] = '\0';
-	//printf("length = %d\n", length_quotes(str, 0, 0));
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:47 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/07 15:02:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:43:58 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static int	length_no_quotes(char *str, int i, int j, int k)
 			else
 			{
 				j = i;
-				while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-						|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
+				while (str[j] && (ft_isalpha(str[j]) == 1
+						|| ft_isalnum(str[j]) == 1
+						|| str[j] == '_' || str[j] == '-'))
 					j++;
 				tmp = malloc(sizeof(char) * (j - i) + 2);
 				k = -1;
@@ -84,9 +85,9 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 			else
 			{
 				j = i;
-				while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1/*	Refaire la partie invalid identifiers
-																						(ils sont dans le .h)*/
-						|| str[j] == '_' || str[j] == '-'/*|| str[j] == '/')*/))
+				while (str[j] && (ft_isalpha(str[j]) == 1
+						|| ft_isalnum(str[j]) == 1
+						|| str[j] == '_' || str[j] == '-'))
 					j++;
 				tmp = malloc(sizeof(char) * (j - i) + 2);
 				k = -1;

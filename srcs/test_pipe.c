@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/11 14:15:42 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 13:57:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	pip(t_args *args, int start, int fd, int last, char **cmds)
 		else
 			dup2(fd, 0);
 		if (has_sep(args) == 0)
-			send_builtin(args, 0, cmds);
+			send_builtin(args, cmds);
 		ret = 1;
 		exit(ret);
 	}

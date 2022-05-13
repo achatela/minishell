@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:45:39 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 14:21:08 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:50:17 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static int	new_cmds_length(char **cmds, int i, int j, int k)
 				if ((cmds[i][j] == '>' && cmds[i][j + 1] == '>')
 					|| (cmds[i][j] == '<' && cmds[i][j + 1] == '<'))
 				{
-					if (j != 0 && (cmds[i][j - 1] == '>' || cmds[i][j - 1] == '<'))
+					if (j != 0 && (cmds[i][j - 1] == '>'
+						|| cmds[i][j - 1] == '<'))
 						k++;
 					else
 						k += 2;
@@ -34,7 +35,8 @@ static int	new_cmds_length(char **cmds, int i, int j, int k)
 				}
 				else if (cmds[i][j] && (cmds[i][j] == '<' || cmds[i][j] == '>'))
 				{
-					if (j != 0 && (cmds[i][j - 1] == '>' || cmds[i][j - 1] == '<'))
+					if (j != 0 && (cmds[i][j - 1] == '>'
+						|| cmds[i][j - 1] == '<'))
 						k++;
 					else
 						k += 2;
@@ -65,7 +67,7 @@ static char	*new_string(char **cmds, int i, int j, int k)
 	return (str);
 }
 
-static char *new_separator(char **cmds, int i, int j, int k)
+static char	*new_separator(char **cmds, int i, int j, int k)
 {
 	char	*str;
 
@@ -84,28 +86,33 @@ static char *new_separator(char **cmds, int i, int j, int k)
 static char	**new_separated(char **cmds, int i, int j, char	**new)
 {
 	int	k;
-	
+
 	k = 0;
 	while (cmds[i])
 	{
 		j = 0;
 		while (cmds[i] != 0 && cmds[i][j])
 		{
-			if (cmds[i] != 0 && cmds[i][j] && (cmds[i][j] == '"' || cmds[i][j] == 39))
+			if (cmds[i] != 0 && cmds[i][j]
+				&& (cmds[i][j] == '"' || cmds[i][j] == 39))
 			{
 				new[k++] = ft_strdup(cmds[i]);
-				break;
+				break ;
 			}
-			else if (cmds[i] != 0 && cmds[i][j] && cmds[i][j] != '<' && cmds[i][j] != '>')
+			else if (cmds[i] != 0 && cmds[i][j]
+				&& cmds[i][j] != '<' && cmds[i][j] != '>')
 			{
 				new[k++] = new_string(cmds, i, j, j);
-				while (cmds[i] && cmds[i][j] && cmds[i][j] != '<' && cmds[i][j] != '>')
+				while (cmds[i] && cmds[i][j]
+					&& cmds[i][j] != '<' && cmds[i][j] != '>')
 					j++;
 			}
-			else if (cmds[i] != 0 && cmds[i][j] && (cmds[i][j] == '<' || cmds[i][j] == '>'))
+			else if (cmds[i] != 0 && cmds[i][j]
+				&& (cmds[i][j] == '<' || cmds[i][j] == '>'))
 			{
 				new[k++] = new_separator(cmds, i, j, j);
-				while (cmds[i] && cmds[i][j] && (cmds[i][j] == '>' || cmds[i][j] == '<'))
+				while (cmds[i] && cmds[i][j]
+					&& (cmds[i][j] == '>' || cmds[i][j] == '<'))
 					j++;
 			}
 		}

@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 17:06:50 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/11 15:27:41 by achatela         ###   ########.fr       */
+/*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
+/*   Updated: 2022/05/13 14:58:57 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* EXEC A FAIRE */
-
-static int isseparator(char *str, int i)
+static int	isseparator(char *str, int i)
 {
 	if (str[i] == '|')
 		return (1);
@@ -42,7 +40,7 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	while (cmds[++i] != 0)
 	{
 		if (ft_strncmp(cmds[i], path + k, ft_strlen(path + k)) == 0)
-			break;
+			break ;
 	}
 	j = i;
 	if (cmds[i] == 0)
@@ -57,7 +55,7 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	else if (cmds[i] != 0)
 	{
 		k = 0;
-		while(cmds[i] != 0 && isseparator(cmds[i], 0) == 0)
+		while (cmds[i] != 0 && isseparator(cmds[i], 0) == 0)
 		{
 			k++;
 			i++;
@@ -78,40 +76,32 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	return (new);
 }
 
-int child(char *path, char **cmds, t_args *args)
+int	child(char *path, char **cmds, t_args *args)
 {
-   // char **env_array;
-    char	*tmp;
-    char	**new;
-    int		ret;
-    pid_t	pid;
+	char	*tmp;
+	char	**new;
+	int		ret;
+	pid_t	pid;
 
-    ret = 0;
-    pid = fork();
+	ret = 0;
+	pid = fork();
 	args->echo->print = 0;
-    if (pid == 0)
-    {
-        /*while (g_env[i] != NULL)
-        {
-            tmp = g_env[i];
-            i++;
-        }*/
-     //   env_array = ft_split(tmp, '\n');
-     //   ft_memdel(tmp);
-	 	new = args_exec(cmds, path, args->index - 1, 0);
+	if (pid == 0)
+	{
+		new = args_exec(cmds, path, args->index - 1, 0);
 		if (new == NULL)
 			exit(ret);
-	 	tmp = ft_strchr(path, '/');
-        if (tmp != NULL)
-            execve(path, new, g_env);
-        ret = 1;
+		tmp = ft_strchr(path, '/');
+		if (tmp != NULL)
+			execve(path, new, g_env);
+		ret = 1;
 		free_cmds(new, 0);
 		free(tmp);
-        exit(ret);
-    }
-    else
+		exit(ret);
+	}
+	else
 	{
-        waitpid(pid, &ret, 0);
+		waitpid(pid, &ret, 0);
 	}
 	if (WIFEXITED(ret))
 		args->echo->print = WEXITSTATUS(ret);
@@ -121,27 +111,25 @@ int child(char *path, char **cmds, t_args *args)
 		if (args->echo->print != 131)
 			args->echo->print += 128;
 	}
-    return (ret);
+	return (ret);
 }
 
-
-char    *path_join(const char *s1, const char *s2)
+char	*path_join(const char *s1, const char *s2)
 {
-    char *tmp;
-    char *path;
+	char	*tmp;
+	char	*path;
 
-    tmp = ft_strjoin(s1, "/");
-    path = ft_strjoin(tmp, s2);
-//  ft_memdel(tmp);
-    return (path);
+	tmp = ft_strjoin(s1, "/");
+	path = ft_strjoin(tmp, s2);
+	return (path);
 }
 
-char *check_dir(char *bin, char *cmd)
+char	*check_dir(char *bin, char *cmd)
 {
-    DIR		*folder;
-    struct	dirent *dir;
-    char	*path;
-	int		i;
+	DIR				*folder;
+	struct dirent	*dir;
+	char			*path;
+	int				i;
 
 	i = 0;
 	while (cmd[i] != '\0')
@@ -157,22 +145,21 @@ char *check_dir(char *bin, char *cmd)
 				cmd++;
 		}
 	}
-    path = NULL;
-    folder = opendir(bin);
-    if (!folder)
-        return (NULL);
-    dir = readdir(folder);
-    while (dir != NULL)
-    {
-        if (dir == NULL)
-            break ;
-        if (ft_strcmp(dir->d_name, cmd) == 0)
-            path = path_join(bin, dir->d_name);
-        dir = readdir(folder);
-    }
-    closedir(folder);
-    return (path);
-
+	path = NULL;
+	folder = opendir(bin);
+	if (!folder)
+		return (NULL);
+	dir = readdir(folder);
+	while (dir != NULL)
+	{
+		if (dir == NULL)
+			break ;
+		if (ft_strcmp(dir->d_name, cmd) == 0)
+			path = path_join(bin, dir->d_name);
+		dir = readdir(folder);
+	}
+	closedir(folder);
+	return (path);
 }
 
 static char	**command_not_found(t_args *args, int i, char *str)
@@ -192,45 +179,33 @@ static char	**command_not_found(t_args *args, int i, char *str)
 		new[1][i] = args->parsed_arg[i];
 	new[1][i] = '\0';
 	new[2] = 0;
-/*	if (args->next != NULL)
-	{
-		new[0] = malloc(sizeof(char) * ft_strlen(args->next->parsed_arg) + 1);
-		while (args->next->parsed_arg[++i])
-			new[0][i] = args->next->parsed_arg[i];
-		new[0][i] = '\0';
-		i = -1;
-		new[1] = malloc(sizeof(char) * ft_strlen(args->parsed_arg) + 1);
-		while (args->parsed_arg[++i])
-			new[1][i] = args->parsed_arg[i];
-		new[1][i] = '\0';
-	}*/
 	return (new);
 }
 
-int exec_bin(char **cmds, t_args *args)
+int	exec_bin(char **cmds, t_args *args)
 {
-    int     i;
-    char    **bin;
-    char    *path;
+	int		i;
+	char	**bin;
+	char	*path;
 	int		j;
 	char	**tmp;
 
-    i = 0;
-    while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
-        i++;
-    if (g_env[i] == 0 && getenv("PATH") != NULL)
+	i = 0;
+	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
+		i++;
+	if (g_env[i] == 0 && getenv("PATH") != NULL)
 		bin = ft_split(getenv("PATH"), ':');
 	else if (g_env[i] != 0)
 		bin = ft_split(g_env[i], ':');
 	else
 		return (printf("%s: PATH not set\n", args->parsed_arg), 1);
-    if (!args->parsed_arg && !bin[0])
-        return (1);
-    path = check_dir(bin[0], args->parsed_arg);
-    i = 1;
-    while (args->parsed_arg && bin[i] && path == NULL)
+	if (!args->parsed_arg && !bin[0])
+		return (1);
+	path = check_dir(bin[0], args->parsed_arg);
+	i = 1;
+	while (args->parsed_arg && bin[i] && path == NULL)
 	{
-        path = check_dir(bin[i++], args->parsed_arg);
+		path = check_dir(bin[i++], args->parsed_arg);
 	}
 	j = i - 1;
 	i = -1;
@@ -241,7 +216,7 @@ int exec_bin(char **cmds, t_args *args)
 	}
 	i = 0;
 	if (path != NULL)
-    	i = child(path, cmds, args);
+		i = child(path, cmds, args);
 	else
 	{
 		tmp = command_not_found(args, -1, "command-not-found");
@@ -249,8 +224,6 @@ int exec_bin(char **cmds, t_args *args)
 		free_cmds(tmp, 0);
 		free(bin[j]);
 	}
-//	UTILISER /usr/lib/command-not-found
-//	QUAND LA COMMAND EST NOT FOUND
 	free(bin);
 	free(path);
 	return (i);

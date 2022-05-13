@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 17:20:58 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:17:25 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	not_existing(t_args *args)
 		if (args && args->next)
 		{
 			if (args->parsed_arg[0] == '<')
-				break;
+				break ;
 			args = args->next;
 		}
 		if (args && args->parsed_arg)
@@ -75,14 +75,12 @@ static void	not_existing(t_args *args)
 	}
 }
 
-void	redir_in(t_args *args, char **cmds)
+void	redir_in(t_args *args, t_args *head, char **cmds)
 {
-	t_args	*head;
 	char	*tmp;
 	int		fd;
-	int		old_fd;
 
-	head = args;
+	fd = 0;
 	if (has_redir(args) == 1)
 	{
 		tmp = get_file_name(args);
@@ -92,7 +90,8 @@ void	redir_in(t_args *args, char **cmds)
 	}
 	else
 	{
-		while (args && last_redir_in(args) != 0 && args->next && args->next->is_separator != 2)
+		while (args && last_redir_in(args) != 0
+			&& args->next && args->next->is_separator != 2)
 		{
 			while (args && args->is_separator == 0)
 				args = args->next;
@@ -100,20 +99,7 @@ void	redir_in(t_args *args, char **cmds)
 				args = args->next;
 			if (ft_check_access(args->parsed_arg, 0) != 0)
 				return ;
-			old_fd = dup(0);
-			close(0);
-			fd = open(args->parsed_arg, O_RDONLY);
-			if (fd < 0)
-			{
-				close(0);
-				dup(old_fd);
-				printf("fd < 0\n");
-				return ;
-			}
-			send_builtin(head, 0, cmds);
-		//	exec_bin(cmds, head);
-			close(0);
-			dup(old_fd);
+			get_fd(head, args, fd, cmds);
 		}
 	}
 }

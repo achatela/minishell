@@ -6,18 +6,11 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:21:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 17:44:04 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/13 15:23:59 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	check_echo(t_args *args, int i)
-{
-	(void)args;
-	(void)i;
-	return (0);
-}
 
 static int	is_n(char *str)
 {
@@ -42,7 +35,7 @@ static void	print_n(t_args *args)
 	while (args && is_n(args->parsed_arg) == 1)
 		args = args->next;
 	while (args && args->to_use == 1
-			&& args->is_separator == 0)
+		&& args->is_separator == 0)
 	{
 		printf("%s", args->parsed_arg);
 		args = args->next;
@@ -51,19 +44,23 @@ static void	print_n(t_args *args)
 	}
 }
 
-int	builtin_echo(t_args *args)
+static int	check_n(t_args *args)
 {
-	int	i;
-	if (check_echo(args, 0) == -1)
-		return (-1);
+	if (args->next->parsed_arg[0] == '-'
+		&& args->next->parsed_arg[1] == 'n')
+	{
+		print_n(args->next);
+		return (1);
+	}
+	return (0);
+}
+
+int	builtin_echo(t_args *args, int i)
+{
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
 	{
-		if (args->next->parsed_arg[0] == '-'
-				&& args->next->parsed_arg[1] == 'n')
-		{
-			print_n(args->next);
+		if (check_n(args) == 1)
 			return (1);
-		}
 	}
 	args = args->next;
 	while (args && args->to_use == 1 && args->is_separator == 0)

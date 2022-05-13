@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 13:49:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 13:57:16 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -110,9 +110,9 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 		return ;
 	}
 	if (head->is_separator == 0)
-		send_builtin(head, 0, cmds);
+		send_builtin(head, cmds);
 	else if (head->next->next)
-		send_builtin(head->next->next, 0, cmds);
+		send_builtin(head->next->next, cmds);
 	close(1);
 	dup(old_fd);
 }

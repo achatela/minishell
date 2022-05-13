@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:54:59 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 13:50:13 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:26:57 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,52 @@ int	is_last(t_args *args)
 			return (0);
 	}
 	return (0);
+}
+
+char	*get_end(char **env, int i, int j, int k)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = get_env_var(env, "HOME", 0);
+	if (!tmp)
+		return (NULL);
+	tmp2 = getcwd(NULL, 0);
+	while (tmp[i] == tmp2[i])
+		i++;
+	j = i - 1;
+	free(tmp);
+	while (tmp2[++i])
+		k++;
+	tmp = malloc(sizeof(char) * k + 2);
+	k = 0;
+	if (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[j] != '/')
+		j++;
+	while (j > 0 && tmp2[j - 1] && tmp2[j] && tmp2[++j])
+	{
+		tmp[k] = tmp2[j];
+		k++;
+	}
+	tmp[k] = '\0';
+	free(tmp2);
+	return (tmp);
+}
+
+void	get_fd(t_args *head, t_args *args, int fd, char **cmds)
+{
+	int	old_fd;
+
+	old_fd = dup(0);
+	close(0);
+	fd = open(args->parsed_arg, O_RDONLY);
+	if (fd < 0)
+	{
+		close(0);
+		dup(old_fd);
+		printf("fd < 0\n");
+		return ;
+	}
+	send_builtin(head, cmds);
+	close(0);
+	dup(old_fd);
 }

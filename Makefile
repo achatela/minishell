@@ -28,6 +28,7 @@ SRCS =	srcs/main.c						\
 		srcs/here_doc.c					\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
+		srcs/builtins/cd_utils.c		\
 		srcs/builtins/builtin_echo.c 	\
 		srcs/builtins/builtin_exit.c 	\
 		srcs/builtins/builtin_export.c	\

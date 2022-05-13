@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:43:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 16:28:48 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:19:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ static char	**copy_env2(char **env, char *str, int i, int j)
 	return (new);
 }
 
-static char	*new_pwd(char *env, char *str, char *str2)
+static char	*new_pwd(char *env, char *str, char *str2, int i)
 {
-	int	i;
 	int	j;
 
 	j = 0;
-	i = -1;
 	free(env);
 	if (str)
 		j += ft_strlen(str);
@@ -78,11 +76,7 @@ static char	*new_pwd(char *env, char *str, char *str2)
 	if (str2)
 	{
 		while (str2[j])
-		{
-			env[i] = str2[j];
-			i++;
-			j++;
-		}
+			env[i++] = str2[j++];
 	}
 	env[i] = '\0';
 	return (env);
@@ -106,10 +100,10 @@ void	switch_pwds(char **env, int i, int j)
 	else
 	{
 		tmp = get_env_var(g_env, "PWD", 0);
-		env[j] = new_pwd(env[j], "OLDPWD=", tmp);
+		env[j] = new_pwd(env[j], "OLDPWD=", tmp, -1);
 		free(tmp);
 		tmp = getcwd(NULL, 0);
-		env[i] = new_pwd(env[i], "PWD=", tmp);
+		env[i] = new_pwd(env[i], "PWD=", tmp, -1);
 		free(tmp);
 	}
 }
