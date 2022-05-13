@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 17:45:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 13:49:59 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -49,8 +49,8 @@ static void	create_while(t_args *create, int fd)
 			{
 				if (create->is_separator != 2)
 				{
-					printf("delete %s\n", create->parsed_arg);
-					fd = open(create->parsed_arg, O_CREAT, 0644);
+					fd = open(create->parsed_arg, O_WRONLY
+							| O_TRUNC | O_CREAT, 0644);
 					close(fd);
 				}
 			}
@@ -94,19 +94,11 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	int		old_fd;
 	char	*tmp;
 
-	while (args && is_last(args) != 0 && args->next->is_separator != 2)
-	{
-		while (args && args->is_separator == 0)
-			args = args->next;
-		while (args && args->is_separator == 1)
-			args = args->next;
-	}
+	args = get_args(args);
 	tmp = get_tmp(head);
 	create_while(head, fd);
 	if (ft_check_access(args->parsed_arg, 0) == -1)
 		return ;
-	if (tmp == NULL)
-		tmp = args->parsed_arg;
 	old_fd = dup(1);
 	close(1);
 	fd = open_fd(args, tmp);
@@ -121,12 +113,6 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 		send_builtin(head, 0, cmds);
 	else if (head->next->next)
 		send_builtin(head->next->next, 0, cmds);
-/*	if (fd < 0)
-		printf("%s\n", "Cannot open fd");
-	else if (head->is_separator == 0)
-		send_builtin(head, 0, cmds);
-	else if (head->next->next)
-		send_builtin(head->next->next, 0, cmds);
-*/	close(1);
+	close(1);
 	dup(old_fd);
 }

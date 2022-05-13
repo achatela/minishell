@@ -6,11 +6,23 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:54:59 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/12 17:00:34 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/13 13:50:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_args	*get_args(t_args *args)
+{
+	while (args && is_last(args) != 0 && args->next->is_separator != 2)
+	{
+		while (args && args->is_separator == 0)
+			args = args->next;
+		while (args && args->is_separator == 1)
+			args = args->next;
+	}
+	return (args);
+}
 
 int	is_separator(char *str, int i)
 {

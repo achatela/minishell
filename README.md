@@ -2,6 +2,8 @@
 
 ## ERREURS A GERER
 
+**redirigé vers la bonne sortie**
+
 **je sais pas depuis quand mais echo > file1 > file2 > file3 supprime pas file1 et file2**
 
 **unset PATH et env -i bash == bizzare**
