@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:41:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 12:25:37 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:30:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	heredoc_handler(int sig, siginfo_t *info, void *null)
 {
 	(void)null;
 	if (sig == SIGINT)
-	{
 		kill(info->si_pid, SIGSTOP);
-	}
 	return ;
 }
 

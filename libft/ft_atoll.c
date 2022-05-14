@@ -6,14 +6,14 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:48:37 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 18:49:42 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:16:14 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 long long	ft_atoll(const char *nptr)
 {
 	long long	number;
-    long long	a;
+	long long	a;
 	long long	neg;
 
 	neg = 1;

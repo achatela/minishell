@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 18:01:29 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:26:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,7 @@ static void	is_d_quotes(char *str, int *i, int *j, char *tmp)
 	(*i)++;
 	while (str[(*i)] && str[(*i)] != '"')
 	{
-		if (str[(*i)] && str[(*i)] == '$' && str[(*i) + 1] == ' ')
-		{
-			printf("\n$ espace\n");
-			tmp[(*j)++] = str[(*i)++];
-		}
-		else if (str[(*i)] && str[(*i)] == '$')
+		if (str[(*i)] && str[(*i)] == '$')
 		{
 			tmp2 = var_str(str, (*i), (*i) + 1, -1);
 			free_tmp2 = tmp2;

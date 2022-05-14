@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:47 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 17:14:52 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:35:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static int	length_no_quotes(char *str, int i, int j)
 	return (length + 1);
 }
 
+//static char	*while_no_quotes(char *ret, char *str, 
+
 char	*str_no_quotes(char *str, int i, int j, int k)
 {
 	char	*ret;
@@ -74,6 +76,7 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 
 	l = 0;
 	ret = malloc(sizeof(char) * (length_no_quotes(str, 0, 0)) + 1);
+	tmp = ret;
 	while (str[i])
 	{
 		if (str[i] && str[i] != '$')
@@ -113,5 +116,5 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 		}
 	}
 	ret[l] = '\0';
-	return (ret);
+	return (tmp);
 }

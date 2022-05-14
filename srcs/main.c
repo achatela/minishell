@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 14:45:21 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:37:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGQUIT, &act, NULL);
 	while (--i < 10)
 	{
+		//printf("\033[0;33m");
 		prompt = get_prompt(argc);
 		cmd = readline(prompt);
 		if (cmd == NULL)
