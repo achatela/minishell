@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/06 16:02:49 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:49:59 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*get_home(char **env, int i, int j)
 	return (tmp);
 }
 
-static char	**fill_ret(char **ret, char *tmp)
+static char	**fill_ret_prompt(char **ret, char *tmp)
 {
 	(void)tmp;
 	ret = malloc(sizeof(char *) * 4);
@@ -105,7 +105,7 @@ char	*get_prompt(int i)
 	tmp = malloc(sizeof(char));
 	tmp[0] = '\0';
 	ret = NULL;
-	ret = fill_ret(ret, tmp);
+	ret = fill_ret_prompt(ret, tmp);
 	while (++i < 4 && ret[i] != NULL)
 		tmp = ft_strjoin(tmp, ret[i]);
 	tmp = ft_strjoin(tmp, "$ ");

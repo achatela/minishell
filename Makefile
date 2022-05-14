@@ -2,9 +2,11 @@ NAME = minishell
 
 SRCS =	srcs/main.c						\
 		srcs/utils3.c					\
+		srcs/utils4.c					\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
 		srcs/redir.c					\
+		srcs/str_quotes_utils.c			\
 		srcs/str_to_tabs.c 				\
 		srcs/sep_no_quotes.c			\
 		srcs/redir_in.c					\

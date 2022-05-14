@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 14:48:04 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:52:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ int	arg_number(char *cmd, int i, int j)
 	return (j);
 }
 
-static int	has_sep(t_args *args)
-{
-	t_args	*head;
-
-	head = args;
-	while (head)
-	{
-		if (head && (head->is_separator == 1 || head->is_separator == 2))
-			return (1);
-		head = head->next;
-	}
-	return (0);
-}
-
 static char	**has_heredoc(t_args *args, char **cmds)
 {
 	char	*tmp;
@@ -71,6 +57,20 @@ static char	**has_heredoc(t_args *args, char **cmds)
 	}
 	free(tmp);
 	return (cmds);
+}
+
+static int	has_sep3(t_args *args)
+{
+	t_args	*head;
+
+	head = args;
+	while (head)
+	{
+		if (head && (head->is_separator == 1 || head->is_separator == 2))
+			return (1);
+		head = head->next;
+	}
+	return (0);
 }
 
 static int	has_pip(t_args *args)
@@ -246,9 +246,9 @@ void	parsing(char *cmd, t_echo *echo)
 		free_cmds(cmds, 0);
 		return ;
 	}
-	if (has_sep(args) == 0)
+	if (has_sep3(args) == 0)
 		send_builtin(args, cmds);
-	else if (has_sep(args) == 1)
+	else if (has_sep3(args) == 1)
 		test_boucle_pipe(args, start, fd, cmds);
 	free_cmds(cmds, 0);
 	free_list(head);

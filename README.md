@@ -2,15 +2,17 @@
 
 ## ERREURS A GERER
 
-**pour normer fill quotes ret -> supprimer le k et ++direct le pointeur**
+**<< e | ls == segfault**
+
+**dans str quotes if str[i] $ et str[i+1]= "' ou espace**
+
+**echo "$" doit print $**
 
 **env -i ./minishell puis cd ~/validpath == segfault**
 
 **faire un fonction rapide pour voir si la chaîne reçu ne contient que des espaces -> free tout et ne rien faire**
 
 **redirigé vers la bonne sortie**
-
-**je sais pas depuis quand mais echo > file1 > file2 > file3 supprime pas file1 et file2**
 
 **unset PATH et env -i bash == bizzare**
 

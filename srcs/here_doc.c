@@ -6,43 +6,33 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 16:48:58 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:59:48 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	has_sep(t_args *args)
+static char	*get_delimiter(char *delimiter, t_args *args)
 {
-	t_args	*head;
+	struct sigaction	act;
 
-	head = args;
-	while (head && head->next)
-	{
-		if (head->is_separator == 1)
-			return (1);
-		head = head->next;
-	}
-	if (head->is_separator == 1)
-		return (1);
-	return (0);
+	sigemptyset(&act.sa_mask);
+	act.sa_sigaction = heredoc_handler;
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &act, NULL);
+	delimiter = args->next->parsed_arg;
+	return (delimiter);
 }
 
-static void	here_doc(t_args *args, int i, pid_t pid)
+static void	here_doc(t_args *args, int i, pid_t pid, char *delimiter)
 {
-	char				*delimiter;
 	char				*tmp;
 	static int			line = 1;
-	struct sigaction	act;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		sigemptyset(&act.sa_mask);
-		act.sa_sigaction = heredoc_handler;
-		act.sa_flags = SA_SIGINFO;
-		sigaction(SIGINT, &act, NULL);
-		delimiter = args->next->parsed_arg;
+		delimiter = get_delimiter(delimiter, args);
 		while (i != 1)
 		{
 			tmp = readline("> ");
@@ -100,7 +90,7 @@ static void	while_heredoc(t_args *args, char *tmp)
 			args = args->next;
 		if (args && ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
-			here_doc(args, 0, 1);
+			here_doc(args, 0, 1, NULL);
 			args = args->next;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:44:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 14:44:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:44:18 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,6 @@ static int	isprintable(char c)
 		return (1);
 	return (0);
 }
-
-/*static int	get_next_quote(char *str, int i)
-{
-	char	tmp;
-
-	tmp = str[i];
-	while (str[++i])
-	{
-		if (str[i] == tmp || str[i] == tmp)
-		{
-			printf("in next quote = str[%d] = %c\n", i, str[i]);
-			return (i);
-		}
-	}
-	return (-1);
-}*/
 
 static int	arg_number2(char *cmd, int i, int j, int k)
 {

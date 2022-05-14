@@ -6,13 +6,13 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 13:57:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:53:19 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	has_sep(t_args *args)
+static int	has_sep2(t_args *args)
 {
 	t_args	*head;
 
@@ -46,7 +46,7 @@ int	pip(t_args *args, int start, int fd, int last, char **cmds)
 		}
 		else
 			dup2(fd, 0);
-		if (has_sep(args) == 0)
+		if (has_sep2(args) == 0)
 			send_builtin(args, cmds);
 		ret = 1;
 		exit(ret);
