@@ -33,6 +33,15 @@ struct s_echo
 	int	print;
 };
 
+typedef struct s_index	t_index;
+struct	s_index
+{
+	int	i;
+	int	j;
+	int	k;
+	int	l;
+};
+
 typedef struct s_args	t_args;
 struct	s_args
 {
@@ -55,6 +64,25 @@ char	*home_path(t_args *args);
 int		print_cd_errors(char *tmp, char *home, t_args *args);
 int		cd_errors(t_args *args, char *tmp, char *home);
 int		cd_end(t_args *args, char *tmp);
+/* Built-in cd*/
+
+/* Sep_no_quotes */
+char	**sep_no_quotes(char **cmds, int i, int j);
+void	cmds_length(char **cmds, int *i, int *j, int *k);
+void	cmds_length2(char **cmds, int *i, int *j, int *k);
+char	*new_string(char **cmds, int i, int j, int k);
+char	*new_is_string(char **cmds, int *j, int i);
+char	*new_separator(char **cmds, int i, int j, int k);
+char	*new_is_sep(char **cmds, int *j, int i);
+/* Sep_no_quotes */
+
+/* Parsing */
+t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
+void	send_sep(t_args *args, char **cmds, char *sep);
+char	**parsing_to_tabs(char *cmd, int i, int j, int k);
+char	**init_cmds(char *cmds, t_args **args, t_echo *echo);
+int		sep_error(t_args *args, char **cmds);
+/* Parsing */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 char	**new_cmds(char **cmds, char *tmp);
@@ -79,8 +107,6 @@ char	*parse_arg(char *str, int i);
 char	**remove_var(char **env, char *tmp, int i, int j);
 void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index, char *pip);
-char	**sep_no_quotes(char **cmds, int i, int j);
-char	**new_parsing(char *cmd, int i, int j, int k);
 int		builtin_echo(t_args *args, int i);
 void	parsing(char *cmd, t_echo *echo);
 char	**str_to_tabs(char *cmd, int i, int j);

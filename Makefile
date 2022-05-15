@@ -5,6 +5,8 @@ SRCS =	srcs/main.c						\
 		srcs/utils4.c					\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
+		srcs/sep_no_quotes_utils.c		\
+		srcs/parsing_utils.c			\
 		srcs/redir.c					\
 		srcs/str_quotes_utils.c			\
 		srcs/str_to_tabs.c 				\

@@ -25,23 +25,9 @@ static int	new_cmds_length(char **cmds, int i, int j, int k)
 			{
 				if ((cmds[i][j] == '>' && cmds[i][j + 1] == '>')
 					|| (cmds[i][j] == '<' && cmds[i][j + 1] == '<'))
-				{
-					if (j != 0 && (cmds[i][j - 1] == '>'
-						|| cmds[i][j - 1] == '<'))
-						k++;
-					else
-						k += 2;
-					j += 2;
-				}
+					cmds_length(cmds, &i, &j, &k);
 				else if (cmds[i][j] && (cmds[i][j] == '<' || cmds[i][j] == '>'))
-				{
-					if (j != 0 && (cmds[i][j - 1] == '>'
-						|| cmds[i][j - 1] == '<'))
-						k++;
-					else
-						k += 2;
-					j++;
-				}
+					cmds_length2(cmds, &i, &j, &k);
 				else
 					j++;
 			}
@@ -51,7 +37,7 @@ static int	new_cmds_length(char **cmds, int i, int j, int k)
 	return (k + 1);
 }
 
-static char	*new_string(char **cmds, int i, int j, int k)
+char	*new_string(char **cmds, int i, int j, int k)
 {
 	char	*str;
 
@@ -67,7 +53,7 @@ static char	*new_string(char **cmds, int i, int j, int k)
 	return (str);
 }
 
-static char	*new_separator(char **cmds, int i, int j, int k)
+char	*new_separator(char **cmds, int i, int j, int k)
 {
 	char	*str;
 
@@ -101,25 +87,14 @@ static char	**new_separated(char **cmds, int i, int j, char	**new)
 			}
 			else if (cmds[i] != 0 && cmds[i][j]
 				&& cmds[i][j] != '<' && cmds[i][j] != '>')
-			{
-				new[k++] = new_string(cmds, i, j, j);
-				while (cmds[i] && cmds[i][j]
-					&& cmds[i][j] != '<' && cmds[i][j] != '>')
-					j++;
-			}
+				new[k++] = new_is_string(cmds, &j, i);
 			else if (cmds[i] != 0 && cmds[i][j]
 				&& (cmds[i][j] == '<' || cmds[i][j] == '>'))
-			{
-				new[k++] = new_separator(cmds, i, j, j);
-				while (cmds[i] && cmds[i][j]
-					&& (cmds[i][j] == '>' || cmds[i][j] == '<'))
-					j++;
-			}
+				new[k++] = new_is_sep(cmds, &j, i);
 		}
 		i++;
 	}
 	new[k] = 0;
-	free_cmds(cmds, 0);
 	return (new);
 }
 
@@ -136,6 +111,7 @@ char	**sep_no_quotes(char **cmds, int i, int j)
 		if (!new)
 			return (NULL);
 		new = new_separated(cmds, 0, 0, new);
+		free_cmds(cmds, 0);
 	}
 	return (new);
 }

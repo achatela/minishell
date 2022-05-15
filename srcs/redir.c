@@ -23,8 +23,12 @@ static void	create_while_sep(t_args *create, int fd)
 		{
 			if (create->is_separator != 2)
 			{
-				fd = open(create->parsed_arg, O_CREAT, 0644);
-				close(fd);
+				if (access(create->parsed_arg, R_OK) != -1)
+				{
+					fd = open(create->parsed_arg, O_WRONLY
+							| O_TRUNC | O_CREAT, 0644);
+					close(fd);
+				}
 			}
 		}
 		while (create && create->is_separator == 0)
@@ -47,7 +51,7 @@ static void	create_while(t_args *create, int fd)
 				create = create->next;
 			if (create && create->parsed_arg)
 			{
-				if (create->is_separator != 2)
+				if (access(create->parsed_arg, R_OK) != -1)
 				{
 					fd = open(create->parsed_arg, O_WRONLY
 							| O_TRUNC | O_CREAT, 0644);

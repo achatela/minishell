@@ -2,6 +2,8 @@
 
 ## ERREURS A GERER
 
+**echo $HOME segfault =)**
+
 **<< e | ls == segfault**
 
 **dans str quotes if str[i] $ et str[i+1]= "' ou espace**

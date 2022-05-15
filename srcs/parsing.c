@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-int	arg_number(char *cmd, int i, int j)
-{
-	if (cmd[i] != ' ' && ft_isprint(cmd[i]) == 1)
-		j++;
-	while (cmd[i])
-	{
-		if (cmd[i] == '\t' || cmd[i] == ' ' || cmd[i] == '\n'
-			|| cmd[i] == '\r' || cmd[i] == '\v' || cmd[i] == '\v')
-		{
-			if (cmd[i + 1] != ' ' && ft_isprint(cmd[i + 1]) == 1)
-				j++;
-			i++;
-		}
-		else if (cmd[i + 1] != ' ' && ft_isprint(cmd[i + 1]) == 1)
-			i++;
-		else
-			i++;
-	}
-	return (j);
-}
-
 static char	**has_heredoc(t_args *args, char **cmds)
 {
 	char	*tmp;
@@ -87,27 +66,11 @@ static int	has_pip(t_args *args)
 	return (0);
 }
 
-static void	send_sep(t_args *args, char **cmds, char *sep)
-{
-	if (sep[0] == '>')
-	{
-		redir(args, cmds, args, 0);
-		return ;
-	}
-	if (sep[0] == '<' && sep[1] == '\0')
-	{
-		redir_in(args, args, cmds);
-		return ;
-	}
-}
-
 static void	while_pip(t_args *args, int start, int fd, char **cmds)
 {
 	t_args	*head;
 	int		i;
-	char	*tmp;
 
-	tmp = NULL;
 	i = 0;
 	head = args;
 	while (args)
@@ -118,98 +81,13 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 			fd = pip(head, start, fd, 1, cmds);
 		while (args && (args->is_separator == 0
 				|| args->is_separator == 1) && i == 0)
-		{
-			if (args && tmp == NULL && args->is_separator == 1)
-			{
-				tmp = args->parsed_arg;
-				send_sep(head, cmds, tmp);
-			}
-			if (args && args->is_separator == 1
-				&& ft_strncmp(tmp, args->parsed_arg, 1) != 0)
-			{
-				tmp = args->parsed_arg;
-				send_sep(head, cmds, tmp);
-				i = 1;
-			}
-			args = args->next;
-		}
+			args = while_send_sep(args, &i, head, cmds);
 		i = 0;
 		while (args && args->is_separator == 2)
 			args = args->next;
 		head = args;
-		tmp = NULL;
 		start = 0;
 	}
-}
-
-static void	test_boucle_pipe(t_args *args, int start, int fd, char **cmds)
-{
-	t_args		*head;
-	char		*tmp;
-	int			i;
-
-	head = args;
-	tmp = NULL;
-	i = 0;
-	if (has_pip(args) == 0)
-	{
-		while (args && i == 0)
-		{
-			while (args && (args->is_separator == 0 || args->is_separator == 1))
-			{
-				if (args && tmp == NULL && args->is_separator == 1 && i == 0)
-				{
-					tmp = args->parsed_arg;
-					send_sep(head, cmds, tmp);
-				}
-				if (args && args->is_separator == 1
-					&& ft_strncmp(tmp, args->parsed_arg, 1) != 0 && i == 0)
-				{
-					tmp = args->parsed_arg;
-					send_sep(head, cmds, tmp);
-					i = 1;
-				}
-				args = args->next;
-			}
-		}
-		return ;
-	}
-	while_pip(args, start, fd, cmds);
-}
-
-static int	sep_error(t_args *args, char **cmds)
-{
-	t_args	*head;
-
-	head = args;
-	while (args)
-	{
-		if (args->is_separator != 0 && args->next == NULL)
-		{
-			printf("syntax error near unexpected token `newline'\n");
-			free_cmds(cmds, 0);
-			free_list(head);
-			return (-1);
-		}
-		else if ((args->is_separator == 1 && args->next->is_separator == 2)
-			|| (args->is_separator == 2 && args->next->is_separator == 2))
-		{
-			printf("syntax error near unexepected token `|'\n");
-			free_cmds(cmds, 0);
-			free_list(head);
-			return (-1);
-		}
-		else if (args->is_separator == 1 && args->next->is_separator == 1)
-		{
-			printf("syntax error near unexepected token ");
-			printf("`%s'\n", args->next->parsed_arg);
-			free_cmds(cmds, 0);
-			free_list(head);
-			return (-1);
-		}
-		args = args->next;
-	}
-	return (0);
 }
 
 void	parsing(char *cmd, t_echo *echo)
@@ -217,26 +95,10 @@ void	parsing(char *cmd, t_echo *echo)
 	char	**cmds;
 	t_args	*head;
 	t_args	*args;
-	int		start;
-	int		fd;
 
-	start = 1;
-	fd = 0;
-	cmds = new_parsing(cmd, 0, 0, 0);
-	if (cmds == NULL || cmds[0] == 0)
-	{
-		free(cmds);
-		return ;
-	}	
-	cmds = parse_separators(cmds, 0);
-	args = ft_lstnew(NULL);
-	fill_args(args, cmds[0], 0, "|");
-	args = init_args(args, cmds, echo);
-	if (sep_error(args, cmds) == -1)
-	{
-		args->echo->print = 2;
-		return ;
-	}
+	cmds = NULL;
+	args = NULL;
+	cmds = init_cmds(cmd, &args, echo);
 	head = args;
 	cmds = has_heredoc(args, cmds);
 	head = args;
@@ -249,7 +111,7 @@ void	parsing(char *cmd, t_echo *echo)
 	if (has_sep3(args) == 0)
 		send_builtin(args, cmds);
 	else if (has_sep3(args) == 1)
-		test_boucle_pipe(args, start, fd, cmds);
+		while_pip(args, 1, 0, cmds);
 	free_cmds(cmds, 0);
 	free_list(head);
 }

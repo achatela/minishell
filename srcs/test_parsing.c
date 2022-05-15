@@ -61,7 +61,7 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 	return (k);
 }
 
-char	**new_parsing(char *cmd, int i, int j, int k)
+char	**parsing_to_tabs(char *cmd, int i, int j, int k)
 {
 	char	**cmds;
 	int		l;
@@ -74,7 +74,7 @@ char	**new_parsing(char *cmd, int i, int j, int k)
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 	{
 		cmds = NULL;
-		return (printf("Quotes non ferméeeeees\n"), cmds);
+		return (printf("Quotes non fermées\n"), cmds);
 	}
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 2));
 	if (!cmds)
