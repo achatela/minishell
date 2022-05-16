@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/14 17:00:05 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 13:59:44 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ int		sep_error(t_args *args, char **cmds);
 /* Parsing */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
+t_index	*init_idx(int i, int j, int k, int l);
 char	**new_cmds(char **cmds, char *tmp);
 char	*fill_ret(char *str, int i, int j, char *tmp);
+int		is_shlvl(char *str);
 char	*var_str(char *str, int i, int j, int k);
 int		has_sep(t_args *args);
 void	get_fd(t_args *head, t_args *args, int fd, char **cmds);
