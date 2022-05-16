@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/16 16:41:13 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:52:08 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	get_cmd_char(int *i, char *cmd);
 char	*check_dir(char *bin, char *cmd);
 char	*path_join(const char *s1, const char *s2);
 void	check_path(char **cmd, t_index *idx, char *path);
-void	args_exec_not_end(char **cmds, t_index *idx, char **new);
+char	**args_exec_not_end(char **cmds, t_index *idxs);
 int		isseparator(char *str, int i);
 /* Exec */
 

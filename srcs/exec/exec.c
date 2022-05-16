@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 16:41:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:22:24 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	char	**new;
 	t_index	*idx;
 
-	new = NULL;
 	idx = init_idx(i, j, 0, 0);
 	if (cmds[0] == 0)
 		return (NULL);
@@ -43,7 +42,7 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		return (new);
 	}
 	else if (cmds[idx->i] != 0)
-		args_exec_not_end(cmds, idx, new);
+		new = args_exec_not_end(cmds, idx);
 	return (new);
 }
 
@@ -118,9 +117,7 @@ int	exec_bin(char **cmds, t_args *args)
 	path = check_dir(bin[0], args->parsed_arg);
 	i = 1;
 	while (args->parsed_arg && bin[i] && path == NULL)
-	{
 		path = check_dir(bin[i++], args->parsed_arg);
-	}
 	j = i - 1;
 	i = -1;
 	while (bin[++i] != 0)

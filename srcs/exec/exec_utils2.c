@@ -6,14 +6,16 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:28 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 16:40:46 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:52:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	args_exec_not_end(char **cmds, t_index *idx, char **new)
+char	**args_exec_not_end(char **cmds, t_index *idx)
 {
+	char	**new;
+
 	idx->k = 0;
 	while (cmds[idx->i] != 0 && isseparator(cmds[idx->i], 0) == 0)
 	{
@@ -32,4 +34,6 @@ void	args_exec_not_end(char **cmds, t_index *idx, char **new)
 		idx->j++;
 	}
 	new[idx->k] = 0;
+	free(idx);
+	return (new);
 }

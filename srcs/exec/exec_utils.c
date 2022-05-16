@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:31:17 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 16:29:37 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:38:39 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	check_path(char **cmds, t_index *idx, char *path)
 		idx->k--;
 	while (cmds[++idx->i] != 0)
 	{
-		if (ft_strncmp(cmds[idx->i], path + idx->k, ft_strlen(path + idx->k)) == 0)
+		if (ft_strncmp(cmds[idx->i], path + idx->k,
+				ft_strlen(path + idx->k)) == 0)
 			break ;
 	}
 	idx->j = idx->i;
