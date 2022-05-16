@@ -2,7 +2,7 @@
 
 ## ERREURS A GERER
 
-**echo $HOME segfault =)**
+**echo "$HOME '$USER"' == segfault**
 
 **<< e | ls == segfault**
 
@@ -20,9 +20,6 @@
 
 **Gestion de echo "$?" et echo '$?' inversé mais pour l'instant je comprends plus rien à str-quotes.c**
 
-**export 1>e3=32 et export 1 > e3=32 sont gérés différement dans bash =)**
-
-**ctrl c dans un heredoc = interaction aléatoire entre le \n et ^C**
 **ctrl c dans heredoc doit tout stop**
 
 **ctrl c doit set args->echo->print à 130 (envoyer args dans signal?)**

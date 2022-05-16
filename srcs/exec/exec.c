@@ -6,13 +6,13 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 14:58:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:41:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	isseparator(char *str, int i)
+int	isseparator(char *str, int i)
 {
 	if (str[i] == '|')
 		return (1);
@@ -25,54 +25,25 @@ static int	isseparator(char *str, int i)
 
 static char	**args_exec(char **cmds, char *path, int i, int j)
 {
-	int		k;
 	char	**new;
+	t_index	*idx;
 
-	k = 0;
+	new = NULL;
+	idx = init_idx(i, j, 0, 0);
 	if (cmds[0] == 0)
 		return (NULL);
-	if (ft_strcmp(cmds[0], "command-not-found") == 0)
-		i = -1;
-	while (path[k])
-		k++;
-	while (path[k - 1] != '/')
-		k--;
-	while (cmds[++i] != 0)
-	{
-		if (ft_strncmp(cmds[i], path + k, ft_strlen(path + k)) == 0)
-			break ;
-	}
-	j = i;
-	if (cmds[i] == 0)
+	check_path(cmds, idx, path);
+	if (cmds[idx->i] == 0)
 		return (cmds);
-	else if (cmds[i + 1] == 0)
+	else if (cmds[idx->i + 1] == 0)
 	{
 		new = malloc(sizeof(char *) * 2);
-		new[0] = cmds[i];
+		new[0] = cmds[idx->i];
 		new[1] = 0;
 		return (new);
 	}
-	else if (cmds[i] != 0)
-	{
-		k = 0;
-		while (cmds[i] != 0 && isseparator(cmds[i], 0) == 0)
-		{
-			k++;
-			i++;
-		}
-		new = malloc(sizeof(char *) * (k + 2));
-		k = 0;
-		while (cmds[j] != 0 && isseparator(cmds[j], 0) == 0)
-		{
-			i = -1;
-			new[k] = malloc(sizeof(char) * ft_strlen(cmds[j]) + 1);
-			while (cmds[j][++i])
-				new[k][i] = cmds[j][i];
-			new[k++][i] = '\0';
-			j++;
-		}
-		new[k] = 0;
-	}
+	else if (cmds[idx->i] != 0)
+		args_exec_not_end(cmds, idx, new);
 	return (new);
 }
 
@@ -100,66 +71,9 @@ int	child(char *path, char **cmds, t_args *args)
 		exit(ret);
 	}
 	else
-	{
 		waitpid(pid, &ret, 0);
-	}
-	if (WIFEXITED(ret))
-		args->echo->print = WEXITSTATUS(ret);
-	if (WIFSIGNALED(ret))
-	{
-		args->echo->print = WTERMSIG(ret);
-		if (args->echo->print != 131)
-			args->echo->print += 128;
-	}
+	get_ret_value(args, ret);
 	return (ret);
-}
-
-char	*path_join(const char *s1, const char *s2)
-{
-	char	*tmp;
-	char	*path;
-
-	tmp = ft_strjoin(s1, "/");
-	path = ft_strjoin(tmp, s2);
-	return (path);
-}
-
-char	*check_dir(char *bin, char *cmd)
-{
-	DIR				*folder;
-	struct dirent	*dir;
-	char			*path;
-	int				i;
-
-	i = 0;
-	while (cmd[i] != '\0')
-		i++;
-	while (i != 0 && cmd[i] != '/')
-		i--;
-	if (i == 0 || cmd[i] == '/')
-	{
-		if (cmd[i] == '/')
-		{
-			i++;
-			while (i-- != 0)
-				cmd++;
-		}
-	}
-	path = NULL;
-	folder = opendir(bin);
-	if (!folder)
-		return (NULL);
-	dir = readdir(folder);
-	while (dir != NULL)
-	{
-		if (dir == NULL)
-			break ;
-		if (ft_strcmp(dir->d_name, cmd) == 0)
-			path = path_join(bin, dir->d_name);
-		dir = readdir(folder);
-	}
-	closedir(folder);
-	return (path);
 }
 
 static char	**command_not_found(t_args *args, int i, char *str)

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 13:18:44 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:07:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**init_cmds(char *cmd, t_args **args, t_echo *echo)
 {
 	char	**cmds;
 
-	cmds = parsing_to_tabs(cmd, 0, 0, 0);
+	cmds = parsing_to_tabs(cmd, init_idx(0, 0, 0, 0));
 	if (cmds == NULL || cmds[0] == 0)
 	{
 		free(cmds);

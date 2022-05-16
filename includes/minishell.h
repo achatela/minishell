@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/16 13:59:44 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:41:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,23 @@ char	*new_is_sep(char **cmds, int *j, int i);
 /* Parsing */
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
 void	send_sep(t_args *args, char **cmds, char *sep);
-char	**parsing_to_tabs(char *cmd, int i, int j, int k);
+char	**parsing_to_tabs(char *cmd, t_index *idx);
 char	**init_cmds(char *cmds, t_args **args, t_echo *echo);
 int		sep_error(t_args *args, char **cmds);
+int		is_whitespace(char c);
+int		isprintable(char c);
+void	arg_num_quotes(char *cmd, int *i, int *j, int *k);
 /* Parsing */
+
+/* Exec */
+void	get_ret_value(t_args *agrs, int ret);
+void	get_cmd_char(int *i, char *cmd);
+char	*check_dir(char *bin, char *cmd);
+char	*path_join(const char *s1, const char *s2);
+void	check_path(char **cmd, t_index *idx, char *path);
+void	args_exec_not_end(char **cmds, t_index *idx, char **new);
+int		isseparator(char *str, int i);
+/* Exec */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 t_index	*init_idx(int i, int j, int k, int l);
