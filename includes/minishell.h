@@ -147,5 +147,6 @@ int		exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);
 int		ft_check_access(char *file, int i);
+t_args	*ft_export(int value, char *export);
 
 #endif
