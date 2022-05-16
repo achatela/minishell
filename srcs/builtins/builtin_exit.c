@@ -47,7 +47,7 @@ void	check_args(t_args *args)
 		&& args->next != NULL)
 	{
 		printf("minishell: exit: too many arguments\n");
-		args->echo->print = 1;
+		builtin_export(g_env, ft_export(1, "export"));
 	}
 	else if (ft_strisnum(args->parsed_arg) == 1)
 	{
@@ -58,7 +58,7 @@ void	check_args(t_args *args)
 	else if (args && args->next)
 	{
 		printf("minishell: exit: too many arguments\n");
-		args->echo->print = 1;
+		builtin_export(g_env, ft_export(1, "export"));
 	}
 }
 

@@ -79,7 +79,7 @@ int	builtin_cd(t_args *args, int i)
 		{
 			switch_pwds(g_env, 0, 0);
 			free(tmp);
-			args->echo->print = 0;
+			builtin_export(g_env, ft_export(1, "export"));
 			return (0);
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)

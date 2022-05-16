@@ -109,6 +109,7 @@ int	main(int argc, char **argv, char **env)
 	echo = malloc(sizeof(t_echo));
 	echo->print = 0;
 	g_env = init_env(env, 0, 0);
+	builtin_export(g_env, ft_export(3, "export"));
 	sigemptyset(&act.sa_mask);
 	act.sa_sigaction = handler;
 	act.sa_flags = SA_SIGINFO;

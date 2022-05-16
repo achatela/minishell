@@ -82,7 +82,7 @@ int	check_name(char *str, t_args *args)
 	if (!ft_isalpha(str[0]))
 	{
 		printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
-		args->echo->print = 1;
+		builtin_export(g_env, ft_export(1, "export"));
 		return (1);
 	}
 	while (str[++i])
@@ -91,7 +91,7 @@ int	check_name(char *str, t_args *args)
 					|| str[i] == '_')))
 		{
 			printf("unset: `%s': not a valid identifier\n", args->parsed_arg);
-			args->echo->print = 1;
+			builtin_export(g_env, ft_export(1, "export"));
 			return (1);
 		}
 	}

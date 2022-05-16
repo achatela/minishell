@@ -57,6 +57,8 @@ static char	**copy_env(char **env, t_args *args, int i, int j)
 
 static int	cmd_is_valid(char *str, int i, t_args *args)
 {
+	if (args->is_command == 4)
+		return (0);
 	if (ft_isalpha(str[0]) == 0)
 	{
 		printf("export: `%s': not a valid identifier\n", str);
@@ -69,14 +71,16 @@ static int	cmd_is_valid(char *str, int i, t_args *args)
 		i++;
 	}
 	printf("export: `%s': not a valid identifier\n", str);
-	args->echo->print = 1;
+	builtin_export(g_env, ft_export(1, "export"));
 	return (1);
 }
 
 void	builtin_export(char **env, t_args *args)
 {
-	int	i;
+	int		i;
+	t_args	*head;
 
+	head = args;
 	if (args->next == NULL || args->next->to_use == 0
 		|| args->next->is_separator == 1)
 	{
@@ -95,4 +99,6 @@ void	builtin_export(char **env, t_args *args)
 				g_env = copy_env(g_env, args, 0, 0);
 		}
 	}
+	if (head->to_use == 4)
+		free_list(head);
 }

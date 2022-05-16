@@ -30,6 +30,7 @@ void	handler(int sig, siginfo_t *info, void *null)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		builtin_export(g_env, ft_export(130, "export"));
 	}
 	else if (sig == SIGINT && info->si_pid == 0)
 		printf("\n");

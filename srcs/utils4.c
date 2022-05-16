@@ -47,3 +47,25 @@ t_index	*init_idx(int i, int j, int k, int l)
 	idx->l = l;
 	return (idx);
 }
+
+t_args	*ft_export(int value, char *export)
+{
+	t_args	*lst;
+	char	*tmp;
+
+	lst = ft_lstnew(NULL);
+	lst->to_use = 4;
+	lst->parsed_arg = ft_strdup(export);
+	lst->next = ft_lstnew(NULL);
+	lst->next->parsed_arg = malloc(sizeof(char) * 3);
+	lst->next->to_use = 1;
+	lst->next->is_command = 4;
+	lst->next->is_separator = 0;
+	lst->next->parsed_arg[0] = '?';
+	lst->next->parsed_arg[1] = '=';
+	lst->next->parsed_arg[2] = '\0';
+	tmp = ft_itoa(value);
+	lst->next->parsed_arg = ft_strjoin(lst->next->parsed_arg, tmp);
+	free(tmp);
+	return (lst);
+}
