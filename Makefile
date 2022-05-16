@@ -11,6 +11,7 @@ SRCS =	srcs/main.c						\
 		srcs/str_quotes_utils.c			\
 		srcs/str_to_tabs.c 				\
 		srcs/sep_no_quotes.c			\
+		srcs/parsing_to_tabs_utils.c	\
 		srcs/redir_in.c					\
 		srcs/utils.c 					\
 		srcs/test_pipe.c				\
@@ -23,7 +24,7 @@ SRCS =	srcs/main.c						\
 		srcs/existing_var.c				\
 		srcs/str_no_quotes.c			\
 		srcs/init_args.c				\
-		srcs/test_parsing.c				\
+		srcs/parsing_to_tabs.c			\
 		srcs/parse_arg.c				\
 		srcs/str_quotes.c				\
 		srcs/parse_separators.c			\
@@ -38,6 +39,8 @@ SRCS =	srcs/main.c						\
 		srcs/builtins/builtin_export.c	\
 		srcs/builtins/builtin_unset.c	\
 		srcs/exec/exec.c 				\
+		srcs/exec/exec_utils.c			\
+		srcs/exec/exec_utils2.c			\
 
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}

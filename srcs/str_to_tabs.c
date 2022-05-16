@@ -6,19 +6,11 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:43:44 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:43:45 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:26:38 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_whitespace(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\r' || c == '\v'
-		|| c == '\f' || c == ' ')
-		return (1);
-	return (0);
-}
 
 static int	word_length(char *cmd, int i, int j)
 {
