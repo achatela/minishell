@@ -80,6 +80,7 @@ int	builtin_echo(t_args *args, int i)
 			printf(" ");
 		args = args->next;
 	}
+	builtin_export(g_env, ft_export(0, "export"));
 	printf("\n");
 	return (1);
 }

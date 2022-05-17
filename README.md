@@ -37,4 +37,3 @@
 |   |   |   |   |   |
 |   |   |   |   |   |
 |   |   |   |   |   |
-_et la norminette lol_

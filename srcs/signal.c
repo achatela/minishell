@@ -16,10 +16,7 @@ void	heredoc_handler(int sig, siginfo_t *info, void *null)
 {
 	(void)null;
 	if (sig == SIGINT)
-	{
-		printf("\b\b");
 		kill(info->si_pid, SIGSTOP);
-	}
 	return ;
 }
 
