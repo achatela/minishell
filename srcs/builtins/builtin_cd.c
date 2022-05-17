@@ -79,11 +79,12 @@ int	builtin_cd(t_args *args, int i)
 		{
 			switch_pwds(g_env, 0, 0);
 			free(tmp);
-			builtin_export(g_env, ft_export(1, "export"));
+			builtin_export(g_env, ft_export(0, "export"));
 			return (0);
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)
 			simple_path_return(args, tmp, i);
 	}
-	return (cd_end(args, tmp));
+	cd_end(args, tmp);
+	return (0);
 }

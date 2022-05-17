@@ -14,14 +14,19 @@
 
 void	get_ret_value(t_args *args, int ret)
 {
+	(void)args;
+	int i;
+
+	i = 0;
 	if (WIFEXITED(ret))
-		args->echo->print = WEXITSTATUS(ret);
+		i = WEXITSTATUS(ret);
 	if (WIFSIGNALED(ret))
 	{
-		args->echo->print = WTERMSIG(ret);
-		if (args->echo->print != 131)
-			args->echo->print += 128;
+		i = WTERMSIG(ret);
+		if (i != 131)
+			i += 128;
 	}
+	builtin_export(g_env, ft_export(i, "export"));
 }
 
 void	get_cmd_char(int *i, char *cmd)

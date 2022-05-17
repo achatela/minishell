@@ -68,7 +68,7 @@ int	arg_number(char *cmd, int i, int j)
 	return (j);
 }
 
-char	**init_cmds(char *cmd, t_args **args, t_echo *echo)
+char	**init_cmds(char *cmd, t_args **args)
 {
 	char	**cmds;
 
@@ -81,10 +81,10 @@ char	**init_cmds(char *cmd, t_args **args, t_echo *echo)
 	cmds = parse_separators(cmds, 0);
 	(*args) = ft_lstnew(NULL);
 	fill_args((*args), cmds[0], 0, "|");
-	(*args) = init_args((*args), cmds, echo);
+	(*args) = init_args((*args), cmds);
 	if (sep_error((*args), cmds) == -1)
 	{
-		echo->print = 2;
+		builtin_export(g_env, ft_export(2, "export"));
 		return (NULL);
 	}
 	return (cmds);

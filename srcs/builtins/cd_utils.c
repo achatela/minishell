@@ -69,16 +69,16 @@ int	cd_errors(t_args *args, char *tmp, char	*home)
 	return (1);
 }
 
-int	cd_end(t_args *args, char *tmp)
+void	cd_end(t_args *args, char *tmp)
 {
 	if (args->next)
 		tmp = args->next->parsed_arg;
 	if (args->next == NULL)
-		args->echo->print = cd_errors(args, NULL, "");
+		builtin_export(g_env, ft_export(cd_errors(args, NULL, ""), "export"));
 	else
-		args->echo->print = cd_errors(args, tmp, "");
+		builtin_export(g_env, ft_export(cd_errors(args, tmp, ""), "export"));
 	switch_pwds(g_env, 0, 0);
-	return (args->echo->print);
+	return ;
 }
 
 int	simple_path_return(t_args *args, char *tmp, int i)
@@ -87,14 +87,14 @@ int	simple_path_return(t_args *args, char *tmp, int i)
 	{
 		switch_pwds(g_env, 0, 0);
 		free(tmp);
-		args->echo->print = 0;
+		builtin_export(g_env, ft_export(0, "export"));
 		return (0);
 	}
 	else
 	{
 		i = cd_errors(args, tmp, "");
 		free(tmp);
-		args->echo->print = i;
+		builtin_export(g_env, ft_export(i, "export"));
 		return (i);
 	}
 }

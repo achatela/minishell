@@ -70,7 +70,7 @@ int	builtin_echo(t_args *args, int i)
 		{
 			if (args->parsed_arg[i] == '$' && args->parsed_arg[i + 1] == '?')
 			{
-				printf("%d", args->echo->print);
+				printf("%d", ft_atoi(get_env_var(g_env, "?", 0)));
 				i++;
 			}
 			else

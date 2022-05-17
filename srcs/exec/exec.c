@@ -55,7 +55,7 @@ int	child(char *path, char **cmds, t_args *args)
 
 	ret = 0;
 	pid = fork();
-	args->echo->print = 0;
+	builtin_export(g_env, ft_export(0, "export"));
 	if (pid == 0)
 	{
 		new = args_exec(cmds, path, args->index - 1, 0);

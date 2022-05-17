@@ -53,7 +53,7 @@ void	fill_args(t_args *args, char *str, int index, char *pip)
 	args->parsed_arg = parse_arg(str, 0);
 }
 
-t_args	*init_args(t_args *args, char **cmds, t_echo *echo)
+t_args	*init_args(t_args *args, char **cmds)
 {
 	int		i;
 	t_args	*head;
@@ -67,11 +67,9 @@ t_args	*init_args(t_args *args, char **cmds, t_echo *echo)
 	}
 	i = 0;
 	head = args;
-	head->echo = echo;
 	while (head)
 	{
 		free(cmds[i]);
-		head->echo = echo;
 		cmds[i] = ft_strdup(head->parsed_arg);
 		i++;
 		head = head->next;

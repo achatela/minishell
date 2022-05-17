@@ -27,7 +27,6 @@
 # include <sys/wait.h>
 
 extern char				**g_env;
-typedef struct s_echo	t_echo;
 struct s_echo
 {
 	int	print;
@@ -50,7 +49,6 @@ struct	s_args
 	int		is_command;
 	int		to_use;
 	int		is_separator;
-	t_echo	*echo;
 	t_args	*next;
 };
 
@@ -71,7 +69,7 @@ char	*parsed_path(char *str, int i, int j);
 char	*home_path(t_args *args);
 int		print_cd_errors(char *tmp, char *home, t_args *args);
 int		cd_errors(t_args *args, char *tmp, char *home);
-int		cd_end(t_args *args, char *tmp);
+void	cd_end(t_args *args, char *tmp);
 /* Built-in cd*/
 
 /* Sep_no_quotes */
@@ -88,7 +86,7 @@ char	*new_is_sep(char **cmds, int *j, int i);
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
 void	send_sep(t_args *args, char **cmds, char *sep);
 char	**parsing_to_tabs(char *cmd, t_index *idx);
-char	**init_cmds(char *cmds, t_args **args, t_echo *echo);
+char	**init_cmds(char *cmds, t_args **args);
 int		sep_error(t_args *args, char **cmds);
 int		is_whitespace(char c);
 int		isprintable(char c);
@@ -138,7 +136,7 @@ char	**remove_var(char **env, char *tmp, int i, int j);
 void	free_list(t_args *args);
 void	fill_args(t_args *args, char *str, int index, char *pip);
 int		builtin_echo(t_args *args, int i);
-void	parsing(char *cmd, t_echo *echo);
+void	parsing(char *cmd);
 char	**str_to_tabs(char *cmd, int i, int j);
 int		arg_number(char *cmd, int i, int j);
 int		send_builtin(t_args *head, char **cmds);
@@ -157,7 +155,7 @@ char	*cut_var_end(char *str, int i, int j);
 void	builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		existing_var(char **env, t_args *args);
-t_args	*init_args(t_args *args, char **cmds, t_echo *echo);
+t_args	*init_args(t_args *args, char **cmds);
 int		exec_bin(char **cmds, t_args *args);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);

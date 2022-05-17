@@ -78,7 +78,7 @@ static char	*set_cmd(char *cmd, char *exit)
 	return (cmd);
 }
 
-static void	while_main(int argc, t_echo *echo)
+static void	while_main(int argc)
 {
 	char	*cmd;
 	char	*prompt;
@@ -93,7 +93,7 @@ static void	while_main(int argc, t_echo *echo)
 	if (cmd[0] != '\0')
 	{
 		add_history(cmd);
-		parsing(cmd, echo);
+		parsing(cmd);
 	}
 	free(prompt);
 	free(cmd);
@@ -101,13 +101,10 @@ static void	while_main(int argc, t_echo *echo)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_echo				*echo;
 	struct sigaction	act;
 
 	argc = -1;
 	(void)argv;
-	echo = malloc(sizeof(t_echo));
-	echo->print = 0;
 	g_env = init_env(env, 0, 0);
 	builtin_export(g_env, ft_export(0, "export"));
 	sigemptyset(&act.sa_mask);
@@ -116,9 +113,8 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGQUIT, &act, NULL);
 	while (1)
-		while_main(argc, echo);
+		while_main(argc);
 	clear_history();
-	free(echo);
 	free_env(g_env, 0);
 	return (0);
 }

@@ -93,7 +93,7 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 	free(pipes);
 }
 
-void	parsing(char *cmd, t_echo *echo)
+void	parsing(char *cmd)
 {
 	char	**cmds;
 	t_args	*head;
@@ -101,7 +101,7 @@ void	parsing(char *cmd, t_echo *echo)
 
 	cmds = NULL;
 	args = NULL;
-	cmds = init_cmds(cmd, &args, echo);
+	cmds = init_cmds(cmd, &args);
 	head = args;
 	cmds = has_heredoc(args, cmds);
 	head = args;
