@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 14:14:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:34:08 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	**has_heredoc(t_args *args, char **cmds)
 	t_args	*head;
 
 	head = args;
+	if (head == NULL)
+		return (NULL);
 	tmp = malloc(sizeof(char) * 3);
 	if (!tmp)
 		return (NULL);
@@ -102,6 +104,8 @@ void	parsing(char *cmd)
 	cmds = NULL;
 	args = NULL;
 	cmds = init_cmds(cmd, &args);
+	if (cmds == NULL)
+		return ;
 	head = args;
 	cmds = has_heredoc(args, cmds);
 	head = args;
