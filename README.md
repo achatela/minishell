@@ -2,11 +2,11 @@
 
 ## ERREURS A GERER
 
+**cat << ls == leak**
+
 **echo "$HOME '$USER"' == segfault**
 
 **leaks builtin echo**
-
-**redir.c à revoir**
 
 **<< e | ls == segfault**
 

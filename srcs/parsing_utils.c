@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 15:07:31 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:38:26 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 {
-	char	*tmp;
+	static char	*tmp = NULL;
 
-	tmp = NULL;
 	if (args && tmp == NULL && args->is_separator == 1)
 	{
 		tmp = args->parsed_arg;
+		printf("send1\n");
 		send_sep(head, cmds, tmp);
 	}
 	if (args && args->is_separator == 1
 		&& ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 	{
 		tmp = args->parsed_arg;
+		printf("send2\n");
 		send_sep(head, cmds, tmp);
 		(*i) = 1;
 	}
 	args = args->next;
+	if (args == NULL)
+		tmp = NULL;
 	return (args);
 }
 

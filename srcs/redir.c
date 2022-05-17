@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 13:57:16 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:31:37 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -46,13 +46,15 @@ static void	create_while(t_args *create, int fd)
 				create = create->next;
 			if (create && create->next)
 				create = create->next;
-			if (create && create->parsed_arg)
+			if (create && create->parsed_arg && is_last(create) != 0)
 			{
 				fd = open(create->parsed_arg, O_WRONLY
 					| O_TRUNC | O_CREAT, 0644);
 				close(fd);
 			}
 		}
+		fd = open(create->parsed_arg, O_CREAT, 0644);
+		close(fd);
 	}
 	else
 		create_while_sep(create, fd);

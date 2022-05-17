@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 16:45:28 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:38:00 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ static int	length_d_quotes(char *str, int *i, int length)
 		{
 			length += var_length(str, (*i), (*i) + 1, -1);
 			while (str[(*i)] && invalid_identifiers(str[(*i)]) == 0)
+			{
+				printf("%c\n", str[(*i)]);
 				(*i)++;
+			}
 			(*i)++;
 		}
 		else
