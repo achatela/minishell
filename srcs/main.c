@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/16 13:47:35 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:21:43 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	main(int argc, char **argv, char **env)
 	echo = malloc(sizeof(t_echo));
 	echo->print = 0;
 	g_env = init_env(env, 0, 0);
-	builtin_export(g_env, ft_export(3, "export"));
+	builtin_export(g_env, ft_export(0, "export"));
 	sigemptyset(&act.sa_mask);
 	act.sa_sigaction = handler;
 	act.sa_flags = SA_SIGINFO;

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 13:57:31 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:23:32 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,22 @@ static int	has_sep2(t_args *args)
 	return (0);
 }
 
-int	pip(t_args *args, int start, int fd, int last, char **cmds)
+static void	child_pip(int start, int last, int *p, t_pipe *pipes)
+{
+	if (start == 1 && last == 0 && pipes->fd == 0)
+		dup2(p[1], 1);
+	else if (start == 0 && last == 0 && pipes->fd != 0)
+	{
+		dup2(pipes->fd, 0);
+		dup2(p[1], 1);
+	}
+	else
+		dup2(pipes->fd, 0);
+	if (has_sep2(pipes->args) == 0)
+		send_builtin(pipes->args, pipes->cmds);
+}
+
+int	pip(t_pipe *pipes, int start, int fd, int last)
 {
 	int		p[2];
 	int		pid;
@@ -35,19 +50,10 @@ int	pip(t_args *args, int start, int fd, int last, char **cmds)
 	ret = 0;
 	pipe(p);
 	pid = fork();
+	pipes->fd = fd;
 	if (pid == 0)
 	{
-		if (start == 1 && last == 0 && fd == 0)
-			dup2(p[1], 1);
-		else if (start == 0 && last == 0 && fd != 0)
-		{
-			dup2(fd, 0);
-			dup2(p[1], 1);
-		}
-		else
-			dup2(fd, 0);
-		if (has_sep2(args) == 0)
-			send_builtin(args, cmds);
+		child_pip(start, last, p, pipes);
 		ret = 1;
 		exit(ret);
 	}

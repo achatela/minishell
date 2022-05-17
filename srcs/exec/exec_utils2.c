@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:28 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 17:52:35 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:37:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,30 @@ char	**args_exec_not_end(char **cmds, t_index *idx)
 	new[idx->k] = 0;
 	free(idx);
 	return (new);
+}
+
+void	exec_bin_end(char **bin, char *path, int i, t_pipe exec)
+{
+	int		j;
+	char	**tmp;
+
+	j = i - 1;
+	i = -1;
+	while (bin[++i] != 0)
+	{
+		if (bin[i] != NULL && i != j)
+			free(bin[i]);
+	}
+	i = 0;
+	if (path != NULL)
+		i = child(path, exec.cmds, exec.args);
+	else
+	{
+		tmp = command_not_found(exec.args, -1, "command-not-found");
+		child("/usr/lib/command-not-found", tmp, exec.args);
+		free_cmds(tmp, 0);
+		free(bin[j]);
+	}
+	free(bin);
+	free(path);
 }

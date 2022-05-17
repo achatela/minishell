@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 17:52:10 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:14:14 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,29 @@ static int	has_pip(t_args *args)
 
 static void	while_pip(t_args *args, int start, int fd, char **cmds)
 {
-	t_args	*head;
 	int		i;
+	t_pipe	*pipes;
 
+	pipes = malloc(sizeof(t_pipe));
+	pipes->cmds = cmds;
+	pipes->args = args;
 	i = 0;
-	head = args;
 	while (args)
 	{
 		if (has_pip(args) == 1)
-			fd = pip(head, start, fd, 0, cmds);
+			fd = pip(pipes, start, fd, 0);
 		else
-			fd = pip(head, start, fd, 1, cmds);
+			fd = pip(pipes, start, fd, 1);
 		while (args && (args->is_separator == 0
 				|| args->is_separator == 1) && i == 0)
-			args = while_send_sep(args, &i, head, cmds);
+			args = while_send_sep(args, &i, pipes->args, cmds);
 		i = 0;
 		while (args && args->is_separator == 2)
 			args = args->next;
-		head = args;
+		pipes->args = args;
 		start = 0;
 	}
+	free(pipes);
 }
 
 void	parsing(char *cmd, t_echo *echo)

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 18:22:24 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:37:19 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	child(char *path, char **cmds, t_args *args)
 	return (ret);
 }
 
-static char	**command_not_found(t_args *args, int i, char *str)
+char	**command_not_found(t_args *args, int i, char *str)
 {
 	char	**new;
 
@@ -100,10 +100,11 @@ int	exec_bin(char **cmds, t_args *args)
 	int		i;
 	char	**bin;
 	char	*path;
-	int		j;
-	char	**tmp;
+	t_pipe	exec;
 
 	i = 0;
+	exec.cmds = cmds;
+	exec.args = args;
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
 		i++;
 	if (g_env[i] == 0 && getenv("PATH") != NULL)
@@ -118,24 +119,6 @@ int	exec_bin(char **cmds, t_args *args)
 	i = 1;
 	while (args->parsed_arg && bin[i] && path == NULL)
 		path = check_dir(bin[i++], args->parsed_arg);
-	j = i - 1;
-	i = -1;
-	while (bin[++i] != 0)
-	{
-		if (bin[i] != NULL && i != j)
-			free(bin[i]);
-	}
-	i = 0;
-	if (path != NULL)
-		i = child(path, cmds, args);
-	else
-	{
-		tmp = command_not_found(args, -1, "command-not-found");
-		child("/usr/lib/command-not-found", tmp, args);
-		free_cmds(tmp, 0);
-		free(bin[j]);
-	}
-	free(bin);
-	free(path);
+	exec_bin_end(bin, path, i, exec);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/16 17:52:08 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:37:41 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ struct	s_args
 	t_args	*next;
 };
 
+typedef struct s_pipe	t_pipe;
+struct	s_pipe
+{
+	int		fd;
+	char	**cmds;
+	t_args	*args;
+};
+
 /* Built-in cd*/
 char	*full_path(t_args *args);
 int		builtin_cd(t_args *args, int i);
@@ -89,13 +97,21 @@ void	arg_num_quotes(char *cmd, int *i, int *j, int *k);
 
 /* Exec */
 void	get_ret_value(t_args *agrs, int ret);
+int		child(char *path, char **cmds, t_args *args);
 void	get_cmd_char(int *i, char *cmd);
 char	*check_dir(char *bin, char *cmd);
 char	*path_join(const char *s1, const char *s2);
 void	check_path(char **cmd, t_index *idx, char *path);
 char	**args_exec_not_end(char **cmds, t_index *idxs);
 int		isseparator(char *str, int i);
+void	exec_bin_end(char **bin, char *path, int i, t_pipe exec);
+char	**command_not_found(t_args *args, int i, char *str);
 /* Exec */
+
+/* Pip */
+int		pip(t_pipe *pipes, int start, int fd, int last);
+//int		has_pip(t_args *args);
+/* Pip */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 t_index	*init_idx(int i, int j, int k, int l);
@@ -113,7 +129,6 @@ char	**remove_heredoc(t_args *args, char *tmp, char **cmds);
 void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
 void	redir_in(t_args *args, t_args *head, char **cmds);
-int		pip(t_args *args, int start, int fd, int last, char **cmds);
 void	handler(int sig, siginfo_t *info, void *null);
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);
