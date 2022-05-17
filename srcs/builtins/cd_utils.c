@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:07:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 16:43:16 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:16:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ int	cd_errors(t_args *args, char *tmp, char	*home)
 	return (1);
 }
 
-void	cd_end(t_args *args, char *tmp)
+void	cd_end(t_args *args, char *tmp, int i)
 {
+	(void)tmp;
 	if (args->next)
 		tmp = args->next->parsed_arg;
 	if (args->next == NULL)
-		builtin_export(g_env, ft_export(cd_errors(args, NULL, ""), "export"));
+		builtin_export(g_env, ft_export(i, "export"));
 	else
-		builtin_export(g_env, ft_export(cd_errors(args, tmp, ""), "export"));
+		builtin_export(g_env, ft_export(i, "export"));
 	switch_pwds(g_env, 0, 0);
-	return ;
 }
 
 int	simple_path_return(t_args *args, char *tmp, int i)

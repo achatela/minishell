@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 16:44:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:15:23 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@ char	*parsed_path(char *str, int i, int j)
 
 	if (simple_path(str) != 2)
 		return (NULL);
-	tmp = get_env_var(g_env, "HOME=", 0);
-	ret = malloc(sizeof(char) * (ft_strlen(tmp) + ft_strlen(str) + 1));
-	while (tmp[i])
-		ret[j++] = tmp[i++];
+	tmp = get_env_var(g_env, "HOME", 0);
+	if (tmp != NULL)
+		ret = malloc(sizeof(char) * (ft_strlen(tmp) + ft_strlen(str) + 1));
+	else
+		ret = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (tmp != NULL)
+	{
+		while (tmp[i])
+			ret[j++] = tmp[i++];
+	}
 	i = 1;
 	while (str[i])
 		ret[j++] = str[i++];
@@ -83,8 +89,8 @@ int	builtin_cd(t_args *args, int i)
 			return (0);
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)
-			simple_path_return(args, tmp, i);
+			i = simple_path_return(args, tmp, i);
 	}
-	cd_end(args, tmp);
+	cd_end(args, tmp, i);
 	return (0);
 }

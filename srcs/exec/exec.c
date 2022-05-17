@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 14:37:19 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:23:24 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,22 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 
 	idx = init_idx(i, j, 0, 0);
 	if (cmds[0] == 0)
+	{
+		free(idx);
 		return (NULL);
+	}
 	check_path(cmds, idx, path);
 	if (cmds[idx->i] == 0)
+	{
+		free(idx);
 		return (cmds);
+	}
 	else if (cmds[idx->i + 1] == 0)
 	{
 		new = malloc(sizeof(char *) * 2);
 		new[0] = cmds[idx->i];
 		new[1] = 0;
+		free(idx);
 		return (new);
 	}
 	else if (cmds[idx->i] != 0)

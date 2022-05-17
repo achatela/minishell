@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 14:37:41 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:16:05 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*parsed_path(char *str, int i, int j);
 char	*home_path(t_args *args);
 int		print_cd_errors(char *tmp, char *home, t_args *args);
 int		cd_errors(t_args *args, char *tmp, char *home);
-void	cd_end(t_args *args, char *tmp);
+void	cd_end(t_args *args, char *tmp, int i);
 /* Built-in cd*/
 
 /* Sep_no_quotes */

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:45:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 15:55:00 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:52:45 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_check_access(char *file, int i)
 		printf("cd: ");
 	if (access(file, F_OK) == -1)
 	{
-		printf("%s: No such file or directory\n", file);
+		printf("%s: No such file or directoryy\n", file);
 		return (-1);
 	}
 	else if (access(file, W_OK) == -1)

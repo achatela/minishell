@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:31:17 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 17:38:39 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:47:46 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	get_ret_value(t_args *args, int ret)
 {
-	(void)args;
-	int i;
+	int	i;
 
+	(void)args;
 	i = 0;
 	if (WIFEXITED(ret))
 		i = WEXITSTATUS(ret);
