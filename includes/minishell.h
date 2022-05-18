@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 17:16:05 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:49:15 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ int		pip(t_pipe *pipes, int start, int fd, int last);
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 t_index	*init_idx(int i, int j, int k, int l);
 char	**new_cmds(char **cmds, char *tmp);
+int		spaces(char *cmd);
 char	*fill_ret(char *str, int i, int j, char *tmp);
 int		is_shlvl(char *str);
-char	*var_str(char *str, int i, int j, int k);
+void	var_str(char *str, t_index *idx, char *tmp);
 int		has_sep(t_args *args);
 void	get_fd(t_args *head, t_args *args, int fd, char **cmds);
 t_args	*get_args(t_args *args);

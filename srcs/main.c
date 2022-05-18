@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 14:21:43 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:48:48 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ static void	while_main(int argc)
 
 	prompt = get_prompt(argc);
 	cmd = readline(prompt);
+	if (cmd != NULL && spaces(cmd) == 1)
+	{
+		free(prompt);
+		free(cmd);
+		return ;
+	}
 	if (cmd == NULL)
 	{
 		cmd = set_cmd(cmd, "exit");

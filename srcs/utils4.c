@@ -6,11 +6,23 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 16:59:16 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 14:08:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:49:03 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	spaces(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i] && cmd[i] == ' ')
+		i++;
+	if (cmd[i] == '\0')
+		return (1);
+	return (0);
+}
 
 int	has_sep(t_args *args)
 {
