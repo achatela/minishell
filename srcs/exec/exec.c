@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 17:23:24 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:09:38 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		new[0] = cmds[idx->i];
 		new[1] = 0;
 		free(idx);
-		return (new);
 	}
 	else if (cmds[idx->i] != 0)
 		new = args_exec_not_end(cmds, idx);

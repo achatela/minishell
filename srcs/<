@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/18 14:42:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:20:27 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	var_length(char *str, int i, int j, int k)
 
 	length = 0;
 	while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-			|| str[j] == '_' || str[j] == '?'))
+			|| str[j] == '_'))
 		j++;
 	tmp = malloc(sizeof(char) * (j - i) + 2);
 	i++;
@@ -43,22 +43,19 @@ static int	var_length(char *str, int i, int j, int k)
 static int	length_d_quotes(char *str, int *i, int length)
 {
 	(*i)++;
+	printf("dquotes\n");
 	while (str[(*i)] && str[(*i)] != '"')
 	{
-		/*if (str[(*i)] && str[(*i)] == '$'
-			&& (invalid_identifiers(str[(*i) + 1]) == 1 || str[(*i) + 1] == '?'))
+		if (str[(*i)] && str[(*i)] == '$')
 		{
-			while (str[(*i)] && str[(*i)] != '"' && str[(*i)] != ' ' && str[(*i)] != '?')
-			{
-				length++;
-				(*i)++;
-			}
-		}
-		else*/if (str[(*i)] && str[(*i)] == '$')
-		{
+			printf("if\n");
 			length += var_length(str, (*i), (*i) + 1, -1);
 			while (str[(*i)] && invalid_identifiers(str[(*i)]) == 0)
+			{
+				printf("str[%d] = %c\n", (*i), str[(*i)]);
 				(*i)++;
+			}
+			printf("sortie while \n");
 			(*i)++;
 		}
 		else
@@ -67,8 +64,6 @@ static int	length_d_quotes(char *str, int *i, int length)
 			length++;
 		}
 	}
-	if (str[(*i)])
-		(*i)++;
 	return (length);
 }
 

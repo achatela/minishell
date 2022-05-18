@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:21:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 15:23:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:45:14 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,7 @@ int	builtin_echo(t_args *args, int i)
 	{
 		i = -1;
 		while (args->parsed_arg[++i])
-		{
-			if (args->parsed_arg[i] == '$' && args->parsed_arg[i + 1] == '?')
-			{
-				printf("%d", ft_atoi(get_env_var(g_env, "?", 0)));
-				i++;
-			}
-			else
-				printf("%c", args->parsed_arg[i]);
-		}
+			printf("%c", args->parsed_arg[i]);
 		if (!(args->next && args->next->is_separator != 0))
 			printf(" ");
 		args = args->next;

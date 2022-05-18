@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 18:26:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:45:43 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*var_str(char *str, int i, int j, int k)
 	char	*ret;
 
 	while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-			|| str[j] == '_'))
+			|| str[j] == '_' || str[j] == '?'))
 		j++;
 	tmp = malloc(sizeof(char) * ((j - i) + 2));
 	i++;
@@ -51,7 +51,7 @@ static void	is_d_quotes(char *str, int *i, int *j, char *tmp)
 			(*i)++;
 			while (str[(*i)] && (ft_isalpha(str[(*i)]) == 1
 					|| ft_isalnum(str[(*i)]) == 1
-					|| str[(*i)] == '_'))
+					|| str[(*i)] == '_' || str[(*i)] == '?'))
 				(*i)++;
 			free(free_tmp2);
 		}
@@ -84,7 +84,8 @@ static void	is_dollar(char *str, int *i, int *j, char *tmp)
 		}
 		(*i)++;
 		while (str[(*i)] && (ft_isalpha(str[*(i)]) == 1
-				|| ft_isalnum(str[(*i)]) == 1 || str[(*i)] == '_'))
+				|| ft_isalnum(str[(*i)]) == 1
+				|| str[(*i)] == '_' || str[(*i)] == '?'))
 			(*i)++;
 		free(free_tmp2);
 	}
