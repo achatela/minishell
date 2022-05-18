@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/18 14:42:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:13:57 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ static int	var_length(char *str, int i, int j, int k)
 	int		length;
 
 	length = 0;
-	while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
-			|| str[j] == '_' || str[j] == '?'))
+	j = i + 1;
+	if (str[j] && str[j] == '?')
 		j++;
+	else
+	{
+		while (str[j] && (ft_isalpha(str[j]) == 1 || ft_isalnum(str[j]) == 1
+				|| str[j] == '_'))
+			j++;
+	}
 	tmp = malloc(sizeof(char) * (j - i) + 2);
 	i++;
 	while (++k > -1 && i < j)
@@ -45,21 +51,19 @@ static int	length_d_quotes(char *str, int *i, int length)
 	(*i)++;
 	while (str[(*i)] && str[(*i)] != '"')
 	{
-		/*if (str[(*i)] && str[(*i)] == '$'
-			&& (invalid_identifiers(str[(*i) + 1]) == 1 || str[(*i) + 1] == '?'))
-		{
-			while (str[(*i)] && str[(*i)] != '"' && str[(*i)] != ' ' && str[(*i)] != '?')
-			{
-				length++;
-				(*i)++;
-			}
-		}
-		else*/if (str[(*i)] && str[(*i)] == '$')
+		if (str[(*i)] && str[(*i)] == '$')
 		{
 			length += var_length(str, (*i), (*i) + 1, -1);
-			while (str[(*i)] && invalid_identifiers(str[(*i)]) == 0)
-				(*i)++;
 			(*i)++;
+			if (str[(*i)] && str[(*i)] == '?')
+				(*i)++;
+			else
+			{
+				while (str[(*i)] && (ft_isalpha(str[(*i)]) == 1
+						|| ft_isalnum(str[(*i)]) == 1
+						|| str[(*i)] == '_'))
+					(*i)++;
+			}
 		}
 		else
 		{
@@ -92,14 +96,6 @@ static int	length_quotes(char *str, int i, int length)
 			length = length_d_quotes(str, &i, length);
 		else if (str[i] && str[i] == 39)
 			length = length_s_quotes(str, &i, length);
-		else if (str[i] && str[i] == '$')
-		{
-			length += var_length(str, i, i + 1, -1);
-			while (str[i] && (ft_isalpha(str[i]) == 1 || ft_isalnum(str[i]) == 1
-					|| str[i] == '_'))
-				i++;
-			i++;
-		}
 		else
 		{
 			i++;
