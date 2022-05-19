@@ -4,7 +4,11 @@
 
 **echo "$HOME '$USER"' == segfault**
 
+**<< txt | cmd == segfault**
+
 **builtin cd == à refaire**
+
+**cmd | rien à voir si on gère**
 
 **echo "$" doit print $**
 

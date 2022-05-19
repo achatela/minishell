@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 16:38:26 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:47:05 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**init_cmds(char *cmd, t_args **args)
 	(*args) = ft_lstnew(NULL);
 	fill_args((*args), cmds[0], 0, "|");
 	(*args) = init_args((*args), cmds);
-	if (sep_error((*args), cmds) == -1)
+	if (sep_error((*args), cmds, (*args)) == -1)
 	{
 		builtin_export(g_env, ft_export(2, "export"));
 		return (NULL);
@@ -91,11 +91,13 @@ char	**init_cmds(char *cmd, t_args **args)
 	return (cmds);
 }
 
-int	sep_error(t_args *args, char **cmds)
+int	sep_error(t_args *args, char **cmds, t_args *head)
 {
-	t_args	*head;
-
-	head = args;
+	if (head->is_separator == 2)
+	{
+		printf("syntax error near unexepected token `|'\n");
+		return (free_cmds(cmds, 0), free_list(head), -1);
+	}
 	while (args)
 	{
 		if (args->is_separator != 0 && args->next == NULL)

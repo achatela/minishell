@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:23 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/16 13:18:24 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:43:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,23 @@ void	cmds_length2(char **cmds, int *i, int *j, int *k)
 	(*j)++;
 }
 
+void	cmds_length3(char **cmds, int *i, int *j, int *k)
+{
+	if ((*j) != 0 && cmds[(*i)][(*j) - 1] == '|')
+		(*k)++;
+	else
+		(*k) += 2;
+	(*j)++;
+}
+
 char	*new_is_string(char **cmds, int *j, int i)
 {
 	char	*tmp;
 
 	tmp = new_string(cmds, i, (*j), (*j));
 	while (cmds[i] && cmds[i][(*j)]
-			&& cmds[i][(*j)] != '<' && cmds[i][(*j)] != '>')
+			&& cmds[i][(*j)] != '<' && cmds[i][(*j)] != '>'
+			&& cmds[i][(*j)] != '|')
 		(*j)++;
 	return (tmp);
 }
@@ -49,7 +59,8 @@ char	*new_is_sep(char **cmds, int *j, int i)
 
 	tmp = new_separator(cmds, i, (*j), (*j));
 	while (cmds[i] && cmds[i][(*j)]
-			&& (cmds[i][(*j)] == '>' || cmds[i][(*j)] == '<'))
+			&& (cmds[i][(*j)] == '>' || cmds[i][(*j)] == '<'
+			|| cmds[i][(*j)] == '|'))
 		(*j)++;
 	return (tmp);
 }

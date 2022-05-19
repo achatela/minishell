@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 15:34:08 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:52:40 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	**has_heredoc(t_args *args, char **cmds)
 	{
 		if (ft_strcmp(tmp, args->parsed_arg) == 0)
 		{
-			cmds = remove_heredoc(head, tmp, cmds);
+			cmds = remove_heredoc(ead, tmp, cmds);
 			return (cmds);
 		}
 		else

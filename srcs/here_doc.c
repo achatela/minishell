@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 16:12:32 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:33:16 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ static void	here_doc(t_args *args, int i, pid_t pid, char *delimiter)
 		waitpid(pid, 0, 0);
 }
 
-static void	new_list(t_args *args, char *tmp)
+/*static void	new_list(t_args *args, char *tmp)
 {
 	t_args	*head;
 	t_args	*head_free;
 
 	head = args;
-	while (args && args->next && args->next->next && has_sep(args) == 1)
+	printf("args = %s\n", args->parsed_arg);
+	printf("tmp = %s\n", tmp);
+	while (args && args->next && has_sep(args) == 1)
 	{
 		while (args && ft_strcmp(args->parsed_arg, tmp) != 0)
 		{
@@ -68,6 +70,7 @@ static void	new_list(t_args *args, char *tmp)
 		}
 		if (args && ft_strcmp(args->parsed_arg, tmp) == 0)
 		{
+			printf("args if %s\n", args->parsed_arg);
 			args = head;
 			head_free = args->next->next;
 			head = args->next;
@@ -76,10 +79,57 @@ static void	new_list(t_args *args, char *tmp)
 			free(head);
 			free(head_free->parsed_arg);
 			free(head_free);
+			printf("args if fin %s\n", args->parsed_arg);
 		}
 		else if (args && args->next != NULL)
+		{
+			printf("ici\n");
 			args = args->next;
+		}
 	}
+}*/
+
+static void	cpy_lst(t_args *args, t_args *cpy)
+{
+	static int	index = 0;
+
+	cpy->index = index++;
+	cpy->parsed_arg = ft_strdup(args->parsed_arg);
+	cpy->is_command = args->is_command;
+	cpy->is_separator = args->is_separator;
+	cpy->to_use = args->to_use;
+}
+
+static t_args	*new_list(t_args *args, char *tmp, t_args *head)
+{
+	t_args	*new;
+	t_args 	*tmp_list;
+
+	if (ft_strcmp(args->parsed_arg, tmp) == 0)
+	{
+		args = args->next;
+		while (args)
+		{
+			if (args->next && ft_strcmp(args->next->parsed_arg, tmp) == 0)
+				args = args->next->next;
+			else
+				break ;
+		}
+	}
+	if (args == NULL)
+		return (NULL);
+	new = ft_lstnew(NULL);
+	cpy_lst(args, new);
+	args = args->next;
+	while (args)
+	{
+		tmp_list = ft_lstnew(NULL);
+		cpy_lst(args, tmp_list);
+		ft_lstadd_back(new, tmp_list);
+		args = args->next;
+	}
+	free_list(head);
+	return (new);
 }
 
 static void	while_heredoc(t_args *args, char *tmp)
@@ -96,23 +146,24 @@ static void	while_heredoc(t_args *args, char *tmp)
 	}
 }
 
-char	**remove_heredoc(t_args *args, char *tmp, char **cmds)
+char	**remove_heredoc(t_args **args, char *tmp, char **cmds)
 {
 	t_args	*head;
-	int		i;
+	//int		i;
 
 	head = args;
 	while_heredoc(args, tmp);
 	if (head->next != NULL && head->next->next != NULL)
 	{
-		new_list(head, tmp);
+		args = new_list(head, tmp, head);
 		cmds = new_cmds(cmds, tmp);
-		i = 0;
-		while (head)
+		head = args;
+	//	i = 0;
+	/*	while (head)
 		{
 			head->index = i++;
 			head = head->next;
-		}
+		}*/
 	}
 	else
 		head->to_use = 2;

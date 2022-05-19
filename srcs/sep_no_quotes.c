@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:45:39 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/14 17:32:27 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:46:27 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	new_cmds_length(char **cmds, int i, int j, int k)
 					cmds_length(cmds, &i, &j, &k);
 				else if (cmds[i][j] && (cmds[i][j] == '<' || cmds[i][j] == '>'))
 					cmds_length2(cmds, &i, &j, &k);
+				else if (cmds[i][j] && cmds[i][j] == '|')
+					cmds_length3(cmds, &i, &j, &k);
 				else
 					j++;
 			}
@@ -41,13 +43,15 @@ char	*new_string(char **cmds, int i, int j, int k)
 {
 	char	*str;
 
-	while (cmds[i][j] && (cmds[i][j] != '<' && cmds[i][j] != '>'))
+	while (cmds[i][j] && (cmds[i][j] != '<'
+			&& cmds[i][j] != '>' && cmds[i][j] != '|'))
 		j++;
 	str = malloc(sizeof(char) * (j - (k - 1)));
 	if (!str)
 		return (NULL);
 	j = 0;
-	while (cmds[i][k] && cmds[i][k] != '<' && cmds[i][k] != '>')
+	while (cmds[i][k] && cmds[i][k] != '<'
+			&& cmds[i][k] != '>' && cmds[i][k] != '|')
 		str[j++] = cmds[i][k++];
 	str[j] = '\0';
 	return (str);
@@ -57,13 +61,15 @@ char	*new_separator(char **cmds, int i, int j, int k)
 {
 	char	*str;
 
-	while (cmds[i][j] || cmds[i][j] == '<' || cmds[i][j] == '>')
+	while (cmds[i][j] || cmds[i][j] == '<'
+			|| cmds[i][j] == '>' || cmds[i][j] == '|')
 		j++;
 	str = malloc(sizeof(char) * (j - (k - 1)));
 	if (!str)
 		return (NULL);
 	j = 0;
-	while (cmds[i][k] && (cmds[i][k] == '<' || cmds[i][k] == '>'))
+	while (cmds[i][k] && (cmds[i][k] == '<'
+			|| cmds[i][k] == '>' || cmds[i][k] == '|'))
 		str[j++] = cmds[i][k++];
 	str[j] = '\0';
 	return (str);
@@ -86,10 +92,10 @@ static char	**new_separated(char **cmds, int i, int j, char	**new)
 				break ;
 			}
 			else if (cmds[i] != 0 && cmds[i][j]
-				&& cmds[i][j] != '<' && cmds[i][j] != '>')
+				&& cmds[i][j] != '<' && cmds[i][j] != '>' && cmds[i][j] != '|')
 				new[k++] = new_is_string(cmds, &j, i);
-			else if (cmds[i] != 0 && cmds[i][j]
-				&& (cmds[i][j] == '<' || cmds[i][j] == '>'))
+			else if (cmds[i] != 0 && cmds[i][j] && (cmds[i][j] == '<'
+					|| cmds[i][j] == '>' || cmds[i][j] == '|'))
 				new[k++] = new_is_sep(cmds, &j, i);
 		}
 		i++;

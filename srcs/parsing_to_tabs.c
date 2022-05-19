@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:44:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/16 15:25:09 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:19:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ static void	parsing_to_tabs2(char *cmd, char **cmds, t_index *idx)
 			idx->j = idx->i;
 			idx->i++;
 			while (cmd[idx->i] && cmd[idx->i] != cmd[idx->j])
-			{
 				idx->i++;
-			//	while (cmd[idx->i] && cmd[idx->i] == 32)
-			//		idx->i++;
-			}
 			if (cmd[idx->i])
 				idx->i++;
 		}

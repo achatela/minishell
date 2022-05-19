@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/18 17:49:15 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:30:09 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	cd_end(t_args *args, char *tmp, int i);
 char	**sep_no_quotes(char **cmds, int i, int j);
 void	cmds_length(char **cmds, int *i, int *j, int *k);
 void	cmds_length2(char **cmds, int *i, int *j, int *k);
+void	cmds_length3(char **cmds, int *i, int *j, int *k);
 char	*new_string(char **cmds, int i, int j, int k);
 char	*new_is_string(char **cmds, int *j, int i);
 char	*new_separator(char **cmds, int i, int j, int k);
@@ -87,7 +88,7 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
 void	send_sep(t_args *args, char **cmds, char *sep);
 char	**parsing_to_tabs(char *cmd, t_index *idx);
 char	**init_cmds(char *cmds, t_args **args);
-int		sep_error(t_args *args, char **cmds);
+int		sep_error(t_args *args, char **cmds, t_args *head);
 int		is_whitespace(char c);
 int		isprintable(char c);
 void	arg_num_quotes(char *cmd, int *i, int *j, int *k);

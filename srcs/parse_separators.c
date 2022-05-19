@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:32:45 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 16:55:34 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:43:24 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ static int	has_sep_no_quotes(char **cmds, int i, int j)
 			{
 				while (cmds[i][j])
 				{	
-					if (cmds[i][j] == '<' || cmds[i][j] == '>')
+					if (cmds[i][j] == '<' || cmds[i][j] == '>'
+						|| cmds[i][j] == '|')
 						return (0);
 					j++;
 				}
