@@ -72,7 +72,7 @@ static int	open_fd(t_args *args, char *tmp)
 	return (fd);
 }
 
-static char	*get_tmp(t_args *args)
+static char	*get_sep(t_args *args)
 {
 	char	*tmp;
 
@@ -95,7 +95,7 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	char	*tmp;
 
 	args = get_args(args);
-	tmp = get_tmp(head);
+	tmp = get_sep(head);
 	create_while(head, fd);
 	if (ft_check_access(args->parsed_arg, 0) == -1)
 		return ;

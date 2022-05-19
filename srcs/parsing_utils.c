@@ -19,14 +19,12 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 	if (args && tmp == NULL && args->is_separator == 1)
 	{
 		tmp = args->parsed_arg;
-		printf("send1\n");
 		send_sep(head, cmds, tmp);
 	}
 	if (args && args->is_separator == 1
 		&& ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 	{
 		tmp = args->parsed_arg;
-		printf("send2\n");
 		send_sep(head, cmds, tmp);
 		(*i) = 1;
 	}

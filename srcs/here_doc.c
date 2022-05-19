@@ -59,7 +59,7 @@ static void	new_list(t_args *args, char *tmp)
 	t_args	*head_free;
 
 	head = args;
-	while (args && has_sep(args) == 1)
+	while (args && args->next && args->next->next && has_sep(args) == 1)
 	{
 		while (args && ft_strcmp(args->parsed_arg, tmp) != 0)
 		{

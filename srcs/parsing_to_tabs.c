@@ -70,17 +70,18 @@ static void	parsing_to_tabs2(char *cmd, char **cmds, t_index *idx)
 	idx->k = idx->i;
 	while (cmd[idx->i] && isprintable(cmd[idx->i]) == 1)
 	{
-		if (cmd[idx->i] == '"' || cmd[idx->i] == 39)
+		if (cmd[idx->i] && (cmd[idx->i] == '"' || cmd[idx->i] == 39))
 		{
 			idx->j = idx->i;
 			idx->i++;
 			while (cmd[idx->i] && cmd[idx->i] != cmd[idx->j])
 			{
 				idx->i++;
-				while (cmd[idx->i] && cmd[idx->i] == 32)
-					idx->i++;
+			//	while (cmd[idx->i] && cmd[idx->i] == 32)
+			//		idx->i++;
 			}
-			idx->i++;
+			if (cmd[idx->i])
+				idx->i++;
 		}
 		else
 			idx->i++;

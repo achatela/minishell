@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-static int	var_length(char *str, int i, int j, int k)
+int	var_d_length(char *str, int i, int j, int k)
 {
-	char	*tmp;
 	char	*tmp2;
 	int		length;
 
 	length = 0;
+	(void)k;
 	j = i + 1;
 	if (str[j] && str[j] == '?')
 		j++;
@@ -28,20 +28,13 @@ static int	var_length(char *str, int i, int j, int k)
 				|| str[j] == '_'))
 			j++;
 	}
-	tmp = malloc(sizeof(char) * (j - i) + 2);
-	i++;
-	while (++k > -1 && i < j)
-		tmp[k] = str[i++];
-	tmp[k++] = '=';
-	tmp[k] = '\0';
-	tmp2 = get_env_var(g_env, tmp, 0);
+	tmp2 = get_tmp(str, i, j);
 	if (tmp2 == NULL)
 	{
 		tmp2 = malloc(sizeof(char));
 		tmp2[0] = '\0';
 	}
 	length += ft_strlen(tmp2);
-	free(tmp);
 	free(tmp2);
 	return (length);
 }
@@ -52,19 +45,7 @@ static int	length_d_quotes(char *str, int *i, int length)
 	while (str[(*i)] && str[(*i)] != '"')
 	{
 		if (str[(*i)] && str[(*i)] == '$')
-		{
-			length += var_length(str, (*i), (*i) + 1, -1);
-			(*i)++;
-			if (str[(*i)] && str[(*i)] == '?')
-				(*i)++;
-			else
-			{
-				while (str[(*i)] && (ft_isalpha(str[(*i)]) == 1
-						|| ft_isalnum(str[(*i)]) == 1
-						|| str[(*i)] == '_'))
-					(*i)++;
-			}
-		}
+			length_d_dollar(str, i, &length);
 		else
 		{
 			(*i)++;

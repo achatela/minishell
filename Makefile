@@ -30,6 +30,7 @@ SRCS =	srcs/main.c						\
 		srcs/parse_separators.c			\
 		srcs/signal.c					\
 		srcs/d_redir.c					\
+		srcs/str_quotes_utils2.c		\
 		srcs/here_doc.c					\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\

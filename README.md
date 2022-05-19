@@ -4,8 +4,6 @@
 
 **echo "$HOME '$USER"' == segfault**
 
-**<< e | ls == segfault**
-
 **builtin cd == à refaire**
 
 **echo "$" doit print $**

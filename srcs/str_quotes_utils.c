@@ -12,9 +12,24 @@
 
 #include "minishell.h"
 
+static char	*fill_tmp(char *str, t_index *idx, int j)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp2 = malloc(sizeof(char) * ((j - idx->i) + 2));
+	idx->i++;
+	while (++idx->k > -1 && idx->i < j)
+		tmp2[idx->k] = str[idx->i++];
+	tmp2[idx->k++] = '=';
+	tmp2[idx->k] = '\0';
+	tmp = get_env_var(g_env, tmp2, 0);
+	free(tmp2);
+	return (tmp);
+}
+
 void	var_str(char *str, t_index *idx, char *ret)
 {
-	char	*tmp2;
 	char	*tmp;
 	int		j;
 
@@ -28,13 +43,7 @@ void	var_str(char *str, t_index *idx, char *ret)
 				|| str[j] == '_'))
 			j++;
 	}
-	tmp2 = malloc(sizeof(char) * ((j - idx->i) + 2));
-	idx->i++;
-	while (++idx->k > -1 && idx->i < j)
-		tmp2[idx->k] = str[idx->i++];
-	tmp2[idx->k++] = '=';
-	tmp2[idx->k] = '\0';
-	tmp = get_env_var(g_env, tmp2, 0);
+	tmp = fill_tmp(str, idx, j);
 	if (tmp != NULL)
 	{
 		idx->k = -1;
@@ -42,7 +51,6 @@ void	var_str(char *str, t_index *idx, char *ret)
 			ret[idx->j++] = tmp[idx->k];
 		free(tmp);
 	}
-	free(tmp2);
 }
 
 static void	is_d_quotes(char *str, t_index *idx, char *tmp)

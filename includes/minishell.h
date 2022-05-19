@@ -113,7 +113,10 @@ int		pip(t_pipe *pipes, int start, int fd, int last);
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
 t_index	*init_idx(int i, int j, int k, int l);
+int		var_d_length(char *str, int i, int j, int k);
 char	**new_cmds(char **cmds, char *tmp);
+char	*get_tmp(char *str, int i, int j);
+void	length_d_dollar(char *str, int *i, int *length);
 int		spaces(char *cmd);
 char	*fill_ret(char *str, int i, int j, char *tmp);
 int		is_shlvl(char *str);

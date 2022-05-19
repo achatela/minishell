@@ -12,13 +12,27 @@
 
 #include "minishell.h"
 
-static void	else_no_quotes(char *str, int *i, int *j, int *length)
+static char	*fill_tmp2(int *i, int *j, char *str)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		k;
 
 	k = -1;
+	tmp = malloc(sizeof(char) * ((*j) - (*i)) + 2);
+	while (++k > -1 && (*i) < (*j))
+		tmp[k] = str[(*i)++];
+	tmp[k++] = '=';
+	tmp[k] = '\0';
+	tmp2 = get_env_var(g_env, tmp, 0);
+	free(tmp);
+	return (tmp2);
+}
+
+static void	else_no_quotes(char *str, int *i, int *j, int *length)
+{
+	char	*tmp2;
+
 	(*j) = (*i);
 	if (str[(*j)] && str[(*j)] == '?')
 		(*j)++;
@@ -29,18 +43,12 @@ static void	else_no_quotes(char *str, int *i, int *j, int *length)
 				|| str[(*j)] == '_' || str[(*j)] == '-'))
 			(*j)++;
 	}
-	tmp = malloc(sizeof(char) * ((*j) - (*i)) + 2);
-	while (++k > -1 && (*i) < (*j))
-		tmp[k] = str[(*i)++];
-	tmp[k++] = '=';
-	tmp[k] = '\0';
-	tmp2 = get_env_var(g_env, tmp, 0);
+	tmp2 = fill_tmp2(i, j, str);
 	if (tmp2 != NULL)
 	{
 		(*length) += ft_strlen(tmp2);
 		free(tmp2);
 	}
-	free(tmp);
 }
 
 static int	length_no_quotes(char *str, int i, int j)
@@ -66,7 +74,6 @@ static int	length_no_quotes(char *str, int i, int j)
 
 static void	while_no_quotes(char *ret, char *str, t_index *idx)
 {
-	char	*tmp;
 	char	*tmp2;
 
 	idx->j = idx->i;
@@ -79,15 +86,8 @@ static void	while_no_quotes(char *ret, char *str, t_index *idx)
 				|| str[idx->j] == '_' || str[idx->j] == '-'))
 			idx->j++;
 	}
-	tmp = malloc(sizeof(char) * (idx->j - idx->i) + 2);
 	idx->k = -1;
-	while (++idx->k > -1 && idx->i < idx->j)
-		tmp[idx->k] = str[idx->i++];
-	tmp[idx->k++] = '=';
-	tmp[idx->k] = '\0';
-	idx->k = -1;
-	tmp2 = get_env_var(g_env, tmp, 0);
-	free(tmp);
+	tmp2 = fill_tmp2(&idx->i, &idx->j, str);
 	if (tmp2 != NULL)
 	{
 		while (tmp2[++idx->k])
