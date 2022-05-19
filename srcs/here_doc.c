@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 16:33:16 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:05:14 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,120 +53,51 @@ static void	here_doc(t_args *args, int i, pid_t pid, char *delimiter)
 		waitpid(pid, 0, 0);
 }
 
-/*static void	new_list(t_args *args, char *tmp)
-{
-	t_args	*head;
-	t_args	*head_free;
-
-	head = args;
-	printf("args = %s\n", args->parsed_arg);
-	printf("tmp = %s\n", tmp);
-	while (args && args->next && has_sep(args) == 1)
-	{
-		while (args && ft_strcmp(args->parsed_arg, tmp) != 0)
-		{
-			head = args;
-			args = args->next;
-		}
-		if (args && ft_strcmp(args->parsed_arg, tmp) == 0)
-		{
-			printf("args if %s\n", args->parsed_arg);
-			args = head;
-			head_free = args->next->next;
-			head = args->next;
-			args->next = args->next->next->next;
-			free(head->parsed_arg);
-			free(head);
-			free(head_free->parsed_arg);
-			free(head_free);
-			printf("args if fin %s\n", args->parsed_arg);
-		}
-		else if (args && args->next != NULL)
-		{
-			printf("ici\n");
-			args = args->next;
-		}
-	}
-}*/
-
-static void	cpy_lst(t_args *args, t_args *cpy)
-{
-	static int	index = 0;
-
-	cpy->index = index++;
-	cpy->parsed_arg = ft_strdup(args->parsed_arg);
-	cpy->is_command = args->is_command;
-	cpy->is_separator = args->is_separator;
-	cpy->to_use = args->to_use;
-}
-
-static t_args	*new_list(t_args *args, char *tmp, t_args *head)
+static t_args	*new_list(t_args *args, char **cmds)
 {
 	t_args	*new;
-	t_args 	*tmp_list;
 
-	if (ft_strcmp(args->parsed_arg, tmp) == 0)
-	{
-		args = args->next;
-		while (args)
-		{
-			if (args->next && ft_strcmp(args->next->parsed_arg, tmp) == 0)
-				args = args->next->next;
-			else
-				break ;
-		}
-	}
-	if (args == NULL)
-		return (NULL);
 	new = ft_lstnew(NULL);
-	cpy_lst(args, new);
-	args = args->next;
-	while (args)
+	if (cmds[0] == 0)
 	{
-		tmp_list = ft_lstnew(NULL);
-		cpy_lst(args, tmp_list);
-		ft_lstadd_back(new, tmp_list);
-		args = args->next;
+		new->to_use = 2;
+		new->parsed_arg = ft_strdup("free");
+		free_list(args);
+		return (new);
 	}
-	free_list(head);
+	fill_args(new, cmds[0], 0, "|");
+	new = init_args(new, cmds);
+	free_list(args);
 	return (new);
 }
 
 static void	while_heredoc(t_args *args, char *tmp)
 {
-	while (args)
+	t_args	*head;
+
+	head = args;
+	while (head)
 	{
-		while (args && ft_strcmp(tmp, args->parsed_arg) != 0)
-			args = args->next;
-		if (args && ft_strcmp(tmp, args->parsed_arg) == 0)
+		while (head && ft_strcmp(tmp, head->parsed_arg) != 0)
+			head = head->next;
+		if (head && ft_strcmp(tmp, head->parsed_arg) == 0)
 		{
-			here_doc(args, 0, 1, NULL);
-			args = args->next;
+			here_doc(head, 0, 1, NULL);
+			head = head->next;
 		}
 	}
 }
 
 char	**remove_heredoc(t_args **args, char *tmp, char **cmds)
 {
-	t_args	*head;
-	//int		i;
-
-	head = args;
-	while_heredoc(args, tmp);
-	if (head->next != NULL && head->next->next != NULL)
+	while_heredoc((*args), tmp);
+	if ((*args)->next != NULL && (*args)->next->next != NULL)
 	{
-		args = new_list(head, tmp, head);
 		cmds = new_cmds(cmds, tmp);
-		head = args;
-	//	i = 0;
-	/*	while (head)
-		{
-			head->index = i++;
-			head = head->next;
-		}*/
+		(*args) = new_list((*args), cmds);
 	}
 	else
-		head->to_use = 2;
+		(*args)->to_use = 2;
 	free(tmp);
 	return (cmds);
 }

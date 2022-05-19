@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 14:30:09 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:50:59 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ struct	s_pipe
 
 /* Built-in cd*/
 char	*full_path(t_args *args);
-int		builtin_cd(t_args *args, int i);
-int		simple_path_return(t_args *args, char *tmp, int i);
+void	builtin_cd(t_args *args, char *tmp);
+int		simple_path_return(t_args *args, char *tmp);
 int		simple_path(char *arg);
 char	*parsed_path(char *str, int i, int j);
 char	*home_path(t_args *args);
 int		print_cd_errors(char *tmp, char *home, t_args *args);
-int		cd_errors(t_args *args, char *tmp, char *home);
-void	cd_end(t_args *args, char *tmp, int i);
+int		cd_errors(t_args *args, char *tmp, char *home, char *tmp2);
+void	cd_end(t_args *args, char *tmp);
 /* Built-in cd*/
 
 /* Sep_no_quotes */
@@ -118,6 +118,7 @@ int		var_d_length(char *str, int i, int j, int k);
 char	**new_cmds(char **cmds, char *tmp);
 char	*get_tmp(char *str, int i, int j);
 void	length_d_dollar(char *str, int *i, int *length);
+//t_args	*new_list(t_args *args, char *tmp);
 int		spaces(char *cmd);
 char	*fill_ret(char *str, int i, int j, char *tmp);
 int		is_shlvl(char *str);
@@ -128,7 +129,7 @@ t_args	*get_args(t_args *args);
 int		is_last(t_args *args);
 void	heredoc_handler(int sig, siginfo_t *info, void *null);
 char	*get_end(char **env, int i, int j, int k);
-char	**remove_heredoc(t_args *args, char *tmp, char **cmds);
+char	**remove_heredoc(t_args **args, char *tmp, char **cmds);
 void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
 void	redir_in(t_args *args, t_args *head, char **cmds);

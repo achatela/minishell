@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 16:41:06 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:49:28 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	builtin_cd(t_args *args, char *tmp)
 	}
 	if (args->next != NULL && args->next->is_separator == 0)
 	{
-		tmp = parsed_path(args->next->parsed_arg, 0, 0);	
+		tmp = parsed_path(args->next->parsed_arg, 0, 0);
 		if (simple_path(args->next->parsed_arg) != 2
 			&& chdir(args->next->parsed_arg) == 0)
 		{

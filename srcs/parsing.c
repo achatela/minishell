@@ -6,18 +6,18 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/19 16:53:59 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:03:00 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**has_heredoc(t_args *args, char **cmds)
+static char	**has_heredoc(t_args **args, char **cmds)
 {
 	char	*tmp;
 	t_args	*head;
 
-	head = args;
+	head = (*args);
 	if (head == NULL)
 		return (NULL);
 	tmp = malloc(sizeof(char) * 3);
@@ -26,15 +26,15 @@ static char	**has_heredoc(t_args *args, char **cmds)
 	tmp[0] = '<';
 	tmp[1] = '<';
 	tmp[2] = '\0';
-	while (args)
+	while (head)
 	{
-		if (ft_strcmp(tmp, args->parsed_arg) == 0)
+		if (ft_strcmp(tmp, head->parsed_arg) == 0)
 		{
-			cmds = remove_heredoc(head, tmp, cmds);
+			cmds = remove_heredoc(args, tmp, cmds);
 			return (cmds);
 		}
 		else
-			args = args->next;
+			head = head->next;
 	}
 	free(tmp);
 	return (cmds);
@@ -98,7 +98,6 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 void	parsing(char *cmd)
 {
 	char	**cmds;
-	t_args	*head;
 	t_args	*args;
 
 	cmds = NULL;
@@ -106,9 +105,7 @@ void	parsing(char *cmd)
 	cmds = init_cmds(cmd, &args);
 	if (cmds == NULL)
 		return ;
-	head = args;
-	cmds = has_heredoc(args, cmds);
-	head = args;
+	cmds = has_heredoc(&args, cmds);
 	if (args->to_use == 2)
 	{
 		free_list(args);
@@ -120,5 +117,5 @@ void	parsing(char *cmd)
 	else if (has_sep3(args) == 1)
 		while_pip(args, 1, 0, cmds);
 	free_cmds(cmds, 0);
-	free_list(head);
+	free_list(args);
 }

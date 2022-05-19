@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:07:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/19 16:53:11 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:51:46 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ int	print_cd_errors(char *tmp, char *home, t_args *args)
 	return (0);
 }
 
-int	cd_errors(t_args *args, char *tmp, char	*home)
+int	cd_errors(t_args *args, char *tmp, char	*home, char *tmp2)
 {
-	char	*tmp2;
-
 	tmp2 = home_path(args);
 	if (print_cd_errors(tmp, home, args) == 1)
 		return (1);
@@ -84,9 +82,11 @@ void	cd_end(t_args *args, char *tmp)
 	if (args->next)
 		tmp = args->next->parsed_arg;
 	if (args->next == NULL)
-		builtin_export(g_env, ft_export(cd_errors(args, NULL, ""), "export"));
+		builtin_export(g_env,
+			ft_export(cd_errors(args, NULL, "", ""), "export"));
 	else
-		builtin_export(g_env, ft_export(cd_errors(args, tmp, ""), "export"));
+		builtin_export(g_env,
+			ft_export(cd_errors(args, tmp, "", ""), "export"));
 	switch_pwds(g_env, 0, 0);
 }
 
@@ -104,7 +104,7 @@ int	simple_path_return(t_args *args, char *tmp)
 	}
 	else
 	{
-		i = cd_errors(args, tmp, "");
+		i = cd_errors(args, tmp, "", "");
 		free(tmp);
 		builtin_export(g_env, ft_export(i, "export"));
 		return (i);

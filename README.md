@@ -2,19 +2,21 @@
 
 ## ERREURS A GERER
 
+**Unset the $PATH and check if it is not working anymore**
+
+**cat << e segfault**
+
+**dans cat ctrl \**
+
+**"$"**
+
+**cat ctrl c return 0**
+
 **echo "$HOME '$USER"' == segfault**
 
-**<< txt | cmd == segfault**
-
-**builtin cd == à refaire**
-
-**cmd | rien à voir si on gère**
-
-**echo "$" doit print $**
-
-**redirigé vers la bonne sortie**
-
 **ctrl c dans heredoc doit tout stop**
+
+**/bin/ls**
 
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
