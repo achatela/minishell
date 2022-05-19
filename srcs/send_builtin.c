@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 15:45:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:45:42 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	send_builtin(t_args *head, char **cmds)
 	if (ft_strcmp(head->parsed_arg, "echo") == 0)
 		return (free(tmp), builtin_echo(head, 0));
 	else if (ft_strcmp(head->parsed_arg, "cd") == 0)
-		return (free(tmp), builtin_cd(head, 0), 0);
+		return (free(tmp), builtin_cd(head, NULL), 0);
 	else if (ft_strcmp(head->parsed_arg, "pwd") == 0)
 		printf("%s\n", tmp);
 	else if (ft_strcmp(head->parsed_arg, "export") == 0)

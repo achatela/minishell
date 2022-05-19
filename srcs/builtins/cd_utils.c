@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:07:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 17:16:13 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:53:11 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ char	*home_path(t_args *args)
 
 int	print_cd_errors(char *tmp, char *home, t_args *args)
 {
-	if (tmp != NULL && ft_check_access(tmp, 1) != 0)
-		return (1);
+	char	*check;
+
+	check = home_path(args);
+	if (check != NULL && ft_check_access(check, 0) != 0)
+		return (free(check), 1);
+	if (check != NULL)
+		free(check);
 	home = get_env_var(g_env, "HOME", 0);
 	if (home == NULL && args->next == NULL)
 		return (printf("cd: HOME not set\n"), 1);
@@ -46,6 +51,9 @@ int	print_cd_errors(char *tmp, char *home, t_args *args)
 
 int	cd_errors(t_args *args, char *tmp, char	*home)
 {
+	char	*tmp2;
+
+	tmp2 = home_path(args);
 	if (print_cd_errors(tmp, home, args) == 1)
 		return (1);
 	home = get_env_var(g_env, "HOME", 0);
@@ -53,12 +61,13 @@ int	cd_errors(t_args *args, char *tmp, char	*home)
 		|| (args->next != NULL && args->next->parsed_arg[0] == '~')
 		|| (args->next != NULL && args->next->is_separator == 1))
 	{
-		if (args->next == NULL || home_path(args) == NULL)
+		if (args->next == NULL || tmp2 == NULL)
 			chdir(home);
-		else if (home_path(args) != NULL)
+		else if (tmp2 != NULL)
 		{
 			if (chdir(tmp) == 0)
-				chdir(home_path(args));
+				chdir(tmp2);
+			free(tmp2);
 		}
 		free(home);
 		switch_pwds(g_env, 0, 0);
@@ -66,23 +75,26 @@ int	cd_errors(t_args *args, char *tmp, char	*home)
 	}
 	printf("%s: Not a directory\n", tmp);
 	free(home);
+	free(tmp2);
 	return (1);
 }
 
-void	cd_end(t_args *args, char *tmp, int i)
+void	cd_end(t_args *args, char *tmp)
 {
-	(void)tmp;
 	if (args->next)
 		tmp = args->next->parsed_arg;
 	if (args->next == NULL)
-		builtin_export(g_env, ft_export(i, "export"));
+		builtin_export(g_env, ft_export(cd_errors(args, NULL, ""), "export"));
 	else
-		builtin_export(g_env, ft_export(i, "export"));
+		builtin_export(g_env, ft_export(cd_errors(args, tmp, ""), "export"));
 	switch_pwds(g_env, 0, 0);
 }
 
-int	simple_path_return(t_args *args, char *tmp, int i)
+int	simple_path_return(t_args *args, char *tmp)
 {
+	int	i;
+
+	i = 0;
 	if (chdir(tmp) == 0)
 	{
 		switch_pwds(g_env, 0, 0);

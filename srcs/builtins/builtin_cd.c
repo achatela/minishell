@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 17:15:23 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:41:06 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*parsed_path(char *str, int i, int j)
 
 char	*full_path(t_args *args)
 {
+	if (args == NULL || args->next == NULL)
+		return (NULL);
 	if (simple_path(args->next->parsed_arg) == 0)
 		return (getenv("HOME"));
 	else if (simple_path(args->next->parsed_arg) == 2)
@@ -67,30 +69,30 @@ char	*full_path(t_args *args)
 	return (NULL);
 }
 
-int	builtin_cd(t_args *args, int i)
+void	builtin_cd(t_args *args, char *tmp)
 {
-	char	*tmp;
-
-	tmp = NULL;
 	if (args->next)
 		tmp = args->next->parsed_arg;
 	if (args->next != NULL && args->next->is_separator == 0
 		&& args->next->next != NULL && args->next->next->is_separator == 0)
-		return (printf("cd: too many arguments\n"), 1);
+	{
+		builtin_export(g_env, ft_export(1, "export"));
+		printf("cd: too many arguments\n");
+		return ;
+	}
 	if (args->next != NULL && args->next->is_separator == 0)
 	{
-		tmp = parsed_path(args->next->parsed_arg, 0, 0);
+		tmp = parsed_path(args->next->parsed_arg, 0, 0);	
 		if (simple_path(args->next->parsed_arg) != 2
 			&& chdir(args->next->parsed_arg) == 0)
 		{
 			switch_pwds(g_env, 0, 0);
 			free(tmp);
 			builtin_export(g_env, ft_export(0, "export"));
-			return (0);
+			return ;
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)
-			i = simple_path_return(args, tmp, i);
+			simple_path_return(args, tmp);
 	}
-	cd_end(args, tmp, i);
-	return (0);
+	cd_end(args, tmp);
 }
