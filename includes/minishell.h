@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 14:24:44 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:38:50 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		arg_number(char *cmd, int i, int j);
 int		send_builtin(t_args *head, char **cmds);
 void	builtin_exit(t_args *args);
 char	*get_env_var(char **env, char *var, int i);
-void	builtin_env(int i);
+void	builtin_env(int i, t_args *args);
 char	*get_prompt(int i);
 void	builtin_export(char **env, t_args *args);
 void	free_env(char **env, int i);

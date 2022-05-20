@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/20 13:52:43 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:28:20 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	var_d_length(char *str, int i, int j, int k)
 	(void)k;
 	j = i + 1;
 	if (str[j] == ' ' || str[j] == '"' || str[j] == '.' || str[j] == '/')
-		return (printf("dollar found\n"), -1);
+		return (-1);
 	if (str[j] && str[j] == '?')
 		j++;
 	else

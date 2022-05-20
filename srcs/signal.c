@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:41:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 13:45:38 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:32:23 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	heredoc_handler(int sig, siginfo_t *info, void *null)
 {
 	(void)null;
-	if (sig == SIGINT)
+	if (sig == SIGINT && info != NULL)
 	{
 		kill(info->si_pid, SIGSTOP);
-		printf("ici\n");
-		builtin_export(g_env, ft_export(130, "export"));
+		heredoc_handler(SIGINT, NULL, NULL);
+		return ;
 	}
+	builtin_export(g_env, ft_export(130, "export"));
 	return ;
 }
 

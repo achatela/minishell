@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 15:45:42 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:35:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	send_builtin(t_args *head, char **cmds)
 	else if (ft_strcmp(head->parsed_arg, "unset") == 0)
 		return (free(tmp), builtin_unset(g_env, head), 0);
 	else if (ft_strcmp(head->parsed_arg, "env") == 0)
-		return (free(tmp), builtin_env(0), 0);
+		return (free(tmp), builtin_env(0, head), 0);
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
 		return (free(tmp), builtin_exit(head), 0);
 	else
