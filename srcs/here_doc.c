@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 19:05:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:57:04 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static char	*get_delimiter(char *delimiter, t_args *args)
 	act.sa_sigaction = heredoc_handler;
 	act.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 	delimiter = args->next->parsed_arg;
 	return (delimiter);
 }

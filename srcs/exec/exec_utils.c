@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:31:17 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/20 14:25:25 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:51:33 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	get_ret_value(t_args *args, int ret)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	(void)args;
 	i = 0;
@@ -26,7 +27,11 @@ void	get_ret_value(t_args *args, int ret)
 		if (i != 131)
 			i += 128;
 	}
-	builtin_export(g_env, ft_export(i, "export"));
+	tmp = get_env_var(g_env, "?", 0);
+	if (tmp != NULL && ft_strcmp(tmp, "0") == 0)
+		builtin_export(g_env, ft_export(i, "export"));
+	if (tmp != NULL)
+		free(tmp);
 }
 
 char	*get_cmd_char(int *i, char *cmd)
@@ -41,10 +46,7 @@ char	*get_cmd_char(int *i, char *cmd)
 		{
 			(*i)++;
 			while ((*i)-- != 0)
-			{
 				cmd++;
-				printf("moving cmd %s\n", cmd);
-			}
 		}
 	}
 	return (cmd);
