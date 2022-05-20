@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/19 19:14:25 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:55:08 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ static void	is_d_quotes(char *str, t_index *idx, char *tmp)
 	{
 		if (str[idx->i] && str[idx->i] != '$')
 			tmp[idx->j++] = str[idx->i++];
-		else if (str[idx->i] && str[idx->i] == '$' && (str[idx->i + 1] == ' ' || str[idx->i + 1] == '"'))
+		else if (str[idx->i] && str[idx->i] == '$' && (str[idx->i + 1] == ' '
+				|| str[idx->i + 1] == '"'
+				|| str[idx->i + 1] == '.' || str[idx->i + 1] == '/'))
 			tmp[idx->j++] = str[idx->i++];
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:47 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/18 15:15:41 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:59:40 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ char	*str_no_quotes(char *str, int i, int j, int k)
 	while (str[idx->i])
 	{
 		if (str[idx->i] && str[idx->i] != '$')
+			ret[idx->l++] = str[idx->i++];
+		else if (str[idx->i] && str[idx->i] == '$' && (str[idx->i + 1] == ' '
+				|| str[idx->i + 1] == '.' || str[idx->i + 1] == '/'
+				|| str[idx->i + 1] == '\0'))
 			ret[idx->l++] = str[idx->i++];
 		else
 		{
