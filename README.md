@@ -4,11 +4,7 @@
 
 **Unset the $PATH and check if it is not working anymore**
 
-**cat << e segfault**
-
 **dans cat ctrl \**
-
-**"$"**
 
 **cat ctrl c return 0**
 

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:45:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 16:22:49 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:03:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ char	**new_cmds(char **cmds, char *tmp)
 	i = 0;
 	while (cmds[i] != 0)
 	{
-		if (ft_strcmp(cmds[i], tmp) == 0 && cmds[i + 2] == 0)
+		if (ft_strcmp(cmds[i], tmp) == 0 && (cmds[i + 2] == 0
+				|| cmds[i + 2][0] == '|'))
 		{
 			cmds = realloc_cmds_cat(cmds, i, "cat");
 			i = -1;
