@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:31:17 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/17 16:47:46 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:25:25 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_ret_value(t_args *args, int ret)
 	builtin_export(g_env, ft_export(i, "export"));
 }
 
-void	get_cmd_char(int *i, char *cmd)
+char	*get_cmd_char(int *i, char *cmd)
 {
 	while (cmd[(*i)] != '\0')
 		(*i)++;
@@ -41,9 +41,13 @@ void	get_cmd_char(int *i, char *cmd)
 		{
 			(*i)++;
 			while ((*i)-- != 0)
+			{
 				cmd++;
+				printf("moving cmd %s\n", cmd);
+			}
 		}
 	}
+	return (cmd);
 }
 
 char	*path_join(const char *s1, const char *s2)
@@ -64,7 +68,7 @@ char	*check_dir(char *bin, char *cmd)
 	int				i;
 
 	i = 0;
-	get_cmd_char(&i, cmd);
+	cmd = get_cmd_char(&i, cmd);
 	path = NULL;
 	folder = opendir(bin);
 	if (!folder)

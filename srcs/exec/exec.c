@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/19 18:55:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:17:43 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	child(char *path, char **cmds, t_args *args)
 		tmp = ft_strchr(path, '/');
 		if (tmp != NULL)
 			execve(path, new, g_env);
-		ret = 1;
 		free_cmds(new, 0);
 		free(tmp);
 		exit(ret);

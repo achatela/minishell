@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 18:50:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:24:44 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	arg_num_quotes(char *cmd, int *i, int *j, int *k);
 /* Exec */
 void	get_ret_value(t_args *agrs, int ret);
 int		child(char *path, char **cmds, t_args *args);
-void	get_cmd_char(int *i, char *cmd);
+char	*get_cmd_char(int *i, char *cmd);
 char	*check_dir(char *bin, char *cmd);
 char	*path_join(const char *s1, const char *s2);
 void	check_path(char **cmd, t_index *idx, char *path);
