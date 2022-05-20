@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 15:57:04 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:05:28 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,14 @@ char	**remove_heredoc(t_args **args, char *tmp, char **cmds)
 	else
 		(*args)->to_use = 2;
 	free(tmp);
+	tmp = get_env_var(g_env, "?", 0);
+	if (tmp != NULL && ft_strcmp(tmp, "0") != 0)
+	{
+		free(tmp);
+		free_cmds(cmds, 0);
+		return (NULL);
+	}
+	if (tmp != NULL)
+		free(tmp);
 	return (cmds);
 }

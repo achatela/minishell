@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/19 19:03:00 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:06:29 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ void	parsing(char *cmd)
 	if (cmds == NULL)
 		return ;
 	cmds = has_heredoc(&args, cmds);
+	if (cmds == NULL)
+	{
+		free_list(args);
+		return ;
+	}
 	if (args->to_use == 2)
 	{
 		free_list(args);
