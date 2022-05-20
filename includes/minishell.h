@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 14:38:50 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:26:06 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**init_cmds(char *cmds, t_args **args);
 int		sep_error(t_args *args, char **cmds, t_args *head);
 int		is_whitespace(char c);
 int		isprintable(char c);
-void	arg_num_quotes(char *cmd, int *i, int *j, int *k);
+int		arg_num_quotes(char *cmd, int *i, int *j, int *k);
 /* Parsing */
 
 /* Exec */

@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:44:11 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 15:33:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:31:50 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static int	arg_number2(char *cmd, int i, int j, int k)
 	while (cmd[i])
 	{
 		if (cmd[i] == '"' || cmd[i] == 39)
-			arg_num_quotes(cmd, &i, &j, &k);
+		{
+			if (arg_num_quotes(cmd, &i, &j, &k) == -1)
+				return (-1);
+		}
 		else if (is_whitespace(cmd[i]) == 1)
 		{
 			if (cmd[i + 1] != ' ' && ft_isprint(cmd[i + 1]) == 1)
@@ -98,6 +101,7 @@ char	**parsing_to_tabs(char *cmd, t_index *idx)
 	if (arg_number2(cmd, 0, 0, 0) == -1)
 	{
 		cmds = NULL;
+		free(idx);
 		return (printf("Quotes non fermées\n"), cmds);
 	}
 	cmds = malloc(sizeof(char *) * (arg_number2(cmd, 0, 0, 0) + 2));
@@ -114,6 +118,5 @@ char	**parsing_to_tabs(char *cmd, t_index *idx)
 		idx->i++;
 	}
 	cmds[idx->l] = 0;
-	free(idx);
-	return (cmds);
+	return (free(idx), cmds);
 }
