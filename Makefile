@@ -14,6 +14,7 @@ SRCS =	srcs/main.c						\
 		srcs/parsing_to_tabs_utils.c	\
 		srcs/redir_in.c					\
 		srcs/utils.c 					\
+		srcs/init_env.c					\
 		srcs/test_pipe.c				\
 		srcs/utils2.c 					\
 		srcs/cd_paths.c					\

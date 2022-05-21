@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 17:26:06 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:12:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ struct	s_pipe
 	char	**cmds;
 	t_args	*args;
 };
+
+/* Init_env */
+char	*set_cmd(char *cmd, char *exit);
+char	*get_shlvl(char *str, int i, char *to_free);
+char	**init_env(char **env, int i, int k);
+/* Init_env */
 
 /* Built-in cd*/
 char	*full_path(t_args *args);

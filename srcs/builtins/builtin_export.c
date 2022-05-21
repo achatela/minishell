@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:42:47 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/12 12:18:18 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:03:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	builtin_export(char **env, t_args *args)
 
 	head = args;
 	if (args->next == NULL || args->next->to_use == 0
-		|| args->next->is_separator == 1)
+		|| args->next->is_separator == 1
+		|| (args->next && args->next->parsed_arg[0] == '\0'))
 	{
 		export_no_arg(env, 0, 0);
 		return ;
