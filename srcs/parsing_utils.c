@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/21 16:12:54 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:01:47 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 		(*i) = 1;
 	}
 	args = args->next;
+	if (args && args->is_separator == 2)
+		tmp = NULL;
 	if (args == NULL)
 		tmp = NULL;
 	return (args);

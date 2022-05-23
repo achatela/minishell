@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/21 16:22:28 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:06:12 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,20 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 		else
 		{
 			fd = pip(pipes, start, fd, 1);
-			//builtin_export(g_env, ft_export(2, "export"));
-			//faire une fonction qui execve dans un fd qui écrit pas dans le terminal et l'export (je crois)
 		}
 		while (args && (args->is_separator == 0
 				|| args->is_separator == 1) && i == 0)
 			args = while_send_sep(args, &i, pipes->args, cmds);
-		i = 0;
+		if (args && args->is_separator == 0)
+		{
+			while (args && args->is_separator != 2)
+				args = args->next;
+			if (args)
+				args = args->next;
+		}
 		while (args && args->is_separator == 2)
 			args = args->next;
+		i = 0;
 		pipes->args = args;
 		start = 0;
 	}
