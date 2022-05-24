@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/23 19:01:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:56:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,7 @@ int	sep_error(t_args *args, char **cmds, t_args *head)
 			return (free_cmds(cmds, 0), free_list(head), -1);
 		}
 		else if (args->is_separator == 1 && args->next->is_separator == 1)
-		{
-			printf("syntax error near unexepected token ");
-			printf("`%s'\n", args->next->parsed_arg);
-			return (free_cmds(cmds, 0), free_list(head), -1);
-		}
+			return (error_double_redir(cmds, args, head));
 		args = args->next;
 	}
 	return (0);

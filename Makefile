@@ -30,7 +30,6 @@ SRCS =	srcs/main.c						\
 		srcs/str_quotes.c				\
 		srcs/parse_separators.c			\
 		srcs/signal.c					\
-		srcs/d_redir.c					\
 		srcs/str_quotes_utils2.c		\
 		srcs/here_doc.c					\
 		srcs/builtins/builtin_env.c		\
@@ -43,6 +42,7 @@ SRCS =	srcs/main.c						\
 		srcs/exec/exec.c 				\
 		srcs/exec/exec_utils.c			\
 		srcs/exec/exec_utils2.c			\
+		srcs/parsing_utils2.c			\
 
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}

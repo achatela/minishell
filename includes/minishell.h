@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/24 14:44:30 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:56:02 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,6 @@ char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);
 int		ft_check_access(char *file, int i);
 t_args	*ft_export(int value, char *export);
+int		error_double_redir(char **cmds, t_args *args, t_args *head);
 
 #endif
