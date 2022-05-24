@@ -43,32 +43,38 @@ static char	**empty_env(char **env)
 	return (env);
 }
 
-char	**init_env(char **env, int i, int k)
+char	**init_envi(int *i, int k, char **env)
 {
 	int	tmp;
 
+	while ((*i) < k)
+	{
+		g_env[(*i)] = malloc(sizeof(char) * (ft_strlen(env[(*i)]) + 1));
+		if (!g_env[(*i)])
+			return (NULL);
+		if (ft_strlen(env[(*i)]) > 6)
+			tmp = is_shlvl(env[(*i)]);
+		if (tmp == 1)
+			g_env[(*i)] = get_shlvl(env[(*i)], 6, g_env[(*i)]);
+		else
+		{
+			free(g_env[(*i)]);
+			g_env[(*i)] = ft_strdup(env[(*i)]);
+		}
+		(*i)++;
+	}
+	return (g_env);
+}
+
+char	**init_env(char **env, int i, int k)
+{
 	k = env_lines(env) - 1;
 	if (k == 0)
 		return (empty_env(NULL));
 	g_env = malloc(sizeof(char *) * env_lines(env));
 	if (!g_env)
 		return (NULL);
-	while (i < k)
-	{
-		g_env[i] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
-		if (!g_env[i])
-			return (NULL);
-		if (ft_strlen(env[i]) > 6)
-			tmp = is_shlvl(env[i]);
-		if (tmp == 1)
-			g_env[i] = get_shlvl(env[i], 6, g_env[i]);
-		else
-		{
-			free(g_env[i]);
-			g_env[i] = ft_strdup(env[i]);
-		}
-		i++;
-	}
+	g_env = init_envi(&i, k, env);
 	g_env[i] = 0;
 	return (g_env);
 }
