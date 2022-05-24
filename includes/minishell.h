@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/21 14:12:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:44:30 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char	**args_exec_not_end(char **cmds, t_index *idxs);
 int		isseparator(char *str, int i);
 void	exec_bin_end(char **bin, char *path, int i, t_pipe exec);
 char	**command_not_found(t_args *args, int i, char *str);
+int		check_unset_path(int i, char *cmd);
 /* Exec */
 
 /* Pip */
@@ -168,7 +169,7 @@ void	builtin_unset(char **env, t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		existing_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds);
-int		exec_bin(char **cmds, t_args *args);
+int		exec_bin(char **cmds, t_args *args, int i);
 char	*str_quotes(char *str);
 char	**parse_separators(char **cmds, int i);
 int		ft_check_access(char *file, int i);

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/21 15:26:30 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:42:25 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ char	**command_not_found(t_args *args, int i, char *str)
 	return (new);
 }
 
-int	exec_bin(char **cmds, t_args *args)
+int	exec_bin(char **cmds, t_args *args, int i)
 {
-	int		i;
 	char	**bin;
 	char	*path;
 	t_pipe	exec;
 
-	i = 0;
+	if (check_unset_path(i, args->parsed_arg) == 1)
+		return (i);
 	exec.cmds = cmds;
 	exec.args = args;
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))

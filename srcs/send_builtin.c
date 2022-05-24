@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:21 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 14:35:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:39:40 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	send_builtin(t_args *head, char **cmds)
 	else if (ft_strcmp(head->parsed_arg, "exit") == 0)
 		return (free(tmp), builtin_exit(head), 0);
 	else
-		exec_bin(cmds, head);
+		exec_bin(cmds, head, 0);
 	free(tmp);
 	return (-1);
 }

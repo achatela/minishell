@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:28 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/21 14:35:19 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:43:56 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,23 @@ void	exec_bin_end(char **bin, char *path, int i, t_pipe exec)
 	}
 	free(bin);
 	free(path);
+}
+
+int	check_unset_path(int i, char *cmd)
+{
+	char	*tmp;
+
+	if (cmd && cmd[0] == '/')
+		return (0);
+	tmp = get_env_var(g_env, "PATH", i);
+	if (tmp == NULL)
+	{
+		printf("%s: No such file or directory\n", cmd);
+		return (1);
+	}
+	else
+	{
+		free(tmp);
+		return (0);
+	}
 }
