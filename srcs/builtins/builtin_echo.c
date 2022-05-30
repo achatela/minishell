@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:21:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/18 14:45:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:13:13 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	check_n(t_args *args)
 	if (args->next->parsed_arg[0] == '-'
 		&& args->next->parsed_arg[1] == 'n')
 	{
-		print_n(args->next);
+		print_n(args);
 		return (1);
 	}
 	return (0);
