@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/24 14:56:02 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:16:26 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*new_is_sep(char **cmds, int *j, int i);
 /* Sep_no_quotes */
 
 /* Parsing */
+t_args	*skip_cmd(t_args *args);
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
 void	send_sep(t_args *args, char **cmds, char *sep);
 char	**parsing_to_tabs(char *cmd, t_index *idx);
@@ -98,6 +99,8 @@ int		sep_error(t_args *args, char **cmds, t_args *head);
 int		is_whitespace(char c);
 int		isprintable(char c);
 int		arg_num_quotes(char *cmd, int *i, int *j, int *k);
+int		error_cmds_args(t_args *args, char **cmds, int i);
+t_pipe	*init_pipe(int *i, char **cmds, t_args *args);
 /* Parsing */
 
 /* Exec */
