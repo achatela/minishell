@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/20 17:22:52 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:00:36 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	length_d_quotes(char *str, int *i, int length)
 			length++;
 		}
 	}
-	if (str[(*i)])
+	if (str[(*i)] && str[(*i) + 1] == 39)
 		(*i)++;
 	return (length);
 }

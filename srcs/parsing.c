@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/24 15:16:12 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:41:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,30 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 		pipes->args = args;
 		start = 0;
 	}
+	close(pipes->fd);
 	free(pipes);
+}
+
+void	while_sep(t_args *args, char **cmds)
+{
+	int		i;
+	t_args	*head;
+
+	i = 0;
+	printf("redir sans pipe\n");
+	head = args;
+	while (args)
+	{
+		while (args && (args->is_separator == 0 || args->is_separator == 1)
+				&& i == 0)
+			args = while_send_sep(args, &i, head, cmds);
+		if (args && args->is_separator == 0)
+			args = skip_cmd(args);
+		while (args && args->is_separator == 2)
+			args = args->next;
+		i = 0;
+		head = args;
+	}
 }
 
 void	parsing(char *cmd)
@@ -109,8 +132,10 @@ void	parsing(char *cmd)
 		return ;
 	if (has_sep3(args) == 0)
 		send_builtin(args, cmds);
-	else if (has_sep3(args) == 1)
+	else if (has_pip(args) == 1)
 		while_pip(args, 1, 0, cmds);
+	else
+		while_sep(args, cmds);
 	free_cmds(cmds, 0);
 	free_list(args);
 }

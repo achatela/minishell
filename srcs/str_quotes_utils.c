@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/20 18:25:03 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:01:40 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ static void	is_d_quotes(char *str, t_index *idx, char *tmp)
 			var_str(str, idx, tmp);
 		}
 	}
-	if (str[idx->i] && str[idx->i] == '"')
+	if (str[idx->i] && str[idx->i] == '"' && str[idx->i + 1] == 39)
 		idx->i++;
+	//if (str[idx->i] && str[idx->i] == '"')
+	//	idx->i++; crée prbl avec "$USER"$USER mais fix ""''
 }
 
 static void	is_s_quotes(char *str, t_index *idx, char *tmp)

@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:54:59 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/13 14:26:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:29:44 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ void	get_fd(t_args *head, t_args *args, int fd, char **cmds)
 	{
 		close(0);
 		dup(old_fd);
+		close(old_fd);
 		printf("fd < 0\n");
 		return ;
 	}
 	send_builtin(head, cmds);
 	close(0);
 	dup(old_fd);
+	close(old_fd);
 }

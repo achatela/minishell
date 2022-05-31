@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:53:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/24 15:18:23 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:30:04 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_pipe	*init_pipe(int *i, char **cmds, t_args *args)
 	pipes->cmds = cmds;
 	pipes->args = args;
 	(*i) = 0;
-	(void)i;
 	return (pipes);
 }
 

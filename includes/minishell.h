@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/24 15:16:26 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:20:53 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*new_is_sep(char **cmds, int *j, int i);
 /* Parsing */
 t_args	*skip_cmd(t_args *args);
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
+void	while_sep(t_args *args, char **cmds);
 void	send_sep(t_args *args, char **cmds, char *sep);
 char	**parsing_to_tabs(char *cmd, t_index *idx);
 char	**init_cmds(char *cmds, t_args **args);
