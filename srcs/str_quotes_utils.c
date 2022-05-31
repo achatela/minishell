@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/30 17:01:40 by achatela         ###   ########.fr       */
+/*   Updated: 2022/05/31 16:57:58 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ static void	is_d_quotes(char *str, t_index *idx, char *tmp)
 			var_str(str, idx, tmp);
 		}
 	}
-	if (str[idx->i] && str[idx->i] == '"' && str[idx->i + 1] == 39)
+	if (str[idx->i] && (str[idx->i] == '"' || str[idx->i + 1] != 39))
 		idx->i++;
-	//if (str[idx->i] && str[idx->i] == '"')
-	//	idx->i++; crée prbl avec "$USER"$USER mais fix ""''
 }
 
 static void	is_s_quotes(char *str, t_index *idx, char *tmp)
@@ -90,6 +88,8 @@ char	*fill_ret(char *str, int i, int j, char *tmp)
 	idx = init_idx(i, j, 0, 0);
 	while (str[idx->i])
 	{
+		if (str[idx->i] && str[idx->i] == '$')
+			var_str(str, idx, tmp);
 		if (str[idx->i] && str[idx->i] == ' ' && idx->i != 0
 			&& str[idx->i - 1] != '"' && str[idx->i - 1] != 39)
 			idx->i++;
@@ -100,7 +100,7 @@ char	*fill_ret(char *str, int i, int j, char *tmp)
 			is_d_quotes(str, idx, tmp);
 		else if (str[idx->i] && str[idx->i] == 39)
 			is_s_quotes(str, idx, tmp);
-		else
+		else if (str[idx->i] != '\0')
 			tmp[idx->j++] = str[idx->i++];
 	}
 	tmp[idx->j] = '\0';
