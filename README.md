@@ -15,7 +15,7 @@
 
 **cat | cat |ls**
 
-**créer un fichier dans heredoc pour pouvoir remplacer << txt par < fichier quand cat **
+**créer un fichier dans heredoc pour pouvoir remplacer << txt par < file quand cat **
 **que si cmd == cat et pour le dernier <<**
 
 **yes | head**

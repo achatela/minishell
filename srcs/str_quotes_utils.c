@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:09:44 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/31 16:57:58 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:02:31 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*fill_ret(char *str, int i, int j, char *tmp)
 	{
 		if (str[idx->i] && str[idx->i] == '$')
 			var_str(str, idx, tmp);
-		if (str[idx->i] && str[idx->i] == ' ' && idx->i != 0
+		else if (str[idx->i] && str[idx->i] == ' ' && idx->i != 0
 			&& str[idx->i - 1] != '"' && str[idx->i - 1] != 39)
 			idx->i++;
 		else if (str[idx->i] && str[idx->i] == '$'
