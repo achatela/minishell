@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/31 14:41:49 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:53:42 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ void	parsing(char *cmd)
 	if (cmds == NULL)
 		return ;
 	cmds = has_heredoc(&args, cmds);
+	int	i = 0;
+	if (cmds[0] == 0)
+		printf("vide\n");
+	while (cmds[i])
+		printf("cmds = %s\n", cmds[i++]);
 	if (error_cmds_args(args, cmds, 0) == 1)
 		return ;
 	if (has_sep3(args) == 0)

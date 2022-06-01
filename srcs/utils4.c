@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 16:59:16 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/18 17:49:03 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:02:04 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	spaces(char *cmd)
 	int	i;
 
 	i = 0;
-	while (cmd[i] && cmd[i] == ' ')
+	while (cmd[i] && (cmd[i] == '\t' || cmd[i] == ' '))
 		i++;
 	if (cmd[i] == '\0')
 		return (1);
