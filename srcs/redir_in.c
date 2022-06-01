@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:02 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/23 19:01:27 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:33:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	not_existing(t_args *args)
 	}
 }
 
-void	redir_in(t_args *args, t_args *head, char **cmds)
+int	redir_in(t_args *args, t_args *head, char **cmds)
 {
 	char	*tmp;
 	int		fd;
@@ -86,7 +86,7 @@ void	redir_in(t_args *args, t_args *head, char **cmds)
 		tmp = get_file_name(args);
 		if (ft_check_access(tmp, 0) != 0)
 			not_existing(head);
-		return ;
+		return (2);
 	}
 	else
 	{
@@ -98,8 +98,9 @@ void	redir_in(t_args *args, t_args *head, char **cmds)
 			while (args && args->is_separator == 1)
 				args = args->next;
 			if (ft_check_access(args->parsed_arg, 0) != 0)
-				return ;
+				return (2);
 			get_fd(head, args, fd, cmds);
 		}
 	}
+	return (1);
 }

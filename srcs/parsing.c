@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 12:53:42 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:05:24 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,17 @@ void	while_sep(t_args *args, char **cmds)
 	t_args	*head;
 
 	i = 0;
-	printf("redir sans pipe\n");
 	head = args;
 	while (args)
 	{
 		while (args && (args->is_separator == 0 || args->is_separator == 1)
 				&& i == 0)
 			args = while_send_sep(args, &i, head, cmds);
+		i = 0;
 		if (args && args->is_separator == 0)
 			args = skip_cmd(args);
 		while (args && args->is_separator == 2)
 			args = args->next;
-		i = 0;
 		head = args;
 	}
 }
@@ -128,11 +127,6 @@ void	parsing(char *cmd)
 	if (cmds == NULL)
 		return ;
 	cmds = has_heredoc(&args, cmds);
-	int	i = 0;
-	if (cmds[0] == 0)
-		printf("vide\n");
-	while (cmds[i])
-		printf("cmds = %s\n", cmds[i++]);
 	if (error_cmds_args(args, cmds, 0) == 1)
 		return ;
 	if (has_sep3(args) == 0)

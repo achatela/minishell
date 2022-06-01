@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/31 14:20:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:34:43 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*new_is_sep(char **cmds, int *j, int i);
 t_args	*skip_cmd(t_args *args);
 t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds);
 void	while_sep(t_args *args, char **cmds);
-void	send_sep(t_args *args, char **cmds, char *sep);
+int		send_sep(t_args *args, char **cmds, char *sep);
 char	**parsing_to_tabs(char *cmd, t_index *idx);
 char	**init_cmds(char *cmds, t_args **args);
 int		sep_error(t_args *args, char **cmds, t_args *head);
@@ -143,7 +143,7 @@ char	*get_end(char **env, int i, int j, int k);
 char	**remove_heredoc(t_args **args, char *tmp, char **cmds);
 void	redir(t_args *args, char **cmds, t_args *head, int fd);
 void	d_redir(t_args *args, char **cmds);
-void	redir_in(t_args *args, t_args *head, char **cmds);
+int		redir_in(t_args *args, t_args *head, char **cmds);
 void	handler(int sig, siginfo_t *info, void *null);
 int		is_separator(char *str, int i);
 int		invalid_identifiers(char c);

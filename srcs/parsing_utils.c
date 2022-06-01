@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/05/31 16:36:28 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:35:12 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,47 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 {
 	static char	*tmp = NULL;
 
+	printf("tmp %s\n", tmp);
 	if (args && tmp == NULL && args->is_separator == 1)
 	{
 		tmp = args->parsed_arg;
-		send_sep(head, cmds, tmp);
+		(*i) = send_sep(head, cmds, tmp);
 	}
 	if (args && args->is_separator == 1
 		&& ft_strncmp(tmp, args->parsed_arg, 1) != 0)
 	{
 		tmp = args->parsed_arg;
-		send_sep(head, cmds, tmp);
-		(*i) = 1;
+		(*i) = send_sep(head, cmds, tmp);
 	}
 	args = args->next;
-	if (args && args->is_separator == 2)
+	if ((*i) == 2)
+	{
 		tmp = NULL;
+		(*i) = 1;
+	}
+	if (args && (args->next == NULL || args->is_separator == 2))
+	{
+		printf("set to null\n");
+		tmp = NULL;
+	}
 	if (args == NULL)
+	{
+		printf("set to null\n");
 		tmp = NULL;
+	}
 	return (args);
 }
 
-void	send_sep(t_args *args, char **cmds, char *sep)
+int	send_sep(t_args *args, char **cmds, char *sep)
 {
 	if (sep[0] == '>')
 	{
 		redir(args, cmds, args, 0);
-		return ;
+		return (1);
 	}
 	if (sep[0] == '<' && sep[1] == '\0')
-	{
-		redir_in(args, args, cmds);
-		return ;
-	}
+		return (redir_in(args, args, cmds));
+	return (0);
 }
 
 int	arg_number(char *cmd, int i, int j)
