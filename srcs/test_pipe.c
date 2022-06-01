@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 13:15:53 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:10:09 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	pip(t_pipe *pipes, int start, int fd, int last)
 		ret = 1;
 		exit(ret);
 	}
-//	waitpid(pid, &ret, 0);
+	waitpid(pid, &ret, 0);
 	close(p[1]);
 	if (pipes->fd != 0)
 		close(pipes->fd);

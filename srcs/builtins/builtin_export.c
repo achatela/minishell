@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:42:47 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/21 14:03:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:45:37 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,20 @@ static int	cmd_is_valid(char *str, int i, t_args *args)
 {
 	if (args->is_command == 4)
 		return (0);
-	if (ft_isalpha(str[0]) == 0)
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
 	{
 		printf("export: `%s': not a valid identifier\n", str);
 		return (1);
 	}
+	i = 1;
 	while (str[i])
 	{
-		if (str[i] == '=' && i != 0 && ft_isalpha(str[i]) == 0)
-			return (0);
+		if (str[i] == '=' || (ft_isalpha(str[i]) == 0 && str[i] != '_'))
+			break;
 		i++;
 	}
+	if (str[i] == '=' || str[i] == '\0')
+		return (0);
 	printf("export: `%s': not a valid identifier\n", str);
 	builtin_export(g_env, ft_export(1, "export"));
 	return (1);
