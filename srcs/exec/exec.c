@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 13:10:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:47:44 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,33 @@ char	**command_not_found(t_args *args, int i, char *str)
 	return (new);
 }
 
+void	exec_bash(t_pipe exec, t_args *args)
+{
+	int k = 2;
+	int j = 0;
+	char **file;
+	char *path;
+
+	path = ft_strjoin(get_env_var(g_env, "PWD", 0), "/minishell");
+	if (!exec.cmds[0][k])
+		return ;
+	file = malloc(sizeof(char *) * 1);
+	if (!file)
+		return ;
+	file[0] = malloc(sizeof(char) * 1);
+	if (!file[0])
+		return ;
+	while(exec.cmds[0][k] != '\0')
+	{
+		file[0][j] = exec.cmds[0][k];
+		k++;
+		j++;
+	}
+	if (ft_check_access(file[0], 0) == 0)
+		child(path, file, args);
++	free(file);
+}
+
 int	exec_bin(char **cmds, t_args *args, int i)
 {
 	char	**bin;
@@ -110,6 +137,8 @@ int	exec_bin(char **cmds, t_args *args, int i)
 		return (i);
 	exec.cmds = cmds;
 	exec.args = args;
+	if (ft_strncmp(exec.cmds[0], "./", 2) == 0)
+		exec_bash(exec, args);
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
 		i++;
 	if (g_env[i] == 0 && getenv("PATH") != NULL)
