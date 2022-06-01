@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 18:47:44 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:57:10 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	exec_bash(t_pipe exec, t_args *args)
 	}
 	if (ft_check_access(file[0], 0) == 0)
 		child(path, file, args);
-+	free(file);
+	free(file);
 }
 
 int	exec_bin(char **cmds, t_args *args, int i)
