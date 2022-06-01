@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:18:43 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 14:35:12 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:57:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 {
 	static char	*tmp = NULL;
 
-	printf("tmp %s\n", tmp);
 	if (args && tmp == NULL && args->is_separator == 1)
 	{
 		tmp = args->parsed_arg;
@@ -34,16 +33,12 @@ t_args	*while_send_sep(t_args *args, int *i, t_args *head, char **cmds)
 		tmp = NULL;
 		(*i) = 1;
 	}
+	else
+		(*i) = 0;
 	if (args && (args->next == NULL || args->is_separator == 2))
-	{
-		printf("set to null\n");
 		tmp = NULL;
-	}
 	if (args == NULL)
-	{
-		printf("set to null\n");
 		tmp = NULL;
-	}
 	return (args);
 }
 

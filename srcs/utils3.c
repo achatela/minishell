@@ -6,7 +6,7 @@
 /*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:54:59 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 14:20:05 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:56:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	is_last(t_args *args)
 				|| (args->parsed_arg[0] == '>' && args->parsed_arg[1] == '\0'))
 				return (1);
 			else if (args->parsed_arg[0] == '<')
-				return (0);
+				return (1);
 		}
 		else if (args && args->is_separator == 2)
 			return (2);
