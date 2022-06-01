@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 16:06:14 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:29:19 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ static void	print_env(char **new, int i, int j, char **env)
 	{
 		tmp = cut_var_begin(new[i], 0, 0);
 		tmp2 = cut_var_end(new[i], 0, 0);
-		if (tmp[0] != '_')
+		if (tmp2 != NULL)
 			printf("declare -x %s\"%s\"\n", tmp, tmp2);
+		else
+			printf("declare -x %s\n", new[i]);
 		free(tmp);
 		free(tmp2);
 	}

@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:24:42 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/07 16:12:06 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:26:04 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*cut_var_end(char *str, int i, int j)
 	int		k;
 	char	*ret;
 
-	while (str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
+	if (str[i] == '\0')
+		return (NULL);
 	k = i;
 	while (str[++i])
 		j++;

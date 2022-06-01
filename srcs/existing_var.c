@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/02 16:22:24 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:56:23 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	existing_var(char **env, t_args *args)
 	i = 0;
 	(void)env;
 	tmp = cut_var_begin(args->parsed_arg, 0, 0);
-	if (!tmp)
-		return (1);
+	if (tmp == NULL)
+	{
+		tmp = ft_strdup(args->parsed_arg);
+	}
 	if (exact_copy(g_env, args) == 1)
 	{
 		free(tmp);
