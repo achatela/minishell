@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 18:57:10 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:46:45 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,37 @@ char	**command_not_found(t_args *args, int i, char *str)
 	return (new);
 }
 
-void	exec_bash(t_pipe exec, t_args *args)
+static char *get_path_to_exec(char *pwd, t_args *args)
 {
-	int k = 2;
-	int j = 0;
-	char **file;
+	char	*ret;
+	char	*tmp;
+
+	ret = NULL;
+	tmp = args->parsed_arg;
+	if (tmp && (tmp[0] == '.' || tmp[0] == '/'))
+	{
+		tmp++;
+		ret = ft_strjoin(pwd, tmp);
+	}
+	else
+	{
+		ret = ft_strjoin(pwd, "/");
+		ret = ft_strjoin(ret, tmp);
+	}
+	return (ret);
+}
+
+
+static int	exec_bash(t_pipe exec, t_args *args)
+{
+//	int k = 2;
+//	int j = 0;
+//	char **file;
 	char *path;
 
-	path = ft_strjoin(get_env_var(g_env, "PWD", 0), "/minishell");
-	if (!exec.cmds[0][k])
+//	path = ft_strjoin(get_env_var(g_env, "PWD", 0), "/minishell");
+	path = get_path_to_exec(getcwd(NULL, 0), args);
+/*	if (!exec.cmds[0][k])
 		return ;
 	file = malloc(sizeof(char *) * 1);
 	if (!file)
@@ -121,10 +143,20 @@ void	exec_bash(t_pipe exec, t_args *args)
 		file[0][j] = exec.cmds[0][k];
 		k++;
 		j++;
+	}*/
+	if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))
+		ft_check_access(args->parsed_arg, 0);
+	child(path, exec.cmds, args);
+	if (access(path, X_OK) == -1)
+	{
+		free(path);
+		return (1);
 	}
-	if (ft_check_access(file[0], 0) == 0)
-		child(path, file, args);
-	free(file);
+	else
+	{
+		free(path);
+		return (0);
+	}
 }
 
 int	exec_bin(char **cmds, t_args *args, int i)
@@ -133,12 +165,15 @@ int	exec_bin(char **cmds, t_args *args, int i)
 	char	*path;
 	t_pipe	exec;
 
-	if (check_unset_path(i, args->parsed_arg) == 1)
-		return (i);
 	exec.cmds = cmds;
 	exec.args = args;
-	if (ft_strncmp(exec.cmds[0], "./", 2) == 0)
-		exec_bash(exec, args);
+//	if (ft_strncmp(exec.cmds[0], "./", 2) == 0)
+//	{
+		if (exec_bash(exec, args) == 0)
+			return (1);
+//	}
+	if (check_unset_path(i, args->parsed_arg) == 1)
+		return (i);
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
 		i++;
 	if (g_env[i] == 0 && getenv("PATH") != NULL)
