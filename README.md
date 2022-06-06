@@ -13,7 +13,7 @@
 
 **Probleme sur les fd check avec valgrind --track-fds=yes (pipes)**
 
-**valeur de retour de tous les builtins**
+**valeur de retour de tous les builtins** (FIXED ✅)
 
 **cat << ok << salut doit afficher ce qu'on a place dans le heredoc**
 
