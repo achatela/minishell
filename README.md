@@ -11,9 +11,9 @@
 **récupérer la valeur de retour du dernier pipe**
 **prbl peut-être parce que le dernier pipe est dans un child du coup il modifie pas g-env**
 
-**Probleme sur les fd check avec valgrind --track-fds=yes (pipes)**
+**Probleme sur les fd check avec valgrind --track-fds=yes (pipes)** (FIXED?)
 
-**valeur de retour de tous les builtins**
+**valeur de retour de tous les builtins** (FIXED ✅)
 
 **cat << ok << salut doit afficher ce qu'on a place dans le heredoc**
 
