@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/06 15:46:01 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:58:15 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exit_return(t_args *args, long long i)
 }
 
 int	check_args(int nb)
-{
+{ 
 	if (nb > 1)
 	{
 		printf("minishell: exit: too many arguments\n");
