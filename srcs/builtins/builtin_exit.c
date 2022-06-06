@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/13 14:53:59 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:46:01 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,46 +36,40 @@ void	exit_return(t_args *args, long long i)
 	exit(i);
 }
 
-void	check_args(t_args *args)
+int	check_args(int nb)
 {
-	if (args == NULL)
-	{
-		free_env(g_env, 0);
-		exit(0);
-	}
-	else if (ft_strisnum(args->parsed_arg) == 1
-		&& args->next != NULL)
+	if (nb > 1)
 	{
 		printf("minishell: exit: too many arguments\n");
 		builtin_export(g_env, ft_export(1, "export"));
+		return (1);
 	}
-	else if (ft_strisnum(args->parsed_arg) == 1)
-	{
-		printf("minishell: exit: %s: numeric argument required\n",
-			args->parsed_arg);
-		exit(2);
-	}
-	else if (args && args->next)
-	{
-		printf("minishell: exit: too many arguments\n");
-		builtin_export(g_env, ft_export(1, "export"));
-	}
+	return (0);
 }
 
 void	builtin_exit(t_args *args)
 {
 	long long	i;
+	int			nb;
+	t_args		*tmp;
 
 	i = 0;
+	nb = 0;
+	tmp = args;
 	args = args->next;
-	check_args(args);
-	if (check_max(args) == 1)
+	if (args == NULL)
+		exit (0);
+	while (tmp->next != NULL)
+	{
+		nb++;
+		tmp = tmp->next;
+	}
+	if (ft_strisnum(args->parsed_arg) == 1 || check_max(args) == 1)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			args->parsed_arg);
 		exit(2);
 	}
-	else if (args && ft_strisnum(args->parsed_arg) == 0)
+	else if (check_args(nb) == 0)
 		exit_return(args, i);
-	return ;
 }
