@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/02 17:46:45 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:21:53 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,29 +123,11 @@ static char *get_path_to_exec(char *pwd, t_args *args)
 
 static int	exec_bash(t_pipe exec, t_args *args)
 {
-//	int k = 2;
-//	int j = 0;
-//	char **file;
 	char *path;
 
-//	path = ft_strjoin(get_env_var(g_env, "PWD", 0), "/minishell");
 	path = get_path_to_exec(getcwd(NULL, 0), args);
-/*	if (!exec.cmds[0][k])
-		return ;
-	file = malloc(sizeof(char *) * 1);
-	if (!file)
-		return ;
-	file[0] = malloc(sizeof(char) * 1);
-	if (!file[0])
-		return ;
-	while(exec.cmds[0][k] != '\0')
-	{
-		file[0][j] = exec.cmds[0][k];
-		k++;
-		j++;
-	}*/
-	if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))
-		ft_check_access(args->parsed_arg, 0);
+	// if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))
+	// 	ft_check_access(args->parsed_arg, 0);
 	child(path, exec.cmds, args);
 	if (access(path, X_OK) == -1)
 	{
@@ -167,11 +149,8 @@ int	exec_bin(char **cmds, t_args *args, int i)
 
 	exec.cmds = cmds;
 	exec.args = args;
-//	if (ft_strncmp(exec.cmds[0], "./", 2) == 0)
-//	{
-		if (exec_bash(exec, args) == 0)
-			return (1);
-//	}
+	if (exec_bash(exec, args) == 0)
+		return (1);
 	if (check_unset_path(i, args->parsed_arg) == 1)
 		return (i);
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
