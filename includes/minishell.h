@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 14:34:43 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:55:10 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ char	*get_tmp(char *str, int i, int j);
 void	length_d_dollar(char *str, int *i, int *length);
 //t_args	*new_list(t_args *args, char *tmp);
 int		spaces(char *cmd);
+char	*cut_var_modif(char *str, int j);
 char	*fill_ret(char *str, int i, int j, char *tmp);
 int		is_shlvl(char *str);
 void	var_str(char *str, t_index *idx, char *tmp);
@@ -169,7 +170,7 @@ void	free_cmds(char **cmds, int i);
 void	export_no_arg(char **env, int i, int j);
 char	*cut_var_begin(char *str, int i, int j);
 char	*cut_var_end(char *str, int i, int j);
-void	builtin_unset(char **env, t_args *args);
+void	builtin_unset(t_args *args);
 char	*get_env_var(char **env, char *var, int i);
 int		existing_var(char **env, t_args *args);
 t_args	*init_args(t_args *args, char **cmds);

@@ -6,13 +6,13 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:44:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 16:56:36 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:54:41 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*cut_var_modif(char *str, int j)
+char	*cut_var_modif(char *str, int j)
 {
 	char	*ret;
 
@@ -33,14 +33,16 @@ char	**remove_var(char **env, char *tmp, int i, int j)
 {
 	char	**new;
 	int		k;
+	char	*tmp2;
 
 	new = malloc(sizeof(char *) * (env_lines(g_env)));
 	if (!new)
 		return (NULL);
 	while (g_env[++i] != 0)
 	{
+		tmp2 = cut_var_modif(g_env[i], 0);
 		k = -1;
-		if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) != 0)
+		if (ft_strncmp(tmp, tmp2, ft_strlen(tmp)) != 0)
 		{
 			new[j] = malloc(sizeof(char) * (ft_strlen(g_env[i]) + 1));
 			while (g_env[i][++k])
@@ -48,6 +50,7 @@ char	**remove_var(char **env, char *tmp, int i, int j)
 			new[j][k] = '\0';
 			j++;
 		}
+		free(tmp2);
 	}
 	new[j] = 0;
 	free_env(env, 0);
@@ -98,12 +101,12 @@ int	check_name(char *str, t_args *args)
 	return (0);
 }
 
-void	builtin_unset(char **env, t_args *args)
+void	builtin_unset(t_args *args)
 {
 	int		i;
 	char	*tmp;
+	char	*tmp2;
 
-	(void)env;
 	while (args->next != NULL && args->next->to_use == 1
 		&& args->next->is_separator != 1)
 	{
@@ -114,11 +117,14 @@ void	builtin_unset(char **env, t_args *args)
 			i = -1;
 			while (g_env[++i] != 0)
 			{
-				if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) == 0)
+				tmp2 = cut_var_modif(g_env[i], 0);
+				if (ft_strncmp(tmp, tmp2, ft_strlen(tmp)) == 0)
 				{
 					g_env = remove_var(g_env, tmp, -1, 0);
-					break ;
+					free(tmp2);
+					break;
 				}
+				free(tmp2);
 			}
 			free(tmp);
 		}

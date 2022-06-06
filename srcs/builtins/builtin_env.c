@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:23:30 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/20 14:39:04 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:59:57 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	builtin_env(int i, t_args *args)
 {
+	int	j;
+
 	if (args->next && args->next->is_separator == 0)
 	{
 		printf("env: ‘%s’:", args->next->parsed_arg);
@@ -23,7 +25,15 @@ void	builtin_env(int i, t_args *args)
 	}
 	while (g_env[i] != 0)
 	{
-		printf("%s\n", g_env[i]);
+		j = -1;
+		while (g_env[i][++j])
+		{
+			if (g_env[i][j] == '=')
+			{
+				printf("%s\n", g_env[i]);
+				break;
+			}
+		}
 		i++;
 	}
 	builtin_export(g_env, ft_export(0, "export"));

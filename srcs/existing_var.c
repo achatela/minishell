@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 16:56:23 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:57:51 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ static int	exact_copy(char **env, t_args *args)
 int	existing_var(char **env, t_args *args)
 {
 	char	*tmp;
+	char	*tmp2;
 	int		i;
 
 	i = 0;
 	(void)env;
-	tmp = cut_var_begin(args->parsed_arg, 0, 0);
+	tmp = cut_var_modif(args->parsed_arg, 0);
 	if (tmp == NULL)
-	{
 		tmp = ft_strdup(args->parsed_arg);
-	}
 	if (exact_copy(g_env, args) == 1)
 	{
 		free(tmp);
@@ -50,12 +49,15 @@ int	existing_var(char **env, t_args *args)
 	}
 	while (g_env[i] != 0)
 	{
-		if (ft_strncmp(tmp, g_env[i], ft_strlen(tmp)) == 0)
+		tmp2 = cut_var_modif(g_env[i], 0);
+		if (ft_strncmp(tmp, tmp2, ft_strlen(tmp)) == 0)
 		{
 			g_env = remove_var(g_env, tmp, -1, 0);
 			free(tmp);
+			free(tmp2);
 			return (1);
 		}
+		free(tmp2);
 		i++;
 	}
 	free(tmp);
