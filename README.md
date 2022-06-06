@@ -2,7 +2,7 @@
 
 ## ERREURS A GERER
 
-**Unset the $PATH and check if it is not working anymore**
+**Unset the $PATH and check if it is not working anymore** (FIXED ✅)
 
 **./minishell devrait fonctionner** (FIXED ✅)
 
