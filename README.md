@@ -24,7 +24,7 @@
 
 **yes | head**
 
-**Permission denied quand /bin/command**
+**Double MSG derreur /bin/command** (FIXED ✅)
 
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
