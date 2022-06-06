@@ -15,12 +15,6 @@
 
 **valeur de retour de tous les builtins**
 
-**export txt puis export txt=value crée une nouvelle var txt (doublon)**
-
-**unset ne fonctionne pas avec les var export sans =**
-
-**export arg= doit être dans env et export arg doit être dans export sans arg uniquement**
-
 **cat << ok << salut doit afficher ce qu'on a place dans le heredoc**
 
 **cat | cat |ls**
