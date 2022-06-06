@@ -4,7 +4,9 @@
 
 **Unset the $PATH and check if it is not working anymore**
 
-**./minishell devrait fonctionner**
+**./minishell devrait fonctionner** (FIXED ✅)
+
+**builtin exit a refaire** (FIXED ✅)
 
 **récupérer la valeur de retour du dernier pipe**
 **prbl peut-être parce que le dernier pipe est dans un child du coup il modifie pas g-env**
