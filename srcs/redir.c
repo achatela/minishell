@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/01 14:56:35 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:43:07 by achatela         ###   ########.fr       */
 /*   Updated: 2022/05/06 15:59:49 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -89,6 +89,21 @@ static char	*get_sep(t_args *args)
 	return (tmp);
 }
 
+static int	ft_check_access_redir(char *file)
+{
+	if (access(file, F_OK) == -1 || access(file, R_OK == -1))
+	{
+		printf("%s: No such file or directory\n", file);
+		return (-1);
+	}
+	else if (access(file, W_OK) == -1)
+	{
+		printf("%s: Permission denied\n", file);
+		return (-1);
+	}
+	return (0);
+}
+
 void	redir(t_args *args, char **cmds, t_args *head, int fd)
 {
 	int		old_fd;
@@ -97,7 +112,7 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	args = get_args(args);
 	tmp = get_sep(head);
 	create_while(head, fd);
-	if (ft_check_access(args->parsed_arg, 0) == -1)
+	if (ft_check_access_redir(args->parsed_arg) == -1)
 		return ;
 	old_fd = dup(1);
 	close(1);

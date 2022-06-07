@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 16:27:49 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:08:44 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ void	length_d_dollar(char *str, int *i, int *length);
 //t_args	*new_list(t_args *args, char *tmp);
 int		spaces(char *cmd);
 char	*cut_var_modif(char *str, int j);
+char	*get_delimiter(char *delimiter, t_args *args);
+void	cat_here_doc(t_args *args, int i, int fd, char *delimiter);
 char	*fill_ret(char *str, int i, int j, char *tmp);
 int		is_shlvl(char *str);
 void	var_str(char *str, t_index *idx, char *tmp);

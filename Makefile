@@ -5,6 +5,7 @@ SRCS =	srcs/main.c						\
 		srcs/utils4.c					\
 		srcs/parsing.c 					\
 		srcs/send_builtin.c 			\
+		srcs/cat_heredoc.c				\
 		srcs/sep_no_quotes_utils.c		\
 		srcs/parsing_utils.c			\
 		srcs/redir.c					\

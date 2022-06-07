@@ -17,12 +17,12 @@
 
 **valeur de retour de tous les builtins** (FIXED ✅)
 
-**cat << ok << salut doit afficher ce qu'on a place dans le heredoc**
+**cat << ok << salut doit afficher ce qu'on a place dans le dernier heredoc**
 
 **cat | cat |ls**
 
 **créer un fichier dans heredoc pour pouvoir remplacer << txt par < file quand cat **
-**que si cmd == cat et pour le dernier <<**
+**que si cmd == cat et pour le dernier <<** (FIXED ✅)
 
 **yes | head**
 
