@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 16:57:08 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:01:10 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exit_return(t_args *args, long long i)
 }
 
 int	check_args(int nb, t_args *args)
-{ 
+{
 	if (ft_strisnum(args->parsed_arg) == 1 || check_max(args) == 1)
 	{
 		printf("exit\nminishell: exit: %s: numeric argument required\n",
