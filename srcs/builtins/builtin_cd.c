@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 18:49:28 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:28:35 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,22 @@ char	*parsed_path(char *str, int i, int j)
 
 char	*full_path(t_args *args)
 {
+	char	*tmp;
+
+	tmp = parsed_path(args->next->parsed_arg, 0, 0);
 	if (args == NULL || args->next == NULL)
+	{
+		free(tmp);
 		return (NULL);
+	}
 	if (simple_path(args->next->parsed_arg) == 0)
+	{
+		free(tmp);
 		return (getenv("HOME"));
+	}
 	else if (simple_path(args->next->parsed_arg) == 2)
-		return (parsed_path(args->next->parsed_arg, 0, 0));
+		return (tmp);
+	free(tmp);
 	return (NULL);
 }
 
@@ -92,7 +102,12 @@ void	builtin_cd(t_args *args, char *tmp)
 			return ;
 		}
 		else if (simple_path(args->next->parsed_arg) == 2)
-			simple_path_return(args, tmp);
+		{
+			if (simple_path_return(args, tmp) == 0)
+				free(tmp);
+			return ;
+		}
 	}
 	cd_end(args, tmp);
+	free(tmp);
 }

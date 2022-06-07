@@ -11,6 +11,8 @@
 **récupérer la valeur de retour du dernier pipe**
 **prbl peut-être parce que le dernier pipe est dans un child du coup il modifie pas g-env**
 
+**Leaks avec cd ~/path** (FIXED ✅)
+
 **Probleme sur les fd check avec valgrind --track-fds=yes (pipes)** (FIXED?)
 
 **valeur de retour de tous les builtins** (FIXED ✅)

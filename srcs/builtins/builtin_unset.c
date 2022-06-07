@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:44:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/06 16:54:41 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:24:07 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	check_name(char *str, t_args *args)
 			return (1);
 		}
 	}
+	builtin_export(g_env, ft_export(0, "export"));
 	return (0);
 }
 
