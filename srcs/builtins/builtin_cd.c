@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:51 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 15:28:35 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:48:04 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*full_path(t_args *args)
 {
 	char	*tmp;
 
+	if (args->next == NULL)
+		return (NULL);
 	tmp = parsed_path(args->next->parsed_arg, 0, 0);
 	if (args == NULL || args->next == NULL)
 	{
@@ -79,17 +81,8 @@ char	*full_path(t_args *args)
 	return (NULL);
 }
 
-void	builtin_cd(t_args *args, char *tmp)
+void	builtin_cd2(t_args *args, char *tmp)
 {
-	if (args->next)
-		tmp = args->next->parsed_arg;
-	if (args->next != NULL && args->next->is_separator == 0
-		&& args->next->next != NULL && args->next->next->is_separator == 0)
-	{
-		builtin_export(g_env, ft_export(1, "export"));
-		printf("cd: too many arguments\n");
-		return ;
-	}
 	if (args->next != NULL && args->next->is_separator == 0)
 	{
 		tmp = parsed_path(args->next->parsed_arg, 0, 0);
@@ -110,4 +103,18 @@ void	builtin_cd(t_args *args, char *tmp)
 	}
 	cd_end(args, tmp);
 	free(tmp);
+}
+
+void	builtin_cd(t_args *args, char *tmp)
+{
+	if (args->next)
+		tmp = args->next->parsed_arg;
+	if (args->next != NULL && args->next->is_separator == 0
+		&& args->next->next != NULL && args->next->next->is_separator == 0)
+	{
+		builtin_export(g_env, ft_export(1, "export"));
+		printf("cd: too many arguments\n");
+		return ;
+	}
+	builtin_cd2(args, tmp);
 }

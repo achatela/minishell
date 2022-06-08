@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:23:30 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/06 16:59:57 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:48:25 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	builtin_env(int i, t_args *args)
 			if (g_env[i][j] == '=')
 			{
 				printf("%s\n", g_env[i]);
-				break;
+				break ;
 			}
 		}
 		i++;

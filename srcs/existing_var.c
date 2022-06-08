@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   existing_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:23 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/06 16:57:51 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:23:36 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,10 @@ static int	exact_copy(char **env, t_args *args)
 	return (0);
 }
 
-int	existing_var(char **env, t_args *args)
+int	var_existing(char *tmp, int i)
 {
-	char	*tmp;
 	char	*tmp2;
-	int		i;
 
-	i = 0;
-	(void)env;
-	tmp = cut_var_modif(args->parsed_arg, 0);
-	if (tmp == NULL)
-		tmp = ft_strdup(args->parsed_arg);
-	if (exact_copy(g_env, args) == 1)
-	{
-		free(tmp);
-		return (2);
-	}
 	while (g_env[i] != 0)
 	{
 		tmp2 = cut_var_modif(g_env[i], 0);
@@ -61,5 +49,24 @@ int	existing_var(char **env, t_args *args)
 		i++;
 	}
 	free(tmp);
+	return (0);
+}
+
+int	existing_var(char **env, t_args *args)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	(void)env;
+	tmp = cut_var_modif(args->parsed_arg, 0);
+	if (tmp == NULL)
+		tmp = ft_strdup(args->parsed_arg);
+	if (exact_copy(g_env, args) == 1)
+	{
+		free(tmp);
+		return (2);
+	}
+	var_existing(tmp, i);
 	return (0);
 }

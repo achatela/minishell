@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:42:01 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/07 16:56:56 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:17:42 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,8 @@ static void	cat_end(void)
 
 void	cat_here_doc(t_args *args, int i, int fd, char *delimiter)
 {
-	char		*tmp;
-	static int	line = 1;
-
 	delimiter = get_delimiter(delimiter, args);
 	fd = open("tmpfilecatheredoc", O_WRONLY | O_APPEND | O_CREAT, 0644);
-	while (i != 1)
-	{
-		tmp = readline("> ");
-		if (tmp == NULL)
-		{
-			printf("warning: here-document at line %d ", line++);
-			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
-			break ;
-		}
-		else if (ft_strcmp(tmp, delimiter) == 0)
-			i = 1;
-		if (ft_strcmp(tmp, delimiter) != 0)
-		{
-			write(fd, tmp, ft_strlen(tmp));
-			write(fd, "\n", 2);
-		}
-		free(tmp);
-		line++;
-	}
+	cat_here_doc2(i, fd, delimiter);
 	cat_end();
-	line = 1;
 }

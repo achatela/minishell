@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:44:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 14:24:07 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:57:15 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	builtin_unset(t_args *args)
 				{
 					g_env = remove_var(g_env, tmp, -1, 0);
 					free(tmp2);
-					break;
+					break ;
 				}
 				free(tmp2);
 			}

@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 16:44:33 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:29:46 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_delimiter(char *delimiter, t_args *args)
-{
-	struct sigaction	act;
-
-	sigemptyset(&act.sa_mask);
-	act.sa_sigaction = heredoc_handler;
-	act.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &act, NULL);
-	sigaction(SIGQUIT, &act, NULL);
-	delimiter = args->next->parsed_arg;
-	return (delimiter);
-}
 
 static void	here_doc(t_args *args, int i, char *delimiter)
 {
@@ -88,7 +75,8 @@ static void	while_heredoc(t_args *args, char *tmp)
 	{
 		while (head && ft_strcmp(tmp, head->parsed_arg) != 0)
 			head = head->next;
-		if (head && ft_strcmp("cat", args->parsed_arg) == 0 && last_heredoc(head, tmp) == 0)
+		if (head && ft_strcmp("cat", args->parsed_arg) == 0
+			&& last_heredoc(head, tmp) == 0)
 		{
 			cat_here_doc(head, 0, 0, NULL);
 			head = head->next;

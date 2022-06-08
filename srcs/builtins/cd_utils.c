@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:07:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/07 15:30:29 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:37:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ int	cd_errors(t_args *args, char *tmp, char	*home, char *tmp2)
 		switch_pwds(g_env, 0, 0);
 		return (1);
 	}
-	printf("%s: Not a directory\n", tmp);
-	free(home);
-	free(tmp2);
+	error_path(args, tmp, tmp2, home);
 	return (1);
 }
 

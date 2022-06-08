@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 17:08:44 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:38:20 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,8 @@ char	**parse_separators(char **cmds, int i);
 int		ft_check_access(char *file, int i);
 t_args	*ft_export(int value, char *export);
 int		error_double_redir(char **cmds, t_args *args, t_args *head);
+int		in_redir(t_args *args, t_args *head, char **cmds, int fd);
+void	cat_here_doc2(int i, int fd, char *delimiter);
+int		error_path(t_args *args, char *tmp, char *tmp2, char *home);
 
 #endif

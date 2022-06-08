@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_no_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:22:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 15:29:19 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:28:17 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,26 @@ static int	env_is_sorted(char **env, int i)
 	return (0);
 }
 
+void	print_env2(char **new, char *tmp, int i)
+{
+	char	*tmp2;
+
+	while (new[++i] != 0)
+	{
+		tmp = cut_var_begin(new[i], 0, 0);
+		tmp2 = cut_var_end(new[i], 0, 0);
+		if (tmp2 != NULL)
+			printf("declare -x %s\"%s\"\n", tmp, tmp2);
+		else
+			printf("declare -x %s\n", new[i]);
+		free(tmp);
+		free(tmp2);
+	}
+}
+
 static void	print_env(char **new, int i, int j, char **env)
 {
 	char	*tmp;
-	char	*tmp2;
 
 	while (env_is_sorted(env, 0) != 0 && new[i + 1] != 0)
 	{
@@ -41,17 +57,7 @@ static void	print_env(char **new, int i, int j, char **env)
 		j++;
 	}
 	i = -1;
-	while (new[++i] != 0)
-	{
-		tmp = cut_var_begin(new[i], 0, 0);
-		tmp2 = cut_var_end(new[i], 0, 0);
-		if (tmp2 != NULL)
-			printf("declare -x %s\"%s\"\n", tmp, tmp2);
-		else
-			printf("declare -x %s\n", new[i]);
-		free(tmp);
-		free(tmp2);
-	}
+	print_env2(new, tmp, i);
 }
 
 static void	sort_env(char **env, int i, int j)

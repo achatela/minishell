@@ -4,8 +4,10 @@ SRCS =	srcs/main.c						\
 		srcs/utils3.c					\
 		srcs/utils4.c					\
 		srcs/parsing.c 					\
+		srcs/parssing.c					\
 		srcs/send_builtin.c 			\
 		srcs/cat_heredoc.c				\
+		srcs/cat_here_doc.c				\
 		srcs/sep_no_quotes_utils.c		\
 		srcs/parsing_utils.c			\
 		srcs/redir.c					\
@@ -36,6 +38,7 @@ SRCS =	srcs/main.c						\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/cd_utils.c		\
+		srcs/builtins/cd_utils2.c		\
 		srcs/builtins/builtin_echo.c 	\
 		srcs/builtins/builtin_exit.c 	\
 		srcs/builtins/builtin_export.c	\
@@ -44,6 +47,8 @@ SRCS =	srcs/main.c						\
 		srcs/exec/exec_utils.c			\
 		srcs/exec/exec_utils2.c			\
 		srcs/parsing_utils2.c			\
+		srcs/doc_here.c					\
+		srcs/redir_in2.c				\
 
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}

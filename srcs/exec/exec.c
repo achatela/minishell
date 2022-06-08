@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/06 18:21:53 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:01:42 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**command_not_found(t_args *args, int i, char *str)
 	return (new);
 }
 
-static char *get_path_to_exec(char *pwd, t_args *args)
+static char	*get_path_to_exec(char *pwd, t_args *args)
 {
 	char	*ret;
 	char	*tmp;
@@ -120,10 +120,9 @@ static char *get_path_to_exec(char *pwd, t_args *args)
 	return (ret);
 }
 
-
 static int	exec_bash(t_pipe exec, t_args *args)
 {
-	char *path;
+	char	*path;
 
 	path = get_path_to_exec(getcwd(NULL, 0), args);
 	// if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))

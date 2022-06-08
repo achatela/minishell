@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/07 16:27:45 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:52:12 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,14 @@ static int	has_sep2(t_args *args)
 static void	child_pip(int start, int last, int *p, t_pipe *pipes)
 {
 	if (start == 1 && last == 0 && pipes->fd == 0)
-	{
 		dup2(p[1], 1);
-	//	close(1);
-	}
 	else if (start == 0 && last == 0 && pipes->fd != 0)
 	{
 		dup2(pipes->fd, 0);
 		dup2(p[1], 1);
-	//	close(0);
-	//	close(1);
 	}
 	else
-	{
 		dup2(pipes->fd, 0);
-	//	close(0);
-	}
 	if (has_sep2(pipes->args) == 0)
 		send_builtin(pipes->args, pipes->cmds);
 }
