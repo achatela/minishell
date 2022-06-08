@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:31:17 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/07 16:57:49 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:19:46 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	check_path(char **cmds, t_index *idx, char *path)
 {
 	if (ft_strcmp(cmds[0], "command-not-found") == 0)
 		idx->i = -1;
-	if ((ft_strcmp("cat", cmds[0]) == 0 || ft_strcmp("rm", cmds[0]) == 0) && cmds[1] && cmds[2] == 0)
+	if ((ft_strcmp("cat", cmds[0]) == 0
+			|| ft_strcmp("rm", cmds[0]) == 0) && cmds[1] && cmds[2] == 0)
 		idx->i = -1;
 	while (path[idx->k])
 		idx->k++;
