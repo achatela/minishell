@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/08 16:50:38 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:49:12 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	has_sep3(t_args *args)
 	return (0);
 }
 
-static int	has_pip(t_args *args)
+int	has_pip(t_args *args)
 {
 	t_args	*head;
 
@@ -74,12 +74,13 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 	t_pipe	*pipes;
 
 	pipes = init_pipe(&i, cmds, args);
-	while (args)
-	{
-		if (has_pip(args) == 1)
-			fd = pip(pipes, start, fd, 0);
-		else
-			fd = pip(pipes, start, fd, 1);
+	pipes->fd = fd;
+	//while (args)
+	//{
+	//	if (has_pip(args) == 1)
+			pipes->fd = pip(pipes, start, fd, 0);
+	/*	else
+			pipes->fd = pip(pipes, start, fd, 1);
 		while (args && (args->is_separator == 0
 				|| args->is_separator == 1) && i == 0)
 			args = while_send_sep(args, &i, pipes->args, cmds);
@@ -89,9 +90,8 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 			args = args->next;
 		i = 0;
 		pipes->args = args;
-		start = 0;
-	}
-	close(pipes->fd);
+		start = 0;*/
+//	}
 	free(pipes);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/08 18:01:42 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:11:22 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ static int	exec_bash(t_pipe exec, t_args *args)
 	path = get_path_to_exec(getcwd(NULL, 0), args);
 	// if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))
 	// 	ft_check_access(args->parsed_arg, 0);
-	child(path, exec.cmds, args);
 	if (access(path, X_OK) == -1)
 	{
 		free(path);
@@ -135,6 +134,7 @@ static int	exec_bash(t_pipe exec, t_args *args)
 	}
 	else
 	{
+		child(path, exec.cmds, args);
 		free(path);
 		return (0);
 	}
@@ -148,8 +148,9 @@ int	exec_bin(char **cmds, t_args *args, int i)
 
 	exec.cmds = cmds;
 	exec.args = args;
-	if (exec_bash(exec, args) == 0)
-		return (1);
+	(void)exec_bash;
+//	if (exec_bash(exec, args) == 0)
+//		return (1);
 	if (check_unset_path(i, args->parsed_arg) == 1)
 		return (i);
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))

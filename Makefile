@@ -53,7 +53,7 @@ SRCS =	srcs/main.c						\
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra#-fsanitize=address -g3
 INC = -I./includes
 RM = rm -rf
 

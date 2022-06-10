@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/08 17:38:20 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:34:33 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int		check_unset_path(int i, char *cmd);
 
 /* Pip */
 int		pip(t_pipe *pipes, int start, int fd, int last);
-//int		has_pip(t_args *args);
+int		has_pip(t_args *args);
 /* Pip */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);
