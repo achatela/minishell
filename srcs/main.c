@@ -6,7 +6,7 @@
 /*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/05/21 14:38:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/11 19:46:36 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGQUIT, &act, NULL);
 	while (1)
 		while_main(argc);
-	clear_history();
-	free_env(g_env, 0);
+//	clear_history();
+//	free_env(g_env, 0);
 	return (0);
 }

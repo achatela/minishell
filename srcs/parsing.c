@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/10 16:49:12 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:10:11 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	has_pip(t_args *args)
 	t_args	*head;
 
 	head = args;
-	while (head)
+	while (head && head->next)
 	{
+		head = head->next;
 		if (head->is_separator == 2)
 			return (1);
-		head = head->next;
 	}
 	return (0);
 }

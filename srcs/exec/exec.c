@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:56:57 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/10 17:11:22 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/11 19:46:56 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ static char	*get_path_to_exec(char *pwd, t_args *args)
 static int	exec_bash(t_pipe exec, t_args *args)
 {
 	char	*path;
+	int		i;
 
 	path = get_path_to_exec(getcwd(NULL, 0), args);
 	// if (args->parsed_arg && (args->parsed_arg[0] == '.' || args->parsed_arg[0] == '/'))
@@ -130,13 +131,13 @@ static int	exec_bash(t_pipe exec, t_args *args)
 	if (access(path, X_OK) == -1)
 	{
 		free(path);
-		return (1);
+		return (-1);
 	}
 	else
 	{
-		child(path, exec.cmds, args);
+		i = child(path, exec.cmds, args);
 		free(path);
-		return (0);
+		return (i);
 	}
 }
 
@@ -148,9 +149,8 @@ int	exec_bin(char **cmds, t_args *args, int i)
 
 	exec.cmds = cmds;
 	exec.args = args;
-	(void)exec_bash;
-//	if (exec_bash(exec, args) == 0)
-//		return (1);
+	if (exec_bash(exec, args) != -1)
+		return (1);
 	if (check_unset_path(i, args->parsed_arg) == 1)
 		return (i);
 	while (g_env[i] && ft_strncmp(g_env[i], "PATH=", 5))
