@@ -30,6 +30,8 @@
 
 **Fix redir_in echo p > file1 < test**
 
+**echo -nnnt test, ne va pas a la ligne**
+
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
 **test**
