@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/11 16:10:11 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:24:36 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 
 	pipes = init_pipe(&i, cmds, args);
 	pipes->fd = fd;
-	//while (args)
-	//{
-	//	if (has_pip(args) == 1)
+	// while (args)
+	// {
+	// 	if (has_pip(args) == 1)
 			pipes->fd = pip(pipes, start, fd, 0);
-	/*	else
+		/*else
 			pipes->fd = pip(pipes, start, fd, 1);
 		while (args && (args->is_separator == 0
 				|| args->is_separator == 1) && i == 0)
@@ -90,8 +90,8 @@ static void	while_pip(t_args *args, int start, int fd, char **cmds)
 			args = args->next;
 		i = 0;
 		pipes->args = args;
-		start = 0;*/
-//	}
+		start = 0;
+	}*/
 	free(pipes);
 }
 

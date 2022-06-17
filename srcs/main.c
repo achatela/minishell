@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:31:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/11 19:46:36 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:36:43 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ static void	while_main(int argc)
 		return ;
 	}
 	if (cmd == NULL)
-	{
 		cmd = set_cmd(cmd, "exit");
-		printf("exit\n");
-	}
 	if (cmd[0] != '\0')
 	{
 		add_history(cmd);
