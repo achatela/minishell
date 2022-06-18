@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:06:09 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/15 16:24:36 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:45:55 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,17 @@ int	has_pip(t_args *args)
 	return (0);
 }
 
-static void	while_pip(t_args *args, int start, int fd, char **cmds)
+static void	while_pip(t_args *args, char **cmds)
 {
 	int		i;
 	t_pipe	*pipes;
+	t_fd	*pips;
 
+	pips = init_pips(0);
 	pipes = init_pipe(&i, cmds, args);
-	pipes->fd = fd;
-	// while (args)
-	// {
-	// 	if (has_pip(args) == 1)
-			pipes->fd = pip(pipes, start, fd, 0);
-		/*else
-			pipes->fd = pip(pipes, start, fd, 1);
-		while (args && (args->is_separator == 0
-				|| args->is_separator == 1) && i == 0)
-			args = while_send_sep(args, &i, pipes->args, cmds);
-		if (args && args->is_separator == 0)
-			args = skip_cmd(args);
-		while (args && args->is_separator == 2)
-			args = args->next;
-		i = 0;
-		pipes->args = args;
-		start = 0;
-	}*/
+	pipes->fd = pip(pipes, pips);
 	free(pipes);
+	free(pips);
 }
 
 void	parsing(char *cmd)
@@ -111,7 +97,7 @@ void	parsing(char *cmd)
 	if (has_sep3(args) == 0)
 		send_builtin(args, cmds);
 	else if (has_pip(args) == 1)
-		while_pip(args, 1, 0, cmds);
+		while_pip(args, cmds);
 	else
 		while_sep(args, cmds);
 	free_cmds(cmds, 0);

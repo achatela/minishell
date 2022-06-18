@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/13 16:27:02 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:40:00 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ struct	s_pipe
 	int		fd;
 	char	**cmds;
 	t_args	*args;
+};
+
+typedef struct s_fd		t_fd;
+struct	s_fd
+{
+	int		p[2];
+	int		pid;
+	int		tmpin;
+	int		tmpout;
+	int		fdin;
+	int		fdout;
+	t_args	*head;
+	int		i;
 };
 
 /* Init_env */
@@ -119,8 +132,9 @@ int		check_unset_path(int i, char *cmd);
 /* Exec */
 
 /* Pip */
-int		pip(t_pipe *pipes, int start, int fd, int last);
+int		pip(t_pipe *pipes, t_fd *pip);
 int		has_pip(t_args *args);
+t_fd	*init_pips(int i);
 /* Pip */
 
 //char	**realloc_cmds(char **cmds, int i, char *cat);

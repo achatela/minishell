@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/08 16:29:46 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:38:36 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,29 @@ static void	here_doc(t_args *args, int i, char *delimiter)
 {
 	char				*tmp;
 	static int			line = 1;
+	int					pid;
 
-	delimiter = get_delimiter(delimiter, args);
-	while (i != 1)
+	pid = fork();
+	if (pid == 0)
 	{
-		tmp = readline("> ");
-		if (tmp == NULL)
+		delimiter = get_delimiter(delimiter, args);
+		while (i != 1)
 		{
-			printf("warning: here-document at line %d ", line++);
-			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
-			break ;
+			tmp = readline("> ");
+			if (tmp == NULL)
+			{
+				printf("warning: here-document at line %d ", line++);
+				printf("delimited by end-of-file (wanted `%s')\n", delimiter);
+				break ;
+			}
+			else if (ft_strcmp(tmp, delimiter) == 0)
+				i = 1;
+			free(tmp);
+			line++;
 		}
-		else if (ft_strcmp(tmp, delimiter) == 0)
-			i = 1;
-		free(tmp);
-		line++;
 	}
+	else
+		waitpid(pid, 0, 0);
 	line = 1;
 }
 
