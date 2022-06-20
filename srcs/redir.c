@@ -6,10 +6,9 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:58:37 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/08 17:05:52 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:48:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -89,21 +88,6 @@ static char	*get_sep(t_args *args)
 	return (tmp);
 }
 
-static int	ft_check_access_redir(char *file)
-{
-	if (access(file, F_OK) == -1 || access(file, R_OK == -1))
-	{
-		printf("%s: No such file or directory\n", file);
-		return (-1);
-	}
-	else if (access(file, W_OK) == -1)
-	{
-		printf("%s: Permission denied\n", file);
-		return (-1);
-	}
-	return (0);
-}
-
 void	redir(t_args *args, char **cmds, t_args *head, int fd)
 {
 	int		old_fd;
@@ -127,9 +111,5 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	}
 	if (head->is_separator == 0)
 		send_builtin(head, cmds);
-	else if (head->next->next)
-		send_builtin(head->next->next, cmds);
-	close(1);
-	dup(old_fd);
-	close(old_fd);
+	redir2(head, old_fd, cmds);
 }

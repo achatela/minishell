@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:44:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/08 17:57:15 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:04:14 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,6 @@ char	**remove_var(char **env, char *tmp, int i, int j)
 	return (new);
 }
 
-/*char	*search_env(char *str, int i, int j)
-  {
-  char	*ret;
-
-  while (str[i] && str[i] != '=')
-  i++;
-  if (str[i] == '\0')
-  return (NULL);
-  ret = malloc(sizeof(char) * i + 2);
-  if (!ret)
-  return (NULL);
-  while (str[j] != '=')
-  {
-  ret[j] = str[j];
-  j++;
-  }
-  ret[j] = '\0';
-  return (ret);
-  }*/
-
 int	check_name(char *str, t_args *args)
 {
 	int	i;
@@ -102,11 +82,28 @@ int	check_name(char *str, t_args *args)
 	return (0);
 }
 
+void	unset_while(int i, char *tmp)
+{
+	char	*tmp2;
+
+	while (g_env[++i] != 0)
+	{
+		tmp2 = cut_var_modif(g_env[i], 0);
+		if (ft_strncmp(tmp, tmp2, ft_strlen(tmp)) == 0)
+		{
+			g_env = remove_var(g_env, tmp, -1, 0);
+			free(tmp2);
+			break ;
+		}
+		free(tmp2);
+	}
+	free(tmp);
+}
+
 void	builtin_unset(t_args *args)
 {
 	int		i;
 	char	*tmp;
-	char	*tmp2;
 
 	while (args->next != NULL && args->next->to_use == 1
 		&& args->next->is_separator != 1)
@@ -116,18 +113,7 @@ void	builtin_unset(t_args *args)
 		{
 			tmp = cut_var_modif(args->parsed_arg, 0);
 			i = -1;
-			while (g_env[++i] != 0)
-			{
-				tmp2 = cut_var_modif(g_env[i], 0);
-				if (ft_strncmp(tmp, tmp2, ft_strlen(tmp)) == 0)
-				{
-					g_env = remove_var(g_env, tmp, -1, 0);
-					free(tmp2);
-					break ;
-				}
-				free(tmp2);
-			}
-			free(tmp);
+			unset_while(i, tmp);
 		}
 	}
 }

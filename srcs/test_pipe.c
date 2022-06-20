@@ -6,19 +6,52 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/18 16:45:47 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:35:48 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void	end_signals(void)
+void	close_and_wait(t_fd *pips)
 {
-	// signal(SIGQUIT, SIG_IGN);
-	// signal(SIGSTOP, SIG_IGN);
-	// signal(SIGINT, SIG_IGN);
-	signal(SIGCHLD, SIG_IGN);
-}*/
+	int	j;
+
+	j = 0;
+	dup2(pips->tmpin, 0);
+	dup2(pips->tmpout, 1);
+	close(pips->tmpin);
+	close(pips->tmpout);
+	close(pips->p[0]);
+	close(pips->p[1]);
+	while (j < 400)
+	{
+		j++;
+		wait(NULL);
+	}
+}
+
+void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
+{	
+	if (pips->pid == 0)
+	{
+		close(pips->p[0]);
+		close(pips->p[1]);
+		exec_bin(pipes->cmds, pipes->args, 0);
+		exit(1);
+	}
+	else
+	{
+		while (pipes->args && (pipes->args->is_separator == 0
+				|| pipes->args->is_separator == 1) && pips->i == 0)
+			pipes->args = while_send_sep(pipes->args,
+					&pips->i, head, pipes->cmds);
+		if (pipes->args && pipes->args->is_separator == 0)
+			pipes->args = skip_cmd(pipes->args);
+		while (pipes->args && pipes->args->is_separator == 2)
+			pipes->args = pipes->args->next;
+		pips->i = 0;
+	}
+}
 
 int	pip(t_pipe *pipes, t_fd *pips)
 {
@@ -40,37 +73,9 @@ int	pip(t_pipe *pipes, t_fd *pips)
 		dup2(pips->fdout, STDOUT_FILENO);
 		close(pips->fdout);
 		pips->pid = fork();
-		if (pips->pid == 0)
-		{
-			close(pips->p[0]);
-			close(pips->p[1]);
-			exec_bin(pipes->cmds, pipes->args, 0);
-			exit(1);
-		}
-		else
-		{
-			while (pipes->args && (pipes->args->is_separator == 0
-				|| pipes->args->is_separator == 1) && pips->i == 0)
-				pipes->args = while_send_sep(pipes->args, &pips->i, head, pipes->cmds);
-			if (pipes->args && pipes->args->is_separator == 0)
-				pipes->args = skip_cmd(pipes->args);
-			while (pipes->args && pipes->args->is_separator == 2)
-				pipes->args = pipes->args->next;
-			pips->i = 0;
-		}
+		pip2(pipes, head, pips);
 		head = pipes->args;
 	}
-	dup2(pips->tmpin, 0);
-	dup2(pips->tmpout, 1);
-	close(pips->tmpin);
-	close(pips->tmpout);
-	close(pips->p[0]);
-	close(pips->p[1]);
-	int j = 0;
-	while (j < 400)
-	{
-		j++;
-		wait(NULL);
-	}
+	close_and_wait(pips);
 	return (1);
 }

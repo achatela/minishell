@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 16:25:32 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/20 17:55:05 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/06/20 17:42:11 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/06/20 17:57:45 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**remove_heredoc(t_args **args, char *tmp, char **cmds)
+int	ft_check_access_redir(char *file)
 {
-	while_heredoc((*args), tmp);
-	if ((*args)->next != NULL && (*args)->next->next != NULL)
+	if (access(file, F_OK) == -1 || access(file, R_OK == -1))
 	{
-		cmds = new_cmds(cmds, tmp);
-		(*args) = new_list((*args), cmds);
+		printf("%s: No such file or directory\n", file);
+		return (-1);
 	}
-	else
-		(*args)->to_use = 2;
-	free(tmp);
-	tmp = get_env_var(g_env, "?", 0);
-	if (tmp != NULL && ft_strcmp(tmp, "0") != 0)
+	else if (access(file, W_OK) == -1)
 	{
-		free(tmp);
-		free_cmds(cmds, 0);
-		return (NULL);
+		printf("%s: Permission denied\n", file);
+		return (-1);
 	}
-	if (tmp != NULL)
-		free(tmp);
-	return (cmds);
+	return (0);
+}
+
+void	redir2(t_args *head, int old_fd, char **cmds)
+{
+	if (head->next->next)
+		send_builtin(head->next->next, cmds);
+	close(1);
+	dup(old_fd);
+	close(old_fd);
 }

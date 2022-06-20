@@ -36,6 +36,7 @@ SRCS =	srcs/main.c						\
 		srcs/signal.c					\
 		srcs/str_quotes_utils2.c		\
 		srcs/here_doc.c					\
+		srcs/here_doc_utils.c			\
 		srcs/builtins/builtin_env.c		\
 		srcs/builtins/builtin_cd.c 		\
 		srcs/builtins/cd_utils.c		\
@@ -47,14 +48,16 @@ SRCS =	srcs/main.c						\
 		srcs/exec/exec.c 				\
 		srcs/exec/exec_utils.c			\
 		srcs/exec/exec_utils2.c			\
+		srcs/exec/exec_utils3.c			\
 		srcs/parsing_utils2.c			\
 		srcs/doc_here.c					\
 		srcs/redir_in2.c				\
-
+		srcs/redir_utils.c				\
+	
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra#-fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
 INC = -I./includes
 RM = rm -rf
 

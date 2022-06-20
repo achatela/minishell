@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:24:05 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/13 16:27:19 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:59:40 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	builtin_exit(t_args *args)
 	long long	i;
 	int			nb;
 	t_args		*tmp;
-	
+
 	i = 0;
 	nb = 0;
 	tmp = args;

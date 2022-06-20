@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/18 16:40:00 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/20 18:15:30 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,5 +199,13 @@ int		error_double_redir(char **cmds, t_args *args, t_args *head);
 int		in_redir(t_args *args, t_args *head, char **cmds, int fd);
 void	cat_here_doc2(int i, int fd, char *delimiter);
 int		error_path(t_args *args, char *tmp, char *tmp2, char *home);
+int		exec_bin_check(t_pipe exec, t_args *args, int i, char **bin);
+int		ft_check_access_redir(char *file);
+void	redir2(t_args *head, int old_fd, char **cmds);
+void	while_heredoc(t_args *args, char *tmp);
+void	here_doc(t_args *args, int i, char *delimiter);
+t_args	*new_list(t_args *args, char **cmds);
+int		last_heredoc(t_args *head, char *tmp);
+void	while_heredoc(t_args *args, char *tmp);
 
 #endif
