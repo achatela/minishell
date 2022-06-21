@@ -32,8 +32,9 @@
 
 **echo -nnnt test, ne va pas a la ligne**
 
-**/bin/ls | /bin/ls ne fonctionne pas **command not found****
+**/bin/ls | /bin/ls ne fonctionne pas command not found**
 
+**exit 12 | exit 24 command not found**
 
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
