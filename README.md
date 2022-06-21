@@ -19,18 +19,21 @@
 
 **cat << ok << salut doit afficher ce qu'on a place dans le dernier heredoc**
 
-**cat | cat |ls**
+**cat | cat |ls** (FIXED ✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅)
 
 **créer un fichier dans heredoc pour pouvoir remplacer << txt par < file quand cat **
 **que si cmd == cat et pour le dernier <<** (FIXED ✅)
 
-**yes | head**
+**yes | head** (FIXED ✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅)
 
 **Double MSG derreur /bin/command** (FIXED ✅)
 
 **Fix redir_in echo p > file1 < test**
 
 **echo -nnnt test, ne va pas a la ligne**
+
+**/bin/ls | /bin/ls ne fonctionne pas **command not found****
+
 
 ![image](https://cdn.discordapp.com/attachments/856902451403423745/969613000052994068/unknown.png)
 
