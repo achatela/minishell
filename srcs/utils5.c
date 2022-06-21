@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achatela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:30:46 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/18 16:40:45 by achatela         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:12:19 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,25 @@ t_fd	*init_pips(int i)
 	ret->tmpout = dup(STDOUT_FILENO);
 	return (ret);
 }
+
+int	is_builtin(t_pipe *pipes)
+{
+	if (!pipes->cmds || !pipes->cmds[0])
+		return (0);
+	if (ft_strcmp(pipes->cmds[0], "echo") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "cd") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "pwd") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "env") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "export") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "unset") == 0)
+		return (1);
+	if (ft_strcmp(pipes->cmds[0], "exit") == 0)
+		return (1);
+	return (0);
+}
+

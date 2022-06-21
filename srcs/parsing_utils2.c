@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:53:29 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/20 18:15:32 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/21 13:44:43 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,13 @@ t_args	*skip_cmd(t_args *args)
 	if (args)
 		args = args->next;
 	return (args);
+}
+
+char	*while_send_sep2(t_args *args, char *tmp)
+{
+	if (args && (args->next == NULL || args->is_separator == 2))
+		tmp = NULL;
+	if (args == NULL)
+		tmp = NULL;
+	return (tmp);
 }

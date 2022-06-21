@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:13:07 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/20 18:15:30 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:05:43 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,5 +207,7 @@ void	here_doc(t_args *args, int i, char *delimiter);
 t_args	*new_list(t_args *args, char **cmds);
 int		last_heredoc(t_args *head, char *tmp);
 void	while_heredoc(t_args *args, char *tmp);
+char	*while_send_sep2(t_args *args, char *tmp);
+int		is_builtin(t_pipe *pipes);
 
 #endif

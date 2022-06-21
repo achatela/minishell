@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/20 16:35:48 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:26:10 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_and_wait(t_fd *pips)
 }
 
 void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
-{	
+{
 	if (pips->pid == 0)
 	{
 		close(pips->p[0]);
