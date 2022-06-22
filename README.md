@@ -13,3 +13,4 @@
 **echo -nnnt test, ne va pas a la ligne**
 
 **/bin/ls | /bin/ls ne fonctionne pas command not found**
+**builtin echo a refaire**
