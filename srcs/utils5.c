@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:30:46 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/21 15:12:19 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:35:56 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,3 @@ int	is_builtin(t_pipe *pipes)
 		return (1);
 	return (0);
 }
-
