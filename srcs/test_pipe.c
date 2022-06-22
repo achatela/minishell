@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/22 17:13:21 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:27:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_and_wait(t_fd *pips)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	dup2(pips->tmpin, 0);
