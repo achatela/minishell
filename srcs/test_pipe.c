@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:30 by achatela          #+#    #+#             */
-/*   Updated: 2022/06/22 17:04:09 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:13:21 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,20 @@
 
 void	close_and_wait(t_fd *pips)
 {
-	int	status;
-	int ret;
-	
-	status = 0;
-	waitpid(pips->pid, &status, 0);
-	if (WIFEXITED(status) > 0)
-		ret = WEXITSTATUS(status);
-	printf("%d", ret);
+	int j;
+
+	j = 0;
 	dup2(pips->tmpin, 0);
 	dup2(pips->tmpout, 1);
 	close(pips->tmpin);
 	close(pips->tmpout);
 	close(pips->p[0]);
 	close(pips->p[1]);
-	// while (j < 400)
-	// {
-	// 	j++;
-	// 	wait(NULL);
-	// }
+	while (j < 400)
+	{
+		j++;
+		wait(NULL);
+	}
 }
 
 void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
