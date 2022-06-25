@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+static int	ft_check_access_in(char *file)
+{
+	if (access(file, F_OK) == -1 || access(file, R_OK) == -1)
+	{
+		printf("%s: No such file or directory\n", file);
+		return (-1);
+	}
+	else if (access(file, W_OK) == -1)
+	{
+		printf("%s: Permission denied\n", file);
+		return (-1);
+	}
+	return (0);
+}
+
 static int	last_redir_in(t_args *args)
 {
 	while (args)
@@ -38,7 +53,7 @@ int	in_redir(t_args *args, t_args *head, char **cmds, int fd)
 			args = args->next;
 		while (args && args->is_separator == 1)
 			args = args->next;
-		if (ft_check_access(args->parsed_arg, 0) != 0)
+		if (ft_check_access_in(args->parsed_arg) != 0)
 			return (3);
 		get_fd(head, args, fd, cmds);
 	}

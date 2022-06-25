@@ -70,8 +70,8 @@ int	child(char *path, char **cmds, t_args *args)
 		tmp = ft_strchr(path, '/');
 		if (tmp != NULL)
 			execve(path, new, g_env);
-		free_cmds(new, 0);
-		free(tmp);
+		//free_cmds(new, 0);
+		//free(tmp);
 		exit(ret);
 	}
 	else

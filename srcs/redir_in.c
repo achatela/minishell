@@ -25,7 +25,7 @@ static int	has_redir(t_args *args)
 
 static char	*get_file_name(t_args *args)
 {
-	while (args && args->parsed_arg[0] != '<')
+	while (args && args->parsed_arg[0] != '<' && args->is_separator != 1)
 		args = args->next;
 	if (args)
 		args = args->next;
@@ -67,8 +67,8 @@ int	redir_in(t_args *args, t_args *head, char **cmds)
 	if (has_redir(args) == 1)
 	{
 		tmp = get_file_name(args);
-		if (ft_check_access(tmp, 0) != 0)
-			return (not_existing(head), 2);
+		//if (ft_check_access(tmp, 0) != 0)
+		//	return (not_existing(head), 2);
 		return (1);
 	}
 	else

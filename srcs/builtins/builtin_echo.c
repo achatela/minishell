@@ -44,11 +44,30 @@ static void	print_n(t_args *args)
 	}
 }
 
-static int	check_n(t_args *args)
+static int	check_n(t_args *args, int i)
 {
 	if (args->next->parsed_arg[0] == '-'
 		&& args->next->parsed_arg[1] == 'n')
 	{
+		while (args->next->parsed_arg[++i])
+		{
+			if (args->next->parsed_arg[i] != 'n')
+			{
+				args = args->next;
+				while (args && args->to_use == 1 && args->is_separator == 0)
+				{
+					i = -1;
+					while (args->parsed_arg[++i])
+						printf("%c", args->parsed_arg[i]);
+					if (!(args->next && args->next->is_separator != 0))
+						printf(" ");
+					args = args->next;
+				}
+				builtin_export(g_env, ft_export(0, "export"));
+				printf("\n");
+				return (1);
+			}
+		}
 		print_n(args);
 		return (1);
 	}
@@ -59,7 +78,7 @@ int	builtin_echo(t_args *args, int i)
 {
 	if (args->next != NULL && ft_strlen(args->next->parsed_arg) > 1)
 	{
-		if (check_n(args) == 1)
+		if (check_n(args, 1) == 1)
 			return (1);
 	}
 	args = args->next;

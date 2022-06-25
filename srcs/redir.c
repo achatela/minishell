@@ -40,7 +40,12 @@ static void	create_while(t_args *create, int fd)
 			&& create->next->is_separator != 2)
 		{
 			while (create && create->is_separator == 1)
+			{
 				create = create->next;
+				printf("%d\n", ft_strcmp(create->parsed_arg, "<"));
+				if (ft_strcmp(create->parsed_arg, "<") == 0)
+					break;
+			}
 			while (create && create->is_separator == 0)
 				create = create->next;
 			if (create && create->next)

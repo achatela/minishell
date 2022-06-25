@@ -37,9 +37,9 @@ void	handler(int sig, siginfo_t *info, void *null)
 	else if (sig == SIGINT && info->si_pid != 0)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+	//	rl_on_new_line();
+	//	rl_replace_line("", 0);
+	//	rl_redisplay();
 	}
 	else if (sig == SIGINT && info->si_pid == 0)
 	{
