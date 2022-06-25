@@ -78,4 +78,5 @@ void	cat_here_doc(t_args *args, int i, int fd, char *delimiter)
 	fd = open("tmpfilecatheredoc", O_WRONLY | O_APPEND | O_CREAT, 0644);
 	cat_here_doc2(i, fd, delimiter);
 	cat_end();
+	close(fd);
 }

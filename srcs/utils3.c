@@ -59,8 +59,6 @@ int	is_last(t_args *args)
 		}
 		else if (args && args->is_separator == 2)
 			return (2);
-		else
-			return (0);
 	}
 	return (0);
 }

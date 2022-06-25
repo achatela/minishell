@@ -40,14 +40,11 @@ static void	create_while(t_args *create, int fd)
 			&& create->next->is_separator != 2)
 		{
 			while (create && create->is_separator == 1)
-			{
 				create = create->next;
-				printf("%d\n", ft_strcmp(create->parsed_arg, "<"));
-				if (ft_strcmp(create->parsed_arg, "<") == 0)
-					break;
-			}
 			while (create && create->is_separator == 0)
 				create = create->next;
+			if (ft_strcmp(create->parsed_arg, "<") == 0)
+					return ;
 			if (create && create->next)
 				create = create->next;
 			if (create && create->parsed_arg && is_last(create) != 0)
@@ -98,6 +95,7 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	int		old_fd;
 	char	*tmp;
 
+	printf("une fois normalement ?\n");
 	args = get_args(args);
 	tmp = get_sep(head);
 	create_while(head, fd);
