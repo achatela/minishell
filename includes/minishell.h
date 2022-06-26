@@ -200,7 +200,7 @@ int		error_double_redir(char **cmds, t_args *args, t_args *head);
 int		in_redir(t_args *args, t_args *head, char **cmds, int fd);
 void	cat_here_doc2(int i, int fd, char *delimiter);
 char	*get_sep(t_args *args);
-int		open_fd(t_args *args, char *tmp);
+int		open_fd(t_args *args, char *tmp, int fd);
 int		error_path(t_args *args, char *tmp, char *tmp2, char *home);
 int		exec_bin_check(t_pipe exec, t_args *args, int i, char **bin);
 int		ft_check_access_redir(char *file);

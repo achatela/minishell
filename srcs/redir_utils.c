@@ -44,11 +44,10 @@ char	*get_sep(t_args *args)
 	return (tmp);
 }
 
-int	open_fd(t_args *args, char *tmp)
+int	open_fd(t_args *args, char *tmp, int fd)
 {
-	int	fd;
-
-	fd = 0;
+	if (fd != 0)
+		close(fd);
 	if (tmp[0] && tmp[1] == '\0')
 		fd = open(args->parsed_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
@@ -62,7 +61,7 @@ void	redir2(t_args *args, t_args *head, int old_fd, char **cmds)
 
 	old_fd = dup(1);
 	close(1);
-	fd = open_fd(get_args(args), get_sep(args));
+	fd = open_fd(get_args(args), get_sep(args), 0);
 	if (head->next->next)
 		send_builtin(head->next->next, cmds);
 	close(1);
