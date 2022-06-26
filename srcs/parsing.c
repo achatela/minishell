@@ -99,7 +99,8 @@ void	parsing(char *cmd)
 	else if (has_pip(args) == 1)
 		while_pip(args, cmds);
 	else
-		while_sep(args, cmds);
+		redir(args, cmds, args, 0);
+		//while_sep(args, cmds);
 	free_cmds(cmds, 0);
 	free_list(args);
 }

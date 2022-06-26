@@ -61,41 +61,62 @@ static void	create_while(t_args *create, int fd)
 		create_while_sep(create, fd);
 }
 
-static int	open_fd(t_args *args, char *tmp)
+static int	has_redir_only(t_args *args)
 {
-	int	fd;
-
-	fd = 0;
-	if (tmp[0] && tmp[1] == '\0')
-		fd = open(args->parsed_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else
-		fd = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	return (fd);
+	while (args && args->is_separator != 2)
+	{
+		if (args && args->parsed_arg[0] == '<' && args->is_separator == 1)
+			return (1);
+		args = args->next;
+	}
+	//if (args && args->is_separator == 2)
+	//	return (1);
+	return (0);
 }
 
-static char	*get_sep(t_args *args)
+static void	redir_only(t_args *args, char **cmds, int fd)
 {
-	char	*tmp;
+	int	old_fd;
 
-	while (args && is_last(args) != 0 && args->next->is_separator != 2)
+	if (ft_strcmp(args->parsed_arg, ">") == 0)
 	{
-		while (args && args->is_separator == 0)
-			args = args->next;
-		while (args && args->is_separator == 1)
-		{
-			tmp = args->parsed_arg;
-			args = args->next;
-		}
+		create_while_sep(args, 0);
+		redir2(args, args, 0, cmds);
+		return ;
 	}
-	return (tmp);
+	else
+		create_while(args, 0);
+	old_fd = dup(1);
+	close(1);
+	fd = open_fd(get_args(args), get_sep(args));
+	send_builtin(args, cmds);
+	close(1);
+	dup(old_fd);
+	close(old_fd);
+}
+
+static int	check_redir_exist(t_args *args)
+{
+	while (args && args->is_separator == 0)
+		args = args->next;
+}
+
+static void	has_redir_in(t_args *args, t_args *head, char **cmds, int fd)
+{
+	if (check_redir_exist(args) == 1)
+		return ;
 }
 
 void	redir(t_args *args, char **cmds, t_args *head, int fd)
 {
-	int		old_fd;
 	char	*tmp;
 
-	printf("une fois normalement ?\n");
+	if (has_redir_only(args) == 0)
+		redir_only(args, cmds, fd);
+	else
+		has_redir_in(args, head, cmds, fd);
+			//redir_only(args, cmds);
+	/*printf("une fois normalement ?\n");
 	args = get_args(args);
 	tmp = get_sep(head);
 	create_while(head, fd);
@@ -114,5 +135,5 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 	}
 	if (head->is_separator == 0)
 		send_builtin(head, cmds);
-	redir2(head, old_fd, cmds);
+	redir2(head, old_fd, cmds);*/
 }
