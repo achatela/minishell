@@ -17,4 +17,3 @@ de la commande:
 **cat << text << text2 ne se finis pas bien ??**
 
 **/bin/ls | /bin/ls ne fonctionne pas command not found**
-**builtin echo a refaire**
