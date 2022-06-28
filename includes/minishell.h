@@ -61,6 +61,16 @@ struct	s_pipe
 	t_args	*args;
 };
 
+typedef struct s_in_out		t_in_out;
+struct	s_in_out
+{
+	int in;
+	int	out;
+	int	old_in;
+	int	old_out;
+};
+
+
 typedef struct s_fd		t_fd;
 struct	s_fd
 {
