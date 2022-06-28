@@ -32,6 +32,7 @@ void	close_and_wait(t_fd *pips)
 
 void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
 {
+	(void)head;
 	if (pips->pid == 0)
 	{
 		close(pips->p[0]);
@@ -41,15 +42,20 @@ void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
 	}
 	else
 	{
-		while (pipes->args && (pipes->args->is_separator == 0
+	/*	while (pipes->args && (pipes->args->is_separator == 0
 				|| pipes->args->is_separator == 1) && pips->i == 0)
 			pipes->args = while_send_sep(pipes->args,
-					&pips->i, head, pipes->cmds);
-		if (pipes->args && pipes->args->is_separator == 0)
+					&pips->i, head, pipes->cmds);*/
+		send_to_sep(pipes->args, pipes->args, pipes->cmds);
+		while (pipes->args && pipes->args->is_separator != 2)
+			pipes->args = pipes->args->next;
+		if (pipes->args)
+			pipes->args = pipes->args->next;
+		/*if (pipes->args && pipes->args->is_separator == 0)
 			pipes->args = skip_cmd(pipes->args);
 		while (pipes->args && pipes->args->is_separator == 2)
 			pipes->args = pipes->args->next;
-		pips->i = 0;
+		pips->i = 0;*/
 	}
 }
 
