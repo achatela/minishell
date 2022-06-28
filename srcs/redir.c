@@ -137,7 +137,7 @@ static int	check_redir_exist(t_args *args, int i, int fd, char **cmds)
 	return (0);
 }
 
-static void	has_redir_in(t_args *args, t_args *head, char **cmds, int fd)
+static void	has_redir_in(t_args *args, char **cmds, int fd)
 {
 	if (check_redir_exist(args, 0, 0, cmds) == 1)
 	{
@@ -150,10 +150,11 @@ void	redir(t_args *args, char **cmds, t_args *head, int fd)
 {
 	char	*tmp;
 
+	(void)head;
 	if (has_redir_only(args) == 0)
 		redir_only(args, cmds, fd);
 	else
-		has_redir_in(args, head, cmds, fd);
+		has_redir_in(args, cmds, fd);
 			//redir_only(args, cmds);
 	/*printf("une fois normalement ?\n");
 	args = get_args(args);

@@ -68,6 +68,8 @@ struct	s_in_out
 	int	out;
 	int	old_in;
 	int	old_out;
+	int	fd_in;
+	int	fd_out;
 };
 
 
@@ -190,6 +192,7 @@ char	*get_env_var(char **env, char *var, int i);
 void	builtin_env(int i, t_args *args);
 char	*get_prompt(int i);
 void	builtin_export(char **env, t_args *args);
+void	send_to_sep(t_args *args, t_args *head, char **cmds);
 void	free_env(char **env, int i);
 void	switch_pwds(char **env, int i, int j);
 int		env_lines(char **env);
