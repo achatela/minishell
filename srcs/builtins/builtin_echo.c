@@ -64,8 +64,7 @@ static int	check_n(t_args *args, int i)
 					args = args->next;
 				}
 				builtin_export(g_env, ft_export(0, "export"));
-				printf("\n");
-				return (1);
+				return (printf("\n"), 1);
 			}
 		}
 		print_n(args);

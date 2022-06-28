@@ -47,7 +47,7 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 		new[1] = 0;
 		free(idx);
 	}
-	else if (cmds[idx->i] != 0)
+	else
 		new = args_exec_not_end(cmds, idx);
 	return (new);
 }
@@ -70,8 +70,6 @@ int	child(char *path, char **cmds, t_args *args)
 		tmp = ft_strchr(path, '/');
 		if (tmp != NULL)
 			execve(path, new, g_env);
-		//free_cmds(new, 0);
-		//free(tmp);
 		exit(ret);
 	}
 	else

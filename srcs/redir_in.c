@@ -113,9 +113,11 @@ static int	open_in_out(t_args *sep, t_args *args, t_in_out *fds)
 		fds->out = 1;
 		close(1);
 		if (ft_strcmp(sep->parsed_arg, ">>") == 0)
-			fds->fd_out = open(args->parsed_arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			fds->fd_out = open(args->parsed_arg, O_WRONLY
+					| O_APPEND | O_CREAT, 0644);
 		else
-			fds->fd_out = open(args->parsed_arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fds->fd_out = open(args->parsed_arg, O_WRONLY
+					| O_CREAT | O_TRUNC, 0644);
 	}
 	return (0);
 }
@@ -138,7 +140,7 @@ static void	out_in(t_args *args, t_args *head, char **cmds)
 			args = args->next;
 		}
 		else
-			args =  args->next;
+			args = args->next;
 	}
 	send_builtin(head, cmds);
 	close(0);
@@ -159,20 +161,4 @@ int	redir_in(t_args *args, t_args *head, char **cmds)
 		return (only_out(args, args, cmds), 0);
 	else
 		return (out_in(args, args, cmds), 0);
-	//else
-	//	return (out_in(args, args, cmds), 0);
-	/*char	*tmp;
-	int		fd;
-
-	fd = 0;
-	if (has_redir(args) == 1)
-	{
-		tmp = get_file_name(args);
-		//if (ft_check_access(tmp, 0) != 0)
-		//	return (not_existing(head), 2);
-		return (1);
-	}
-	else
-		in_redir(args, head, cmds, fd);
-	return (1);*/
 }

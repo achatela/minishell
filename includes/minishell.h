@@ -28,12 +28,8 @@
 # include <sys/wait.h>
 
 extern char				**g_env;
-struct s_echo
-{
-	int	print;
-};
 
-typedef struct s_index	t_index;
+typedef struct s_index		t_index;
 struct	s_index
 {
 	int	i;
@@ -42,7 +38,7 @@ struct	s_index
 	int	l;
 };
 
-typedef struct s_args	t_args;
+typedef struct s_args		t_args;
 struct	s_args
 {
 	int		index;
@@ -53,7 +49,7 @@ struct	s_args
 	t_args	*next;
 };
 
-typedef struct s_pipe	t_pipe;
+typedef struct s_pipe		t_pipe;
 struct	s_pipe
 {
 	int		fd;
@@ -64,7 +60,7 @@ struct	s_pipe
 typedef struct s_in_out		t_in_out;
 struct	s_in_out
 {
-	int in;
+	int	in;
 	int	out;
 	int	old_in;
 	int	old_out;
@@ -72,8 +68,7 @@ struct	s_in_out
 	int	fd_out;
 };
 
-
-typedef struct s_fd		t_fd;
+typedef struct s_fd			t_fd;
 struct	s_fd
 {
 	int		p[2];
@@ -225,5 +220,8 @@ int		last_heredoc(t_args *head, char *tmp);
 void	while_heredoc(t_args *args, char *tmp);
 char	*while_send_sep2(t_args *args, char *tmp);
 int		is_builtin(t_pipe *pipes);
+void	send_last(t_args *args, char **cmds, int fd);
+void	has_redir_in(t_args *args, char **cmds, int fd);
+int		check_redir_exist(t_args *args, int i, int fd, char **cmds);
 
 #endif

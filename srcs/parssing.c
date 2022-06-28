@@ -50,7 +50,7 @@ void	send_to_sep(t_args *args, t_args *head, char **cmds)
 			redir_in(head, head, cmds);
 			return ;
 		}
-		else 
+		else
 			args = args->next;
 	}
 }

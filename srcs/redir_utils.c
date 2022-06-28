@@ -64,7 +64,7 @@ void	redir2(t_args *args, t_args *head, int old_fd, char **cmds)
 	fd = open_fd(get_args(args), get_sep(args), 0);
 	if (head->next->next)
 		send_builtin(head->next->next, cmds);
-	close(1);
+	close(fd);
 	dup(old_fd);
 	close(old_fd);
 }

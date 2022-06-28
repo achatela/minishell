@@ -53,6 +53,7 @@ SRCS =	srcs/main.c						\
 		srcs/doc_here.c					\
 		srcs/redir_in2.c				\
 		srcs/redir_utils.c				\
+		srcs/redir_utils2.c				\
 	
 LIBFT = libft/libft.a
 OBJS = ${SRCS:.c=.o}

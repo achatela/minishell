@@ -100,10 +100,6 @@ void	parsing(char *cmd)
 		while_pip(args, cmds);
 	else
 		send_to_sep(args, args, cmds);
-		//send_builtin(args, cmds);
-		//redir_in(args, args, cmds);
-		//redir(args, cmds, args, 0);
-		//while_sep(args, cmds);
 	free_cmds(cmds, 0);
 	free_list(args);
 }
