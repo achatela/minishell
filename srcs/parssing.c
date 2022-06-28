@@ -40,13 +40,11 @@ void	send_to_sep(t_args *args, t_args *head, char **cmds)
 		if (ft_strcmp(args->parsed_arg, ">>") == 0
 			|| ft_strcmp(args->parsed_arg, ">") == 0)
 		{
-			printf("sent to redir\n");
 			redir(head, cmds, head, 0);
 			return ;
 		}
 		else if (ft_strcmp(args->parsed_arg, "<") == 0)
 		{
-			printf("sent to redir in\n");
 			redir_in(head, head, cmds);
 			return ;
 		}

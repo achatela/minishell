@@ -223,5 +223,10 @@ int		is_builtin(t_pipe *pipes);
 void	send_last(t_args *args, char **cmds, int fd);
 void	has_redir_in(t_args *args, char **cmds, int fd);
 int		check_redir_exist(t_args *args, int i, int fd, char **cmds);
+void	only_out(t_args *args, t_args *head, char **cmds);
+t_in_out	*init_in_out(void);
+int		open_in_out(t_args *sep, t_args *args, t_in_out *fds);
+void	out_in(t_args *args, t_args *head, char **cmds);
+int		try_access(t_args *sep, t_args *args);
 
 #endif

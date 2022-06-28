@@ -23,6 +23,7 @@ void	here_while(char *delimiter, int line, int i)
 		{
 			printf("warning: here-document at line %d ", line++);
 			printf("delimited by end-of-file (wanted `%s')\n", delimiter);
+			i = 1;
 			break ;
 		}
 		else if (ft_strcmp(tmp, delimiter) == 0)
@@ -35,16 +36,9 @@ void	here_while(char *delimiter, int line, int i)
 void	here_doc(t_args *args, int i, char *delimiter)
 {
 	static int			line = 1;
-	int					pid;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		delimiter = get_delimiter(delimiter, args);
-		here_while(delimiter, line, i);
-	}
-	else
-		waitpid(pid, 0, 0);
+	delimiter = get_delimiter(delimiter, args);
+	here_while(delimiter, line, i);
 	line = 1;
 }
 

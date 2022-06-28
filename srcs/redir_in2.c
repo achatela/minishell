@@ -12,50 +12,100 @@
 
 #include "minishell.h"
 
-static int	ft_check_access_in(char *file)
+void	only_out(t_args *args, t_args *head, char **cmds)
 {
-	if (access(file, F_OK) == -1 || access(file, R_OK) == -1)
-	{
-		printf("%s: No such file or directory\n", file);
-		return (-1);
-	}
-	else if (access(file, W_OK) == -1)
-	{
-		printf("%s: Permission denied\n", file);
-		return (-1);
-	}
-	return (0);
-}
+	char	*tmp;
+	int		old_fd;
+	int		fd;
 
-static int	last_redir_in(t_args *args)
-{
-	while (args)
+	while (args && args->is_separator != 2)
 	{
-		while (args && args->is_separator == 0)
-			args = args->next;
 		if (args && args->is_separator == 1)
 		{
-			if (args->parsed_arg[0] == '<' && args->parsed_arg[1] == '\0')
-				return (1);
+			tmp = args->next->parsed_arg;
+			if (try_access(args, args->next) == -1)
+				return ;
+			else
+				args = args->next;
 		}
 		else
-			return (0);
+			args = args->next;
+	}
+	old_fd = dup(0);
+	close(0);
+	fd = open(tmp, O_RDONLY);
+	send_builtin(head, cmds);
+	close(fd);
+	dup(old_fd);
+	close(old_fd);
+}
+
+t_in_out	*init_in_out(void)
+{
+	t_in_out	*ret;
+
+	ret = malloc(sizeof(t_in_out));
+	ret->old_in = dup(0);
+	ret->old_out = dup(1);
+	ret->in = 0;
+	ret->out = 0;
+	return (ret);
+}
+
+int	open_in_out(t_args *sep, t_args *args, t_in_out *fds)
+{
+	if (ft_strcmp(sep->parsed_arg, "<") == 0)
+	{
+		fds->in = 1;
+		close(0);
+		fds->fd_in = open(args->parsed_arg, O_RDONLY);
+	}
+	else if ((ft_strcmp(sep->parsed_arg, ">") == 0
+			|| ft_strcmp(sep->parsed_arg, ">>") == 0))
+	{
+		fds->out = 1;
+		close(1);
+		if (ft_strcmp(sep->parsed_arg, ">>") == 0)
+			fds->fd_out = open(args->parsed_arg, O_WRONLY
+					| O_APPEND | O_CREAT, 0644);
+		else
+			fds->fd_out = open(args->parsed_arg, O_WRONLY
+					| O_CREAT | O_TRUNC, 0644);
 	}
 	return (0);
 }
 
-int	in_redir(t_args *args, t_args *head, char **cmds, int fd)
+static void	reset_fd(t_in_out *fds)
 {
-	while (args && last_redir_in(args) != 0
-		&& args->next && args->next->is_separator != 2)
+	close(0);
+	close(1);
+	dup(fds->old_in);
+	dup(fds->old_out);
+	close(fds->old_in);
+	close(fds->old_out);
+	free(fds);
+}
+
+void	out_in(t_args *args, t_args *head, char **cmds)
+{
+	t_in_out	*fds;
+
+	fds = init_in_out();
+	while (args && args->is_separator != 2)
 	{
-		while (args && args->is_separator == 0)
+		if (args && args->is_separator == 1)
+		{
+			if (try_access(args, args->next) == -1)
+			{
+				free(fds);
+				return ;
+			}
+			open_in_out(args, args->next, fds);
 			args = args->next;
-		while (args && args->is_separator == 1)
+		}
+		else
 			args = args->next;
-		if (ft_check_access_in(args->parsed_arg) != 0)
-			return (3);
-		get_fd(head, args, fd, cmds);
 	}
-	return (0);
+	send_builtin(head, cmds);
+	reset_fd(fds);
 }
