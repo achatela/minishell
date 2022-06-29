@@ -37,12 +37,13 @@ void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
 	{
 		close(pips->p[0]);
 		close(pips->p[1]);
-		send_builtin(pipes->args, pipes->cmds);
+		send_to_sep(pipes->args, pipes->args, pipes->cmds);
+	//	send_builtin(pipes->args, pipes->cmds);
 		exit(1);
 	}
 	else
 	{
-		send_to_sep(pipes->args, pipes->args, pipes->cmds);
+		//send_to_sep(pipes->args, pipes->args, pipes->cmds);
 		while (pipes->args && pipes->args->is_separator != 2)
 			pipes->args = pipes->args->next;
 		if (pipes->args)

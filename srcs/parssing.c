@@ -51,4 +51,5 @@ void	send_to_sep(t_args *args, t_args *head, char **cmds)
 		else
 			args = args->next;
 	}
+	send_builtin(head, cmds);
 }
