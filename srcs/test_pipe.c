@@ -15,6 +15,7 @@
 void	close_and_wait(t_fd *pips)
 {
 	int	j;
+	int	ret;
 
 	j = 0;
 	dup2(pips->tmpin, 0);
@@ -26,8 +27,9 @@ void	close_and_wait(t_fd *pips)
 	while (j < 400)
 	{
 		j++;
-		wait(NULL);
+		wait(&ret);
 	}
+	get_ret_value(NULL, ret);
 }
 
 void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
@@ -38,12 +40,10 @@ void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
 		close(pips->p[0]);
 		close(pips->p[1]);
 		send_to_sep(pipes->args, pipes->args, pipes->cmds);
-	//	send_builtin(pipes->args, pipes->cmds);
 		exit(1);
 	}
 	else
 	{
-		//send_to_sep(pipes->args, pipes->args, pipes->cmds);
 		while (pipes->args && pipes->args->is_separator != 2)
 			pipes->args = pipes->args->next;
 		if (pipes->args)
