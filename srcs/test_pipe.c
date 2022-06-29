@@ -24,7 +24,7 @@ void	close_and_wait(t_fd *pips)
 	close(pips->tmpout);
 	close(pips->p[0]);
 	close(pips->p[1]);
-	while (j < 400)
+	while (j < 1000000)
 	{
 		j++;
 		wait(&ret);
@@ -53,8 +53,6 @@ void	pip2(t_pipe *pipes, t_args *head, t_fd *pips)
 
 int	pip(t_pipe *pipes, t_fd *pips)
 {
-	t_args	*head;
-
 	pips->fdin = dup(pips->tmpin);
 	while (pipes->args)
 	{
@@ -71,8 +69,7 @@ int	pip(t_pipe *pipes, t_fd *pips)
 		dup2(pips->fdout, STDOUT_FILENO);
 		close(pips->fdout);
 		pips->pid = fork();
-		pip2(pipes, head, pips);
-		head = pipes->args;
+		pip2(pipes, pipes->args, pips);
 	}
 	close_and_wait(pips);
 	return (1);

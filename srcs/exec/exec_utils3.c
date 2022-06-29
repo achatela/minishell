@@ -52,6 +52,19 @@ static char	**args_exec(char **cmds, char *path, int i, int j)
 	return (new);
 }
 
+static char	**change_to_cmd(char **new, char *tmp)
+{
+	int	i;
+
+	i = 0;
+	free(new[i]);
+	new[i] = ft_strdup(tmp);
+	while (new[i] != 0 && isseparator(new[i], 0) != 1)
+		i++;
+	new[i] = 0;
+	return (new);
+}
+
 int	child(char *path, char **cmds, t_args *args)
 {
 	char	*tmp;
@@ -68,6 +81,9 @@ int	child(char *path, char **cmds, t_args *args)
 		if (new == NULL)
 			exit(ret);
 		tmp = ft_strchr(path, '/');
+		if (new[0][0] == '/'
+			&& ft_strcmp(new[0], "/usr/lib/command-not-found") != 0)
+			new = change_to_cmd(new, tmp);
 		if (tmp != NULL)
 			execve(path, new, g_env);
 		exit(ret);
