@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:41:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/06/13 16:18:52 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:49:36 by achatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	handler(int sig, siginfo_t *info, void *null)
 	else if (sig == SIGINT && info->si_pid != 0)
 	{
 		printf("\n");
-	//	rl_on_new_line();
-	//	rl_replace_line("", 0);
-	//	rl_redisplay();
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else if (sig == SIGINT && info->si_pid == 0)
 	{
